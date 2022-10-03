@@ -23,16 +23,18 @@ def obtain_mylist(excel_name, sheetname, names, values, debug = False):
             # if (len(col[i].value) <= 1): break
             try: 
                 col[index]
+                if (index> 0) and (j == 0):
+                    
+                    if (len(col[index].value) <= 1): has_end = True
+                    names.append(col[index].value.strip(""))
+                if (index> 0) and (j == 1):
+                    values.append(col[index].value)
+                if debug == True:
+                    print(col[index].value, end="\t\t")
             except:
                 has_end = True
             if has_end == True: break
-            if (index> 0) and (j == 0):
-                if (len(col[index].value) <= 1): has_end = True
-                names.append(col[index].value.strip(""))
-            if (index> 0) and (j == 1):
-                values.append(col[index].value)
-            if debug == True:
-                print(col[index].value, end="\t\t")
+                
         if debug == True: print('')
 
     if debug == False: return
@@ -100,7 +102,7 @@ def test_maximum_choice(my_values: list[int], enemy_values: list[int], test_num:
     temp_values.sort()
     return test_choice(temp_values[-5:], enemy_values=enemy_values, test_num=test_num)
 
-def obtain_minimum_choice(my_values: list[int], my_names: list[int], power_count: list[int], my_data: dict(), enemy_values: list[int]):
+def obtain_minimum_choice(my_values: list[int], my_names: list[int], power_count: list[int], my_data: dict(), enemy_values: list[int], probability = 0.96, debug = False):
     power_count.sort()
     length = len(power_count)
     if test_maximum_choice(my_values, enemy_values, test_num=200) == False:
@@ -112,10 +114,11 @@ def obtain_minimum_choice(my_values: list[int], my_names: list[int], power_count
         if options == None:
             continue
         for option in options:
-            if test_choice(translate_from_idx_to_val(option, my_values), enemy_values, test_num=200, probability=0.96) == True:
-                print(f"This is your best choice {translate_from_idx_to_val(option, my_names)}")
+            if test_choice(translate_from_idx_to_val(option, my_values), enemy_values, test_num=200, probability=probability) == True:
+                if debug == True:
+                    print(f"This is your best choice {translate_from_idx_to_val(option, my_names)}")
                 return option
-    print(f"Error in code!!!!!")
+    if debug == True: print(f"Error in code!!!!!")
     return False
 
 def guess(excel_name, guess_value):
@@ -171,8 +174,26 @@ def guess(excel_name, guess_value):
     else:
         print("No such casers")		
 
-    
-
+def enemy_combination(enemy_sum: int, enemy_values: list[int] ,error_rate = 0.01) -> dict:
+    enemy_num = len(enemy_values)
+    ans_dict = dict()
+    for a1 in range(0, enemy_num-4):
+        for a2 in range(a1+1, enemy_num-3):
+            for a3 in range(a2+1, enemy_num-2):
+                for a4 in range(a3+1, enemy_num-1):
+                    for a5 in range(a4+1, enemy_num):
+                        temp_sum = sum_of_list_by_index(enemy_values, a1, a2, a3, a4, a5)
+                        error = temp_sum - enemy_sum
+                        if abs(error) <= abs(error_rate*enemy_sum):
+                            if ans_dict.get(error, -1) == -1:
+                                ans_dict[error] = (1, (a1,a2,a3,a4,a5),)
+                            else:
+                                ans_dict[error] = (ans_dict[error][0]+1,) + ans_dict[error][1:] +  ((a1,a2,a3,a4,a5),)
+    if ans_dict.get(0, -1) != -1:
+        ans_dict["has_found"] = True
+    else:
+        ans_dict["has_found"] = False
+    return ans_dict
 
 def main():
     # read the data from xlsx

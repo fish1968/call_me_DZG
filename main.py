@@ -5,13 +5,13 @@ from functions import judge, cankill_montecarlo, debug
 from test import obtain_mylist, translate_from_idx_to_val, obtain_minimum_choice, get_second_data, enemy_combination
 source_file_name = "test.xlsx"
 source_sheet = "my-data"
-enemy_sheet = "enemey-sanrenhe"
+enemy_sheet = "enemy-shanhaiboring"
 output_file_name = "output.xlsx"
 
 has_enemy_full_info = False
 enemy_info =  [322, 321, 311, 212, 226]
-enemy_sum = 1392
-chance_to_win = 0.95
+enemy_sum = 796
+chance_to_win = 0.7
 
 # place to hold Our and enemy's name & value pairs
 my_names = []
@@ -51,7 +51,7 @@ def main():
                 num_of_combination = enemy_dict.get(error)[0]
                 combination = enemy_dict.get(error)[1:]
                 print(f"**** {num_of_combination} combinations have been found for error at {error}")
-                print(f"\t\tThey are at ")
+                print(f"\tThey are: ")
                 for i in range(num_of_combination):
                     print(end = "\t")
                     print(translate_from_idx_to_val(combination[i], enemy_names), combination[i], translate_from_idx_to_val(combination[i], values=enemy_values))
@@ -81,5 +81,5 @@ def main():
             print(f"The total power sum is {sum(translate_from_idx_to_val(my_ans, my_values))}")
         else:
             print("Sorry :< No chance of winning for sure")
-
-main()
+if __name__ == "__main__":
+    main()

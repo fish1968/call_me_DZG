@@ -2,7 +2,7 @@
 
 from random import shuffle
 
-debug = False
+debug = True
 def judge(attack : [int], defend : [int]) -> int:
 	# task: judge whether attack can defeat defend nums and return True or False
 	

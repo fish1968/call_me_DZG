@@ -2,7 +2,7 @@
 
 from random import shuffle
 
-debug = True
+debug = False
 def judge(attack : [int], defend : [int]) -> int:
 	# task: judge whether attack can defeat defend nums and return True or False
 	
@@ -56,24 +56,21 @@ def canKill_montecarlo(attack : [int], defend : [int], testNum = 100, probabilit
 		return False
 
 #test = False
-test = True
-if test == True:
-	print("can you kill", end = " ")
-#	print(canKill_mentekaluo([5,5,5,3,1], [4,4,5,3,2]))
-	print(canKill_montecarlo([364, 314, 229, 100, 100], [188, 195, 243, 217, 195]))
-	print(canKill_montecarlo([161, 156, 142, 123, 100], [65, 133, 106, 85, 119]))
-	print(canKill_montecarlo([199, 181, 172, 172, 144], [180, 188, 171, 148, 143]))
-#	print(canKill_montecarlo([161, 156, 144, 123, 100], [135, 136, 118, 116, 103]))
-#	print(canKill_montecarlo([199, 266,167, 196, 100], [188,195,185,163,195], testNum = 20000))
-#	print(canKill_montecarlo([199, 266,167, 196, 100], [156,144,150,150,153], testNum = 20000))
-#	print(canKill_montecarlo([123, 164,156, 164, 100], [156,144,150,150,153], testNum = 20000)) # actually 0.9's probability of winning 
-	print(canKill_montecarlo([364, 130,613, 546, 156], [217,238,249,267,323], testNum = 20000))
-	print(canKill_montecarlo([364, 546, 613, 314, 268], [1268,1062,340,257,229], testNum= 40000))
-	
-	
-
-
-else:
-	print("Test is not run")
+if __name__ == "__main__":
+	test = True
+	if test == True:
+		print("can you kill", end = " ")
+	#	print(canKill_mentekaluo([5,5,5,3,1], [4,4,5,3,2]))
+		print(canKill_montecarlo([364, 314, 229, 100, 100], [188, 195, 243, 217, 195]))
+		print(canKill_montecarlo([161, 156, 142, 123, 100], [65, 133, 106, 85, 119]))
+		print(canKill_montecarlo([199, 181, 172, 172, 144], [180, 188, 171, 148, 143]))
+	#	print(canKill_montecarlo([161, 156, 144, 123, 100], [135, 136, 118, 116, 103]))
+	#	print(canKill_montecarlo([199, 266,167, 196, 100], [188,195,185,163,195], testNum = 20000))
+	#	print(canKill_montecarlo([199, 266,167, 196, 100], [156,144,150,150,153], testNum = 20000))
+	#	print(canKill_montecarlo([123, 164,156, 164, 100], [156,144,150,150,153], testNum = 20000)) # actually 0.9's probability of winning 
+		print(canKill_montecarlo([364, 130,613, 546, 156], [217,238,249,267,323], testNum = 20000))
+		print(canKill_montecarlo([364, 546, 613, 314, 268], [1268,1062,340,257,229], testNum= 40000))
+	else:
+		print("Test is not run")
 	
 	

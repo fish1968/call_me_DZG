@@ -1,0 +1,4 @@
+# ignore office temp files
+~$* 
+# ignore python cache files
+__pycache__/*

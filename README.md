@@ -1,15 +1,15 @@
-# Call me master of business
+# Call me DZG
 
-## Calculate the most efficient way of dealing with enemy in HuBiao events
+1. [劫镖计算](劫镖计算)
 
-**Enemy** : [num1, num2, num3, num4, num5] = $Y_{1-5}$
+   1. 🌝根据对方的全部挚友数据，以及战斗力推算对方的可能阵容
+   2. 🌝根据推测的阵容，安排我方有$P_{pass}$以上通过率的最小战斗力和阵容
+   3. 🌑考虑出战的损耗值
+   4. 🌑多几个输出，可以按照不同的角度获得不同的阵容（花元宝的数量、战斗力总和值，方差值）
 
-**Ours**: [num1, ... num5] = $X_{1-5}$ 
+2. [商铺统计](商铺统计)
 
-We want $X_{1-5}$ >= $Y_{1-5}$  by a rule of at three larger number in position wins.
+   1. 🌗根据商铺街的数据分析最适合在哪里招募员工
+   2. 🌑根据商铺街的数据分析哪个商店值得庄园增加员工工效
 
-$Y_{1-5}$ is usually known (If we don't fight against others on purpose)
-
-While each number in $X$ is chosen from a list of number $\{x_1, x_2 ,... x_n\}$ .
-
-Our ***Objective*** is to minimize $\sum_{i=1\rightarrow5}X_i$  and make sure $X > Y$ at least at chance of percentage of **95*%***.
+   

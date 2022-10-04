@@ -2,7 +2,7 @@
 import openpyxl
 from functions import judge, cankill_montecarlo, debug
 
-filename = "test.xlsx"
+filename = r"C:\Users\97738\Desktop\call_me_DZG_judger_for_HuBiaoTasks\劫镖计算\test.xlsx"
 guess_names = []
 guess_values = []
 
@@ -13,6 +13,8 @@ def sum_of_list_by_index(lis, a,b,c,d,e):
 
 
 def obtain_mylist(excel_name, sheetname, names, values, debug = False):
+    import os
+    print(os.getcwd())
     workbook = openpyxl.load_workbook(excel_name)
     worksheet = workbook[sheetname]
     has_end = False
@@ -127,7 +129,7 @@ def guess(excel_name, guess_value):
     workbook = openpyxl.load_workbook(filename = excel_name)
     #	print(workbook.sheetnames)
     #	worksheet = workbook['others'] # obtain all names of sheet in the workbook
-    worksheet = workbook['others']
+    worksheet = workbook['enemy-sanrenhe']
 #	print(worksheet['B2'].value) # test whether the value at B2 can be read
     for i in range(0, worksheet.max_row):
         for (j, col) in enumerate(worksheet.iter_cols(1, 2)):
@@ -263,7 +265,7 @@ def main():
 
 #main()
 if __name__ == "__main__":
-    # guess(filename, 930)
+    guess(filename, 930)
     print(cankill_montecarlo([613, 546, 123, 364, 144], [ 500, 326, 284, 323, 295]))
     print(cankill_montecarlo([1060,622,550,530,528], [1221, 546, 529, 315, 91], probability=0.3, debug=True))
     print(cankill_montecarlo([1243, 431, 311, 213, 199], [261, 244, 310, 191, 202], probability=0.3, debug=True))

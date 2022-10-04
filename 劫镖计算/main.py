@@ -1,16 +1,16 @@
-from csv import excel
-from optparse import Values
-import openpyxl
-from functions import judge, cankill_montecarlo, debug
-from test import obtain_mylist, translate_from_idx_to_val, obtain_minimum_choice, get_second_data, enemy_combination
-source_file_name = "test.xlsx"
+from yabiao_test import obtain_mylist, translate_from_idx_to_val, obtain_minimum_choice, get_second_data, enemy_combination
+
+
+source_file_name = r"data.xlsx"
 source_sheet = "my-data"
-enemy_sheet = "enemy-ruizesuiyuan"
+enemy_sheet = "enemy-ruizexiaowei"
+
 output_file_name = "output.xlsx"
 
 has_enemy_full_info = False
 enemy_info =  [322, 321, 311, 212, 226]
-enemy_sum = 4985
+enemy_sum = 1061
+enemy_sums  = [17864, 1351, 1061]
 chance_to_win = 0.95
 error_rate = 0.00
 

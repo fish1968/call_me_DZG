@@ -36,8 +36,7 @@ def cankill_brutal(attack : list[int], defend : list[int], testNum = 100, probab
 	else:
 		return False
 	
-def cankill_montecarlo(attack : list[int], defend : list[int], testNum = 100, probability = 0.95):
-	global debug
+def cankill_montecarlo(attack : list[int], defend : list[int], testNum = 100, probability = 0.95, debug = False):
 	if testNum <= 0: 
 		if debug == True: print("Invalid test number for mentekaluo")
 		return False
@@ -47,9 +46,13 @@ def cankill_montecarlo(attack : list[int], defend : list[int], testNum = 100, pr
 		win = 0
 		for i in range(testNum):
 			shuffle(defend)
-			
-			win += judge(attack, defend)
-		if debug:
+			if judge(attack, defend) == 0:
+				if debug:
+					print(f"You loose at {attack} vs {defend}")
+			else:
+				win += 1
+			# win += judge(attack, defend)
+		if debug == True:
 			print(f"\nWin time = {win}, probability of winning is {win/testNum}\n")
 		if win >= probability * testNum:
 			return True
@@ -69,7 +72,7 @@ if __name__ == "__main__":
 	#	print(canKill_montecarlo([199, 266,167, 196, 100], [156,144,150,150,153], testNum = 20000))
 	#	print(canKill_montecarlo([123, 164,156, 164, 100], [156,144,150,150,153], testNum = 20000)) # actually 0.9's probability of winning 
 		print(cankill_montecarlo([364, 130,613, 546, 156], [217,238,249,267,323], testNum = 20000))
-		print(cankill_montecarlo([364, 546, 613, 314, 268], [1268,1062,340,257,229], testNum= 40000))
+		print(cankill_montecarlo([364, 546, 613, 314, 268], [1268,1062,340,257,229], testNum= 4000, debug=True, probability=0.59))
 	else:
 		print("Test is not run")
 	

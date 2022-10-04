@@ -5,13 +5,13 @@ from functions import judge, cankill_montecarlo, debug
 from test import obtain_mylist, translate_from_idx_to_val, obtain_minimum_choice, get_second_data, enemy_combination
 source_file_name = "test.xlsx"
 source_sheet = "my-data"
-enemy_sheet = "enemy-shanhaiboring"
+enemy_sheet = "enemy-ruizedalang"
 output_file_name = "output.xlsx"
 
 has_enemy_full_info = False
 enemy_info =  [322, 321, 311, 212, 226]
-enemy_sum = 796
-chance_to_win = 0.7
+enemy_sum = 2702
+chance_to_win = 0.95
 
 # place to hold Our and enemy's name & value pairs
 my_names = []
@@ -52,21 +52,22 @@ def main():
                 combination = enemy_dict.get(error)[1:]
                 print(f"**** {num_of_combination} combinations have been found for error at {error}")
                 print(f"\tThey are: ")
-                for i in range(num_of_combination):
+                for i in range(num_of_combination): # iteratre through all possible enempy combinations at this error and provide solutions of our warriors
                     print(end = "\t")
                     print(translate_from_idx_to_val(combination[i], enemy_names), combination[i], translate_from_idx_to_val(combination[i], values=enemy_values))
                     my_ans = obtain_minimum_choice(my_values=my_values, my_names=my_names, \
-                    power_count=my_powers, my_data=my_dict, enemy_values = translate_from_idx_to_val(combination[i], values=enemy_values), \
-                    probability = chance_to_win)
+                                                    power_count=my_powers, my_data=my_dict, enemy_values = translate_from_idx_to_val(combination[i], values=enemy_values), \
+                                                    probability = chance_to_win)
                     if my_ans != False:
                         my_ans_names = translate_from_idx_to_val(my_ans, my_names)
                         has_best_choice = True
-                        if has_best_choice == True:
-                            print(f"\tYour best choice is {my_ans_names}") 
-                            print(f"\tThe total power sum is {sum(translate_from_idx_to_val(my_ans, my_values))}")
-                        else:
-                            print("\tSorry :< No chance of winning for sure")
+                    if has_best_choice == True:
+                        print(f"\tYour best choice is {my_ans_names}") 
+                        print(f"\tThe total power sum is {sum(translate_from_idx_to_val(my_ans, my_values))}")
+                    else:
+                        print("\tSorry :< No chance of winning for sure")
                     print()
+                    has_best_choice = False
                     
     else: # has enemy's full info 
         # iteratre through all guess

@@ -3,7 +3,7 @@ from yabiao_test import obtain_mylist, translate_from_idx_to_val, obtain_minimum
 
 source_file_name = r"data.xlsx"
 source_sheet = "my-data"
-enemy_sheet = "enemy-ruizexiaowei"
+enemy_sheet = "enemy-ruizesuiyuan"
 
 output_file_name = "output.xlsx"
 
@@ -11,7 +11,7 @@ has_enemy_full_info = False
 multiple_check = True # cross check 
 enemy_info =  [322, 321, 311, 212, 226]
 enemy_sum = 1061
-enemy_sums  = [17864, 1351, 1061]
+enemy_sums  = [5146, 2947, 2467]
 chance_to_win = 0.95
 error_rate = 0.00
 
@@ -67,14 +67,14 @@ def main():
                             if len(set(enemy_dict[0][0][i] + enemy_dict[1][0][j] + enemy_dict[2][0][k])) == 5 * enemy_group_num:
                                 group_combination.append((enemy_dict[0][0][i], enemy_dict[1][0][j], enemy_dict[2][0][k]))
                 print(f"There are {len(group_combination)} combinations found")
-                for i in range(len(group_combination)):
-                    print("\t", end = "")
-                    for j in range(enemy_group_num):
-                        print(translate_from_idx_to_val(group_combination[i][j], enemy_names), end = "\t")
-                    print(end="\n\t")
-                    for j in range(enemy_group_num):
-                        print(translate_from_idx_to_val(group_combination[i][j], enemy_values), end = "\t")
-                    print(); print()
+            for i in range(len(group_combination)):
+                print("\t", end = "")
+                for j in range(enemy_group_num):
+                    print(translate_from_idx_to_val(group_combination[i][j], enemy_names), end = "\t")
+                print(end="\n\t")
+                for j in range(enemy_group_num):
+                    print(translate_from_idx_to_val(group_combination[i][j], enemy_values), end = "\t")
+                print(); print()
                     
             else:
                 print("I don't know, if there's only one grouop of enemy, why don't use the non multiple one???")

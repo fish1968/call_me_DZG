@@ -2,3 +2,12 @@
 ~$* 
 # ignore python cache files
 __pycache__/*
+
+# ignore trial folder
+trial/*
+
+#ignore temp code runner file
+*tempCodeRunner*.py
+
+# ignore 攻略
+攻略/*

@@ -5,13 +5,16 @@ from functions import judge, cankill_montecarlo, debug
 from test import obtain_mylist, translate_from_idx_to_val, obtain_minimum_choice, get_second_data, enemy_combination
 source_file_name = "test.xlsx"
 source_sheet = "my-data"
-enemy_sheet = "enemy-wuyanzu"
+enemy_sheet = "enemy-ruizesuiyuan"
 output_file_name = "output.xlsx"
 
 has_enemy_full_info = False
 enemy_info =  [322, 321, 311, 212, 226]
-enemy_sum = 1756
+enemy_sum = 4985
 chance_to_win = 0.95
+error_rate = 0.00
+
+# 如果有 两个 sum 的数据，根据组合应该可以降低可能的组合，因为不是独立的
 
 # place to hold Our and enemy's name & value pairs
 my_names = []
@@ -38,7 +41,6 @@ def main():
         # obtain enemy infos
         obtain_mylist(excel_name=source_file_name, sheetname=enemy_sheet, names = enemy_names, values = enemy_values, debug = True)
         # guess combination of enemy
-        error_rate = 0.001
         enemy_dict = enemy_combination(enemy_sum=enemy_sum, enemy_values=enemy_values, error_rate = error_rate)
         
         # print out all guess 

@@ -266,6 +266,8 @@ if __name__ == "__main__":
     # guess(filename, 930)
     print(cankill_montecarlo([613, 546, 123, 364, 144], [ 500, 326, 284, 323, 295]))
     print(cankill_montecarlo([1060,622,550,530,528], [1221, 546, 529, 315, 91], probability=0.3, debug=True))
+    print(cankill_montecarlo([1243, 431, 311, 213, 199], [261, 244, 310, 191, 202], probability=0.3, debug=True))
+    
     
 
 

@@ -5,12 +5,12 @@ from functions import judge, cankill_montecarlo, debug
 from test import obtain_mylist, translate_from_idx_to_val, obtain_minimum_choice, get_second_data, enemy_combination
 source_file_name = "test.xlsx"
 source_sheet = "my-data"
-enemy_sheet = "enemy-ruizedalang"
+enemy_sheet = "enemy-wuyanzu"
 output_file_name = "output.xlsx"
 
 has_enemy_full_info = False
 enemy_info =  [322, 321, 311, 212, 226]
-enemy_sum = 2702
+enemy_sum = 1756
 chance_to_win = 0.95
 
 # place to hold Our and enemy's name & value pairs

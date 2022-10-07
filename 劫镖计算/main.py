@@ -1,17 +1,17 @@
 from yabiao_test import obtain_mylist, translate_from_idx_to_val, obtain_minimum_choice, get_second_data, enemy_combination
 
 
-source_file_name = r"data.xlsx"
+source_file_name = "data.xlsx"
 source_sheet = "my-data"
-enemy_sheet = "enemy-ruizesuiyuan"
+enemy_sheet = "enemy-ruizehouyi"
 
 output_file_name = "output.xlsx"
 
 has_enemy_full_info = False
-multiple_check = True # cross check 
+multiple_check = False # cross check 
+enemy_sum = 3377
+enemy_sums  = [914, 2804]
 enemy_info =  [322, 321, 311, 212, 226]
-enemy_sum = 1061
-enemy_sums  = [5146, 2947, 2467]
 chance_to_win = 0.95
 error_rate = 0.00
 

@@ -73,7 +73,7 @@ if __name__ == "__main__":
 	# #	print(canKill_montecarlo([123, 164,156, 164, 100], [156,144,150,150,153], testNum = 20000)) # actually 0.9's probability of winning 
 	# 	print(cankill_montecarlo([364, 130,613, 546, 156], [217,238,249,267,323], testNum = 20000))
 	# 	print(cankill_montecarlo([364, 546, 613, 314, 268], [1268,1062,340,257,229], testNum= 4000, debug=True, probability=0.59))
-		print(cankill_montecarlo([100, 100, 1055, 1050, 628 ], [1213, 1061, 533, 313, 257], testNum= 40000, debug=True, probability=0.3))
+		print(cankill_montecarlo([329, 543, 1055, 1050, 628 ], [1213, 1061, 533, 313, 257], testNum= 40000, debug=True, probability=0.3))
 		
 	else:
 		print("Test is not run")

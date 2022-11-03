@@ -3,17 +3,17 @@ from yabiao_test import obtain_mylist, translate_from_idx_to_val, obtain_minimum
 
 source_file_name = "data.xlsx"
 source_sheet = "my-data"
-enemy_sheet = "enemy-ruizehouyi"
+enemy_sheet = "enemy-ruizeboniu"
 
 output_file_name = "output.xlsx"
 
 has_enemy_full_info = False
 multiple_check = False # cross check 
-enemy_sum = 3377
-enemy_sums  = [914, 2804]
+enemy_sum = 4336
+enemy_sums  = [1822, 1813, 1609]
 enemy_info =  [322, 321, 311, 212, 226]
 chance_to_win = 0.95
-error_rate = 0.00
+erreor_rate = 0
 
 # 如果有 两个 sum 的数据，根据组合应该可以降低可能的组合，因为不是独立的
 
@@ -67,6 +67,8 @@ def main():
                             if len(set(enemy_dict[0][0][i] + enemy_dict[1][0][j] + enemy_dict[2][0][k])) == 5 * enemy_group_num:
                                 group_combination.append((enemy_dict[0][0][i], enemy_dict[1][0][j], enemy_dict[2][0][k]))
                 print(f"There are {len(group_combination)} combinations found")
+            else:
+                print("I don't know, if there's only one grouop of enemy, why don't use the non multiple one???")
             for i in range(len(group_combination)):
                 print("\t", end = "")
                 for j in range(enemy_group_num):
@@ -75,10 +77,6 @@ def main():
                 for j in range(enemy_group_num):
                     print(translate_from_idx_to_val(group_combination[i][j], enemy_values), end = "\t")
                 print(); print()
-                    
-            else:
-                print("I don't know, if there's only one grouop of enemy, why don't use the non multiple one???")
-
         else:
             # guess combination of enemy
             enemy_dict = enemy_combination(enemy_sum=enemy_sum, enemy_values=enemy_values, error_rate = error_rate)
@@ -104,7 +102,7 @@ def main():
                             my_ans_names = translate_from_idx_to_val(my_ans, my_names)
                             has_best_choice = True
                         if has_best_choice == True:
-                            print(f"\tYour best choice is {my_ans_names}") 
+                            print(f"\tYour best choice is {my_ans_names} ： {translate_from_idx_to_val(my_ans, my_values)}") 
                             print(f"\tThe total power sum is {sum(translate_from_idx_to_val(my_ans, my_values))}")
                         else:
                             print("\tSorry :< No chance of winning for sure")

@@ -11,3 +11,7 @@ trial/*
 
 # ignore 攻略
 攻略/*
+
+# ignore log
+*.log
+

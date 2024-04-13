@@ -28,13 +28,14 @@ def get_mouse_point():
     windll.user31.GetCursorPos(byref(po))
     return int(po.x), int(po.y)
  
-def mouse_click(x=None,y=None):
+def mouse_click(x=None,y=None, to_origin = False):
     if not x is None and not y is None:
         mouse_move(x,y)
         time.sleep(1.05)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
- 
+    if to_origin:
+        mouse_move(0,0)
 def mouse_dclick(x=None,y=None):
     if not x is None and not y is None:
         mouse_move(x,y)
@@ -95,7 +96,7 @@ def click_picture(picture):
     else:
         print(f"未识别出目标 {picture}, accuracy = {s}", datetime.datetime.now())
 
-def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.7):
+def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.7, x0=0, y0=0,window_length = 764, window_height = 1404):
     if len(targets) == 0:
         for picture in pictures:
             base_path = os.path.join(picture)
@@ -106,10 +107,10 @@ def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.7):
     for picture in pictures:
         '''单击图片'''
         # Define the coordinates of the region of interest
-        left = 0  # X-coordinate of the left edge of the region
-        top = 0  # Y-coordinate of the top edge of the region
-        right = 2560/3  # X-coordinate of the right edge of the region
-        bottom = 1440  # Y-coordinate of the bottom edge of the region
+        left = x0  # X-coordinate of the left edge of the region
+        top = y0  # Y-coordinate of the top edge of the region
+        right = x0 + window_length  # X-coordinate of the right edge of the region
+        bottom = y0 + window_height  # Y-coordinate of the bottom edge of the region
 
         # Crop the screenshot to the specified region
         im_screen = ImageGrab.grab()  # 保存
@@ -126,8 +127,8 @@ def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.7):
         s = cv2.minMaxLoc(find_matching_result)[1]  # 测试两幅图像精确度
         if s >= accuracy_threshold:
             img_pos = cv2.minMaxLoc(find_matching_result)[3]
-            x = int(img_pos[0]) + int(template.shape[1] / 2)
-            y = int(img_pos[1]) + int(template.shape[0] / 2)
+            x = int(img_pos[0]) + int(template.shape[1] / 2) + x0
+            y = int(img_pos[1]) + int(template.shape[0] / 2) + y0
             # print(picture)
             print("执行点击操作：点击",picture,"成功！，坐标：(",x,",",y,")  accuracy = ", s)
             if "fu" in picture:
@@ -136,11 +137,25 @@ def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.7):
                     mouse_click(x,y)
                     mouse_click(x,y)
                     time.sleep(0.5)
+            elif "exit" in picture: # exit to the fron page
+                mouse_click(x,y, to_origin=True)
+                im_screen = ImageGrab.grab().crop((left, top, right, bottom))
+                im_screen.save(r'temp.png')
+                source = np.array(im_screen.getdata(), dtype ='uint8').reshape((im_screen.size[1], im_screen.size[0], 3))
+                find_matching_result = cv2.matchTemplate(source, template, cv2.TM_CCOEFF_NORMED)
+
+                s = cv2.minMaxLoc(find_matching_result)[1]  # 测试两幅图像精确度
+                while (s>accuracy_threshold):
+                    mouse_click(x,y, to_origin=True)
+                    im_screen = ImageGrab.grab().crop((left, top, right, bottom))
+                    source = np.array(im_screen.getdata(), dtype ='uint8').reshape((im_screen.size[1], im_screen.size[0], 3))
+                    find_matching_result = cv2.matchTemplate(source, template, cv2.TM_CCOEFF_NORMED)
+                    s = cv2.minMaxLoc(find_matching_result)[1]  # 测试两幅图像精确度
             else:
                 mouse_click(x,y)
                 time.sleep(0.5)
                 mouse_click(x,y)
-
+                
             if "fu_yan" in picture:
                 logging.info("当前时间是 {0}，现在识别到了图片1，准确率是 {1}".format(datetime.datetime.now(), s))
             elif '2' in picture:
@@ -148,7 +163,30 @@ def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.7):
             # time.sleep(0.1)
         else:
             print(f"未识别出目标 {picture}, accuracy = {s}", datetime.datetime.now())
+            if "kua" in picture: # 跨服活动总是点不到。。。
+                x = x0 + 200
+                y = y0 + 256
+                mouse_click(x,y)
+                time.sleep(5) # waits longer for internet delay
+        
 
+def get_da_zhang_gui_pos(da_zhang_gui_img_path = "da_zhang_gui_wx.jpg", window_length = 704,window_height = 1404):
+    im_screen = ImageGrab.grab()  # 保存
+    im_screen.save(r'./temp.png')
+    source = cv2.imread(r'./temp.png')
+    template = cv2.imread(da_zhang_gui_img_path)
+    result = cv2.matchTemplate(source, template, cv2.TM_CCOEFF_NORMED)
+    pos_start = cv2.minMaxLoc(result)[3]
+    s = cv2.minMaxLoc(result)[1]  # 测试两幅图像精确度
+    x = int(pos_start[0]) + int(template.shape[1] / 2)
+    y = int(pos_start[1])
+    print(x,y,s)
+    if (s > 0.7):
+        return (int(x - window_length/2-30), y)
+    else:
+        time.sleep(5)
+        return get_da_zhang_gui_pos(da_zhang_gui_img_path, window_length = 704,window_height = 1404)
+    
 
 
 if __name__ =='__main__':
@@ -176,10 +214,10 @@ if __name__ =='__main__':
         template = cv2.imread(picture_path)
         targets.append(template)
         logging.info("Reading source image " + str(picture_path))
-        
     while True:
-        click_pictures(pictures=pictures, targets=targets)
-        time.sleep(20)
+        x0,y0 = get_da_zhang_gui_pos()
+        click_pictures(pictures=pictures, targets=targets, x0 = x0, y0 = y0)
+        time.sleep(5)
 #   click_picture('picture6.png')
 
 while True:

@@ -11,7 +11,8 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": false,
-            "cwd": "${fileDirname}"
+            "cwd": "",
+            "purpose": ["debug-in-terminal"]
         }
     ]
 }

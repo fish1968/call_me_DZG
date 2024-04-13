@@ -18,6 +18,7 @@ import datetime
 import logging
 logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.INFO)
 
+小程序启动路径 = r"C:\Users\YabinLabtop\Desktop\叫我大掌柜.lnk"
 
 class POINT(Structure):
     _fields_ = [("x", c_ulong),("y", c_ulong)]
@@ -69,14 +70,9 @@ class ImageTest:
             print('在[%d,%d]位置单击1次'%(x,y,target))
     
     def starttest(self):
-        self.START_APP(r"C:\Users\97738\Desktop\叫我大掌柜.lnk")
+        self.START_APP(小程序启动路径)
  
- 
-#   if s<0.9:
-#     return (-1,-1)
-#     else:
-#     return (x,y)
- 
+
 def click_picture(picture):
     '''单击图片'''
     base_path = os.path.join(picture)
@@ -99,14 +95,14 @@ def click_picture(picture):
     else:
         print(f"未识别出目标 {picture}, accuracy = {s}", datetime.datetime.now())
 
-def click_pictures(pictures=[], targets=[]):
+def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.8):
     if len(targets) == 0:
         for picture in pictures:
             base_path = os.path.join(picture)
             template = cv2.imread(base_path)
             targets.append(template)
             print("reading")
-    term = 0
+    index = 0
     for picture in pictures:
         '''单击图片'''
         im_screen = ImageGrab.grab()  # 保存
@@ -115,57 +111,72 @@ def click_pictures(pictures=[], targets=[]):
         # source = cv2.imread(r'Test.png')
         # base_path = os.path.join(picture)
         # template = cv2.imread(base_path)
-        template = targets[term]
-        term += 1
-        result = cv2.matchTemplate(source, template, cv2.TM_CCOEFF_NORMED)
-        # print(result)
-        pos_start = cv2.minMaxLoc(result)[3]
-        x = int(pos_start[0]) + int(template.shape[1] / 2)
-        y = int(pos_start[1]) + int(template.shape[0] / 2)
-        s = cv2.minMaxLoc(result)[1]  # 测试两幅图像精确度
-        if s >= 0.8:
+        template = targets[index]
+        index += 1
+        find_matching_result = cv2.matchTemplate(source, template, cv2.TM_CCOEFF_NORMED)
+
+        s = cv2.minMaxLoc(find_matching_result)[1]  # 测试两幅图像精确度
+        if s >= accuracy_threshold:
+            img_pos = cv2.minMaxLoc(find_matching_result)[3]
+            x = int(img_pos[0]) + int(template.shape[1] / 2)
+            y = int(img_pos[1]) + int(template.shape[0] / 2)
             # print(picture)
             print("执行点击操作：点击",picture,"成功！，坐标：(",x,",",y,")  accuracy = ", s)
-            mouse_click(x,y)
-            # time.sleep(0.5)
-            mouse_click(x,y)
-            # time.sleep(0.5)
-            mouse_click(x,y)
-            if picture == "1.jpg":
+            for _ in range(2):
+                mouse_click(x,y)
+                mouse_click(x,y)
+                mouse_click(x,y)
+                time.sleep(0.5)
+            if "fu_yan" in picture:
                 logging.info("当前时间是 {0}，现在识别到了图片1，准确率是 {1}".format(datetime.datetime.now(), s))
             elif '2' in picture:
                 time.sleep(1)
             # time.sleep(0.1)
         else:
             print(f"未识别出目标 {picture}, accuracy = {s}", datetime.datetime.now())
-            # time.sleep(1)
 
 
 
 if __name__ =='__main__':
     ImageTest().starttest()#启动软件
-    #最大化软件
-    pictures = ['1.jpg','2.jpg','3.jpg', '4.jpg', '5.jpg', '6.jpg']
+
+    import os
+    # Specify the path to the "img_template" subdirectory
+    subdirectory = "img_templates"
+    # Get the absolute path of the current directory
+    current_directory = os.getcwd()
+    # Construct the full path of the "img_template" subdirectory
+    subdirectory_path = os.path.join(current_directory, subdirectory)
+    # Initialize the list to store the file names
+    pictures = []
+    # Iterate over the files in the subdirectory
+    for filename in os.listdir(subdirectory_path):
+        # Check if the file is a regular file (not a directory)
+        if os.path.isfile(os.path.join(subdirectory_path, filename)):
+            file_sub_path = os.path.join(subdirectory, filename)
+            # Add the file path to the list
+            pictures.append(file_sub_path)
+    print(pictures)
     targets = []
-    for picture in pictures:
-        base_path = os.path.join(picture)
-        template = cv2.imread(base_path)
+
+    for picture_path in pictures:
+        template = cv2.imread(picture_path)
         targets.append(template)
-        logging.info("Reading source image " + str(base_path))
+        logging.info("Reading source image " + str(picture_path))
         
     while True:
         click_pictures(pictures=pictures, targets=targets)
-        
+        time.sleep(60)
 #   click_picture('picture6.png')
 
 while True:
     pass
 
-base_path = os.path.join(os.getcwd(), 'test.jpg') #定义一个模板图片路径
+img_template_path = os.path.join(os.getcwd(), 'test.jpg') #定义一个模板图片路径
 im_screen = ImageGrab.grab() #调用ImageGrab库函数实现对当前主机画面截图并存储至im变量
 im_screen.save(r'SCREEN2.png') #将截图变量im_screen输出保存至工程路径下命名为SCREEN2.PNG
 source = cv2.imread(r'SCREEN2.png')  # 读取当前屏幕截图
-template = cv2.imread(base_path)  # 打开要点击的模板图片
+template = cv2.imread(img_template_path)  # 打开要点击的模板图片
 result = cv2.matchTemplate(source, template, cv2.TM_CCOEFF_NORMED)
 print(result)
 pos_start = cv2.minMaxLoc(result)[3]

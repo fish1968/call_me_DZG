@@ -21,33 +21,70 @@ logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.INFO
 小程序启动路径 = r"C:\Users\YabinLabtop\Desktop\叫我大掌柜.lnk"
 
 fixed_data = {
-    "full_screen": (786, 1395),
-    "header": (765, 44),
-    "home-entry-kua-fu": (205, 213),
-    "home-home": (80, 1323),
-    "home-stores": (200, 1330),
-    "home-qian-zhuang": (200, 500),
-    "yanhui-box": (680, 20),
-    "yanhui-next": (80, 1325),
-    "yanhui-in": (640, 1233),
-    "yanhui-exit": (40, 33),
-    "bai-fu_entry": (700, 680),
-    "bai-fu_fu-yan": (400, 1300),
-    "bai-fu_exit": (725, 165),
-    "text_entry": (480, 1230),
-    "text-input": (430, 1210),
-    "text-send": (680, 1210),
-    "painless-point": (350, 80), #可以随便点，无所谓
-    "home-xiao-yu": (750, 830),
-    "xiao-yu-execute": (450, 980),
-    "xiao-yu-execute-over": (400, 1100),
+    # 包括 header 的 y 位置 ！！！ 一定不要乱
+    "full_screen": (786, 1439),
+    "header": (786, 44),
+    "home-entry-kua-fu": (201, 262),
+    "home-home": (80, 1380),
+    "home-stores": (200, 1380),
+    "home-qian-zhuang": (220, 530),
+    
+    "text_entry": (440, 1290),
+    "text-input": (400, 1268),
+    "text-send": (680, 1269),
+    
+    "general_exit": (71, 71),
+    
+    "home-cheng_jiao": (586, 1372),
+    
+    "home-xiao-yu": (758, 830),
+    "xiao-yu-execute": (437, 1035),
+    "xiao-yu-execute-over": (400, 1150),
+    
+    "painless-point": (400, 80), #可以随便点，无所谓
+    
+    # un certain 需要检查
+    "yanhui-box": (680, 200),
+    "yanhui-open_all_boxes": (400, 1120),
+    "yanhui-next": (80, 1233),
+    "yanhui-in": (590, 1240), # click to enter yanhui from invitation or in the page
+    "yanhui-exit": (40, 80),
+    
+    "bai-fu_entry": (700, 740),
+    "bai-fu_fu-yan": (400, 1350),
+    "bai-fu_exit": (730, 210),
     # 财神庙找赞点击
-    "home-cheng_jiao": (600, 1325),
-    "cai_shen_miao": (370, 570),
-    "cai_shen_miao-bai_fang": (400, 1250),
+    "cheng_jiao-cai_shen_miao": (360, 600),
+    "cheng_jiao-cai_shen_miao-bai_fang": (400, 1250), # not used
     "page_full_screen": (765, 1360),
     
-    "general_exit": (40, 35)
+        # "home-entry-kua-fu": (203, 259),
+        # "home-home": (80, 1380),
+        # "home-stores": (200, 1380),
+        # "home-qian-zhuang": (220, 530),
+        # "yanhui-box": (680, 200),
+        # "yanhui-open_all_boxes": (400, 1090),
+        # "yanhui-next": (80, 1233),
+        # "yanhui-in": (590, 1200), # click to enter yanhui from invitation or in the page
+        # "yanhui-exit": (40, 33),
+        # "bai-fu_entry": (700, 680),
+        # "bai-fu_fu-yan": (400, 1300),
+        # "bai-fu_exit": (725, 165),
+        # "text_entry": (480, 1230),
+        # "text-input": (430, 1210),
+        # "text-send": (680, 1210),
+        # "painless-point": (350, 80), #可以随便点，无所谓
+        # "home-xiao-yu": (750, 830),
+        # "xiao-yu-execute": (450, 980),
+        # "xiao-yu-execute-over": (400, 1100),
+        # # 财神庙找赞点击
+        # "home-cheng_jiao": (600, 1325),
+        # "cheng_jiao-cai_shen_miao": (370, 570),
+        # "cheng_jiao-cai_shen_miao-bai_fang": (400, 1250),
+        # "page_full_screen": (765, 1360),
+        
+        # "general_exit": (40, 35)
+
 }
 
 LONG_TIME = 60*5
@@ -60,17 +97,18 @@ class POINT(Structure):
  
 def get_mouse_point():
     po = POINT()
-    windll.user31.GetCursorPos(byref(po))
+    windll.user32.GetCursorPos(byref(po))
     return int(po.x), int(po.y)
  
 def mouse_click(x=None,y=None, to_origin = True):
+    cur_x, cur_y = get_mouse_point()
     if not x is None and not y is None:
         mouse_move(x,y)
         time.sleep(EX_SHT_TIME)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
     if to_origin:
-        mouse_move(0,0)
+        mouse_move(cur_x, cur_y)
 def mouse_dclick(x=None,y=None):
     if not x is None and not y is None:
         mouse_move(x,y)
@@ -79,16 +117,14 @@ def mouse_dclick(x=None,y=None):
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
- 
 def mouse_move(x,y):
     windll.user32.SetCursorPos(x, y)
-
 def key_input(str=''):
     for c in str:
         win32api.keybd_event(VK_CODE[c],0,0,0)
         win32api.keybd_event(VK_CODE[c],0,win32con.KEYEVENTF_KEYUP,0)
         time.sleep(-1.01)
- 
+
 class ImageTest:
     def __init__(self):
         self.mouse = mouse_click()
@@ -107,7 +143,6 @@ class ImageTest:
     
     def starttest(self):
         self.START_APP(小程序启动路径)
- 
 
 def click_picture(picture, target, left = 0, right = 0, top = 764, bottom = 1404, acc_threshold = 0.8):
     '''单击图片'''
@@ -176,7 +211,8 @@ def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.75, x0=0, y0=
             click_picture(picture = picture, target = targets[target_index], left = left, right = right, top = top, bottom = bottom, acc_threshold=0.75)
         target_index += 1
 
-def get_da_zhang_gui_pos(da_zhang_gui_img_path = "da_zhang_gui_wx.jpg", window_length = 704,window_height = 1404):
+# 获取 大掌柜 小程序的左上角位置
+def get_da_zhang_gui_pos(da_zhang_gui_img_path = "da_zhang_gui_wx.jpg", window_length = 764,window_height = 1404):
     s = 0
     while (s < 0.7):
         im_screen = ImageGrab.grab()  # 保存
@@ -189,22 +225,27 @@ def get_da_zhang_gui_pos(da_zhang_gui_img_path = "da_zhang_gui_wx.jpg", window_l
         x = int(pos_start[0]) + int(template.shape[1] / 2)
         y = int(pos_start[1])
         time.sleep(SHT_TIME)
-        print(x,y,s)
-    print(x,y,s)
-    return (int(x-window_length/2-30), y)
+    x = int(x-window_length/2)
+    print("include-header position",x,y,s)
+    return (x, y)
     
-def 公屏粘贴发言(type=True):
-    
+def do_公屏粘贴发言(type=True):
     x0,y0 = get_da_zhang_gui_pos()
     # 骗赞
-    mouse_click(x0+400, y0+1230)
+    # go to home
+    x,y = fixed_data["home-home"]
+    mouse_click(x + x0, y + y0)
     time.sleep(SHT_TIME)
-    mouse_click(x0+400, y0+1230)
+    # 点击 entry for text
+    x,y = fixed_data["text_entry"]
+    mouse_click(x + x0, y + y0)
     time.sleep(SHT_TIME)
-    mouse_click(x0+400, y0+1230)
+    # 激活文本输入
+    x,y = fixed_data["text-input"]
+    mouse_click(x + x0, y + y0)
+    time.sleep(SHT_TIME)
     if type:
         # Delay between key presses (in seconds)
-
         # Press and release 'r' key
         win32api.keybd_event(ord('R'), 0, 0, 0)
         win32api.keybd_event(ord('R'), 0, win32con.KEYEVENTF_KEYUP, 0)
@@ -254,65 +295,72 @@ def 公屏粘贴发言(type=True):
         # Release Enter key
         win32api.keybd_event(win32con.VK_RETURN, 0, win32con.KEYEVENTF_KEYUP, 0)
     time.sleep(SHT_TIME)
-    mouse_click(x0+680, y0+1230)
+    # 发送
+    x, y = fixed_data["text-send"]
+    mouse_click(x+x0, y+y0)
     time.sleep(SHT_TIME)
-    mouse_click(x0+740, y0+320)
-
+    # 回到主页
+    x, y = fixed_data["home-home"]
+    for _ in range(2):
+        mouse_click(x+x0, y+y0)
+        time.sleep(EX_SHT_TIME)
+    
+# 主页 -> 主页 府邸
 def do_enter_home(x0 = 0, y0 = 0):
     # 点击府邸
     if x0 == 0 and y0 == 0:
         x0,y0 = get_da_zhang_gui_pos()
-        y0 += fixed_data["header"][1]
     x,y = fixed_data["home-home"]
     mouse_click(x+x0, y+y0)
-
+# 主页 -> 商城
 def do_enter_stores(x0 = 0, y0 = 0):
     if x0 == 0 and y0 == 0:
         x0,y0 = get_da_zhang_gui_pos()
-        y0 += fixed_data["header"][1]
     x,y = fixed_data["home-stores"]
     mouse_click(x+x0, y+y0)
-    
-def do_click_qian_zhuang(x0 = 0, y0 = 0, times = 20):
+# 商城 点击钱庄
+def do_at_stores_click_qian_zhuang(x0 = 0, y0 = 0, times = 20):
     if x0 == 0 and y0 == 0:
         x0,y0 = get_da_zhang_gui_pos()
-        y0 += fixed_data["header"][1]
-
     x,y = fixed_data["home-qian-zhuang"]
     for _ in range(times):
         mouse_click(x+x0, y+y0)
         # time.sleep(EX_SHT_TIME)
+# 小玉执行
 def do_xiao_yu(x0=0,y0 = 0):
+    if x0 == 0 and y0 == 0:
+        x0,y0 = get_da_zhang_gui_pos()
     # 在主页
     # 点击小玉
+    print(f"x0 ,y0 = {x0, y0}")
     x,y = fixed_data["home-xiao-yu"]
-    mouse_click(x+x0, y+y0)
+    print(f"home xiaoyu: x ,y = {x, y}")
+    mouse_click(x+x0, y+y0, False)
     time.sleep(MID_TIME) # 需要等待长一点
     # 点击执行
     x,y = fixed_data["xiao-yu-execute"]
-    mouse_click(x+x0, y+y0)
+    mouse_click(x+x0, y+y0, False)
     time.sleep(MID_TIME)
     # 点击确定
     x,y = fixed_data["xiao-yu-execute-over"]
-    mouse_click(x+x0, y+y0)
+    mouse_click(x+x0, y+y0, False)
     time.sleep(SHT_TIME)
     # 退出界面
     x,y = fixed_data["painless-point"]
-    mouse_click(x+x0, y+y0)
+    mouse_click(x+x0, y+y0, False)
     time.sleep(SHT_TIME)
+# 主页 -> 跨服
 def do_home_enter_kua_fu(x0=0, y0=0):
     if x0 == 0 and y0 == 0:
         x0,y0 = get_da_zhang_gui_pos()
-        y0 += fixed_data["header"][1]
     x,y = fixed_data["home-entry-kua-fu"]
     print(x,y)
     mouse_click(x+x0, y+y0)
     time.sleep(SHT_TIME)
-
-def do_huodong_enter_yanhuizhengba(x0=0, y0= 0, yanhui_picture_path = "img_templates/10_yanhui_zhengba.jpg",acc_threshold = 0.7):
+# 跨服 -> 宴会争霸
+def do_kua_fu_enter_yanhuizhengba(x0=0, y0= 0, yanhui_picture_path = "img_templates/10_yanhui_zhengba.jpg",acc_threshold = 0.7):
     if x0 == 0 and y0 == 0:
         x0,y0 = get_da_zhang_gui_pos()
-        y0 += fixed_data["header"][1]
     target_path = os.path.join(yanhui_picture_path)
     print(target_path)
     target = cv2.imread(target_path)
@@ -325,16 +373,15 @@ def do_huodong_enter_yanhuizhengba(x0=0, y0= 0, yanhui_picture_path = "img_templ
         acc = results[1]
         pic_pos = results[3]
     x,y = pic_pos
-    x += int(target.shape[0] / 2)
-    y += int(target.shape[1] / 2)
+    x += int(target.shape[1] / 2)
+    y += int(target.shape[0] / 2)
     mouse_click(x+x0, y+y0)
-    time.sleep(MID_TIME)
-
+    time.sleep(SHT_TIME*2)
+# 宴会争霸 -> 执行百宴 -> 跨服争霸
 def do_yan_hui_page_enter_bai_fu_and_fu_yan(x0=0, y0=0):
     # 宴会争霸界面 开始 到结束
     if x0 == 0 and y0 == 0:
         x0,y0 = get_da_zhang_gui_pos()
-        y0 += fixed_data["header"][1]
     x,y = fixed_data["bai-fu_entry"]
     mouse_click(x+x0, y+y0)
     time.sleep(SHT_TIME)
@@ -343,32 +390,36 @@ def do_yan_hui_page_enter_bai_fu_and_fu_yan(x0=0, y0=0):
     time.sleep(SHT_TIME)
     x,y = fixed_data["bai-fu_exit"]
     mouse_click(x+x0, y+y0)
-
-def do_exit_to_the_end(x0 = 0, y0 = 0, exit_picture_path = "img_templates/13_exit.jpg",acc_threshold = 0.8):
+# 点左上角 退出，直到不能再退出，或者超过最高次数
+def do_exit_to_the_end(x0 = 0, y0 = 0, exit_picture_path = "img_templates/13_exit.jpg",acc_threshold = 0.8, round = 4):
     # 一直退出，预期到主页
     # 由于图片比较小，很容易错误识别，因此精确度权重提高
     if x0 == 0 and y0 == 0:
         x0,y0 = get_da_zhang_gui_pos()
-        y0 += fixed_data["header"][1]
     x,y = fixed_data["yanhui-exit"]
     acc = 1
-    round = 4
+    round = round
     target_path = os.path.join(exit_picture_path)
     target = cv2.imread(target_path)
     while (acc > acc_threshold):
-        mouse_click(x+x0, y+y0,to_origin=True)
-        time.sleep(MID_TIME)
-        im_screen = ImageGrab.grab().crop((x0,y0,x0+fixed_data["full_screen"][0],y0+fixed_data["yanhui-exit"][1]*3))
+        im_screen = ImageGrab.grab().crop((x0,y0,x0+fixed_data["full_screen"][0],y0+fixed_data["yanhui-exit"][1]*5))
         source = np.array(im_screen.getdata(), dtype ='uint8').reshape((im_screen.size[1], im_screen.size[0], 3))
         results = cv2.minMaxLoc(cv2.matchTemplate(source,target,cv2.TM_CCORR_NORMED))
         acc = results[1]
-        pic_pos = results[3]
-        print(f"Exit position found as {pic_pos} with acc {acc:1.4f}")
+        # pic_pos = results[3]
+        # x,y = pic_pos
+        x,y = fixed_data["general_exit"]
+        if acc < acc_threshold:
+            break
+        mouse_click(x+x0, y+y0,to_origin=True)
+        time.sleep(MID_TIME)
+        print(f"Exit position found as {(x+x0, y+y0)} with acc {acc:1.4f}")
         round -= 1
         if round == 0:
             print("Too many rounds, wrongly detected")
             break
         # x,y = pic_pos # x y unchanged 
+    # meaningless point
     x,y = fixed_data["painless-point"]
     mouse_click(x+x0, y+y0)
     time.sleep(EX_SHT_TIME)
@@ -378,7 +429,6 @@ def do_exit_to_the_end(x0 = 0, y0 = 0, exit_picture_path = "img_templates/13_exi
 def do_painless_click(x0 = 0, y0 = 0):
     if x0 == 0 and y0 == 0:
         x0,y0 = get_da_zhang_gui_pos()
-        y0 += fixed_data["header"][1]
     x,y = fixed_data["painless-point"]
     mouse_click(x+x0, y+y0)
 
@@ -389,7 +439,6 @@ def do_click_all_templates(x0 = 0, y0 = 0, template_pic_path = "img_templates/re
     # 一直点击 target (对于小图标，非常失败)
     if x0 == 0 and y0 == 0:
         x0,y0 = get_da_zhang_gui_pos()
-        y0 += fixed_data["header"][1]
     x,y = fixed_data["yanhui-exit"]
     acc = 1
     target_path = os.path.join(template_pic_path)
@@ -404,7 +453,7 @@ def do_click_all_templates(x0 = 0, y0 = 0, template_pic_path = "img_templates/re
         print(f"Target position found as {pic_pos} with acc {acc:1.4f}")
         round -= 1
         if acc > acc_threshold:
-            mouse_click(x+x0, y+y0,to_origin=False)
+            mouse_click(x+x0, y+y0,to_origin=True)
         else:
             break
         if round == 0:
@@ -419,31 +468,61 @@ def do_click_all_templates(x0 = 0, y0 = 0, template_pic_path = "img_templates/re
     time.sleep(EX_SHT_TIME)
 
 def do_in_cai_shen_miao_click_points(x0=0, y0 = 0, red_imag_path = "img_templates/red_point.png"):
+    if x0 == 0 and y0 == 0:
+        x0,y0 = get_da_zhang_gui_pos()
     # inside cai shen miao page, do one by one carelessly
-    cai_shen_bu_pos = (90, 1150)
-    dian_zan_pos = (380, 1100)
-    xuan_wu = (520, 360)
-    qi_lin = (380, 480)
-    qing_long = (650, 600)
-    cai_shen_ye_1 = (380, 800)
-    cai_shen_ye_2 = (400, 950)
-    cai_shen_ye_3 = (400, 1100)
-    cai_shen_ye_4 = (180, 1100)
-    cai_shen_ye_5 = (615, 1050)
+    # all without header counted
+    cai_shen_exit =     (730, 210)
+    cai_shen_bu_pos =   (90, 1200)
+    dian_zan_pos =      (400, 1150)
+    
+    # qi_lin =            (414, 432)
+    # xuan_wu =           (520, 360)
+    # qing_long =         (580, 667)
+    # cai_shen_ye_1 =     (766, 407)
+    # cai_shen_ye_2 =     (1107, 189)
+    # cai_shen_ye_3 =     (400, 1100)
+    # cai_shen_ye_4 =     (180, 1100)
+    # cai_shen_ye_top2 =     (615, 1050)
+
     y_move = 1100
-    cai_shen_low_1 = (250, 380  - fixed_data["header"][1])
-    cai_shen_low_2 = (550, 380  - fixed_data["header"][1])
-    cai_shen_low_31 = (80, 550  - fixed_data["header"][1])
-    cai_shen_low_32 = (220, 550 - fixed_data["header"][1])
-    cai_shen_low_33 = (550, 550 - fixed_data["header"][1])
-    cai_shen_low_34 = (700, 550 - fixed_data["header"][1])
-    cai_shen_low_35 = (400, 600 - fixed_data["header"][1])
-    cai_shen_low_41 = (150 , 850- fixed_data["header"][1])
-    cai_shen_low_42 = (400, 860 - fixed_data["header"][1])
-    cai_shen_low_43 = (650, 850 - fixed_data["header"][1])
-    cai_shen_low_51 = (150 , 1000- fixed_data["header"][1])
-    cai_shen_low_52 = (400, 1020- fixed_data["header"][1])
-    cai_shen_low_53 = (650, 1000- fixed_data["header"][1])
+    
+    qi_lin = (414, 432)
+    xuan_wu = (617, 345)
+    qing_long = (667, 582)
+    cai_shen_ye_1 = (407, 766)
+    cai_shen_ye_2 = (189, 1107)
+    cai_shen_ye_3 = (415, 1095)
+    cai_shen_ye_4 = (627, 1058)
+    cai_shen_ye_top2 = (414, 934)
+    
+    cai_shen_low_1 = (263,327)
+    cai_shen_low_2 = (554,329)
+    cai_shen_low_31 = (89,490)
+    cai_shen_low_32 = (247,509)
+    cai_shen_low_33 = (565,511)
+    cai_shen_low_34 = (716,503)
+    cai_shen_low_35 = (402,585)
+    cai_shen_low_41 = (151,803)
+    cai_shen_low_42 = (399,831)
+    cai_shen_low_43 = (639,798)
+    cai_shen_low_51 = (161,990)
+    cai_shen_low_52 = (394,1046)
+    cai_shen_low_53 = (629,1000)
+
+    # cai_shen_low_1  = (250, 380 )
+    # cai_shen_low_2  = (550, 380 )
+    # cai_shen_low_31 = (80 , 550 )
+    # cai_shen_low_32 = (220, 550 )
+    # cai_shen_low_33 = (550, 550 )
+    # cai_shen_low_34 = (700, 550 )
+    # cai_shen_low_35 = (400, 600 )
+    # cai_shen_low_41 = (150, 850 )
+    # cai_shen_low_42 = (400, 860 )
+    # cai_shen_low_43 = (650, 850 )
+    # cai_shen_low_51 = (150, 1000)
+    # cai_shen_low_52 = (400, 1020)
+    # cai_shen_low_53 = (650, 1000)
     miao_list_up = [    
         xuan_wu,
         qi_lin,
@@ -452,7 +531,7 @@ def do_in_cai_shen_miao_click_points(x0=0, y0 = 0, red_imag_path = "img_template
         cai_shen_ye_2,
         cai_shen_ye_3,
         cai_shen_ye_4,
-        cai_shen_ye_5,
+        cai_shen_ye_top2,
     ]
     miao_list_down = [
         cai_shen_low_1,
@@ -483,26 +562,31 @@ def do_in_cai_shen_miao_click_points(x0=0, y0 = 0, red_imag_path = "img_template
 
         # Wait for a short period of time
         time.sleep(0.5)  # Adjust the sleep duration as needed
-    if x0 == 0 and y0 == 0:
-        x0,y0 = get_da_zhang_gui_pos()
-        y0 += fixed_data["header"][1]
-    x,y = fixed_data["painless-point"]
-    
+
+
+    # x0, y0 include-header position (NO header)
     def click_one_miao(x,y,x0,y0):
-        mouse_click(x+x0,y+y0, to_origin=False)
+        print(f"x,y and x0,y0 = {x,y, x0, y0}")
+        y_off = fixed_data["header"][1]
+        mouse_click(x+x0,y+y0+y_off, to_origin=True)
         time.sleep(SHT_TIME)
-        mouse_click(x0+cai_shen_bu_pos[0],y0+cai_shen_bu_pos[1], to_origin=False)
+        mouse_click(x0+cai_shen_bu_pos[0],y0+cai_shen_bu_pos[1]+y_off, to_origin=True)
         time.sleep(SHT_TIME)
-        mouse_click(x0+dian_zan_pos[0],y0+dian_zan_pos[1], to_origin=False)
+        mouse_click(x0+dian_zan_pos[0],y0+dian_zan_pos[1]+y_off, to_origin=True)
         time.sleep(SHT_TIME)
         # exit
         for _ in range(2): # 需要点赞 与 没有点赞的情况各需要 1-2次
             do_painless_click(x0=x0, y0=y0)
             time.sleep(SHT_TIME)
+        mouse_click(x0 + cai_shen_exit[0], y0+cai_shen_exit[1]+y_off)
+        time.sleep(SHT_TIME)
+        print(f"x0,y0 = {x0, y0}")
+        print(x0+fixed_data['general_exit'][0], y0 + fixed_data['general_exit'][1])
         mouse_click(x0+fixed_data["general_exit"][0], y0+fixed_data["general_exit"][1], to_origin=False)
-        time.sleep(MID_TIME)
-
+        time.sleep(SHT_TIME * 3)
+        
     for point in miao_list_up:
+        print(f"CLICK ONE MIAO x0, y0 = {x0, y0}")
         click_one_miao(point[0], point[1], x0, y0)
 
     time.sleep(SHT_TIME)
@@ -518,45 +602,184 @@ def do_in_cai_shen_miao_click_points(x0=0, y0 = 0, red_imag_path = "img_template
     
     for point in miao_list_down:
         click_one_miao(point[0], point[1], x0, y0)
-    # do_click_all_templates(x0=x0, y0=y0,template_pic_path=red_imag_path, acc_threshold=0.8, round = 10, delay_time = MID_TIME)
 
 def go_home_to_cai_shen_miao(x0 =0 , y0 =0 ):
     if x0 == 0 and y0 == 0:
         x0,y0 = get_da_zhang_gui_pos()
-        y0 += fixed_data["header"][1]
     pos = fixed_data["home-cheng_jiao"]
     x,y = pos
     mouse_click(x+x0, y+y0)
     time.sleep(SHT_TIME)
-    x,y = fixed_data["cai_shen_miao"]
+    x,y = fixed_data["cheng_jiao-cai_shen_miao"]
     mouse_click(x+x0, y+y0)
     time.sleep(SHT_TIME)
 
+# 从主页进入财神庙，并依次点赞
 def do_from_home_to_do_all_in_cai_shen_miao(x0=0, y0=0, red_imag_path="img_templates/red_point.png"):
     if x0 == 0 and y0 == 0:
         x0,y0 = get_da_zhang_gui_pos()
-        y0 += fixed_data["header"][1]
     go_home_to_cai_shen_miao(x0, y0)
     do_in_cai_shen_miao_click_points(x0,y0,red_imag_path)
 
-TESTs = ["qian_zhuang", "xiao_yu", "home_enter_kua_fu", "do_huodong_enter_yanhuizhengba", "do_yan_hui_page_enter_bai_fu_and_fu_yan","do_exit_to_the_end", "do_click_cai_shen", "do_in_cai_shen_miao_click_points", "go_home_to_cai_shen_miao", "do_from_home_to_do_all_in_cai_shen_miao"]
+def do_after_invited(x0=0, y0 = 0):
+    # 在收到邀请后 进行如宴会，并退出到主页
+    if x0 == 0 and y0 == 0:
+        x0,y0 = get_da_zhang_gui_pos()
+    for _ in range(10): # do 10 times to secure all if any
+        for _ in range(3):
+            x,y = fixed_data["yanhui-in"]
+            print(f"x0 y0 at {(x0,y0)}")
+            print(f"Invite at {(x+x0,y+y0)}")
+            mouse_click(x+x0, y+y0, False)
+            time.sleep(SHT_TIME)
+        for _ in range(3): # odd number is safer than even
+            x,y = fixed_data["yanhui-box"]
+            mouse_click(x+x0, y+y0, True)
+            time.sleep(SHT_TIME)
+        x,y = fixed_data["yanhui-open_all_boxes"]
+        mouse_click(x+x0, y+y0, True)
+        time.sleep(SHT_TIME)
+        do_painless_click(x0, y0) # exit from openning boxes
+        time.sleep(SHT_TIME)
+        x,y = fixed_data["yanhui-next"]
+        mouse_click(x+x0, y+y0, True)
+        time.sleep(SHT_TIME)
+    do_exit_to_the_end(x0, y0)
+# 根据图片推测状态
+def obtain_status(x0 = 0, y0 = 0, acc_threshold = 0.7):
+    # 测试中
+    if x0 == 0 and y0 == 0:
+        x0,y0 = get_da_zhang_gui_pos()
+    # print(f"x0 = {x0}, y0 = {y0}")
+    # 财神 or 主页 or 邀请赴宴 or 进入游戏状态
+    template_names = {
+        "cai_shen" : "status_templates/5_cai_shen_test.png",
+        "home" : "status_templates/home.png",
+        "invite" : "status_templates/0_fu_yan.png",
+        "enter_game" : "status_templates/0000_hoi_ci_yau_si.png" 
+    }
+    status_list = list(template_names.keys())
+    
+    if True:
+        print(f"Source: pos left, top, right, down {x0, y0,}", x0 + fixed_data["full_screen"][0], y0+ fixed_data["full_screen"][1])
+        im_screen = ImageGrab.grab().crop((x0, y0, x0 + fixed_data["full_screen"][0], y0+ fixed_data["full_screen"][1]))
+        source = np.array(im_screen.getdata(), dtype ='uint8').reshape((im_screen.size[1], im_screen.size[0], 3))
+        
+    max_status = None
+    max_status_pos = (0,0)
+    max_acc = acc_threshold
+    for status in status_list:
+        target = cv2.imread(os.path.join(template_names[status]))
+        results = cv2.minMaxLoc(cv2.matchTemplate(source, target, cv2.TM_CCOEFF_NORMED))
+        acc = results[1]  # 测试两幅图像精确度
+        pic_pos = results[3]
+        x = int(pic_pos[0]) + int(target.shape[1] / 2) + x0
+        y = int(pic_pos[1]) + int(target.shape[0] / 2) + y0
+        print(f"{status} At pos {x,y} with acc {acc:1.4f}")
+        if acc > max_acc:
+            print(f"DEBUG: At pos {(pic_pos[0]+x0, pic_pos[1]+y0)} with acc {acc:1.4f}")
+            max_acc = acc
+            max_status = status
+            max_status_pos = (x,y)
+    print(f"Max likelihood status: {max_status}, at {max_status_pos}, with acc {max_acc:1.4f}")
+    return max_status, max_status_pos
+
+# 查看是否有 宴会入口
+def find_if_yanhui_opened(x0 = 0, y0 = 0, yan_hui_entry_path = "status_templates/01_fu_yan.png"):
+    if x0 == 0 and y0 == 0:
+        x0,y0 = get_da_zhang_gui_pos()
+    im_screen = ImageGrab.grab().crop((x0, y0, x0 + fixed_data["full_screen"][0], y0+ fixed_data["full_screen"][1]))
+    source = np.array(im_screen.getdata(), dtype ='uint8').reshape((im_screen.size[1], im_screen.size[0], 3))
+    target = cv2.imread(os.path.join(yan_hui_entry_path))
+    results = cv2.minMaxLoc(cv2.matchTemplate(source, target, cv2.TM_CCOEFF_NORMED))
+    acc = results[1]  # 测试两幅图像精确度
+    pic_pos = results[3]
+    return (acc, pic_pos)
+
+# 检测状态，根据结果执行提前编辑的内容
+def process_pre_defined_event_with_interrupt_event():
+    round = 990 #0-999
+    while True:
+        status_info = obtain_status(acc_threshold=0.7)
+        pos = status_info[1]
+        x,y = pos
+        x0,y0 = get_da_zhang_gui_pos()
+        if status_info[0] == "invite":
+            do_after_invited(x0, y0)
+            do_exit_to_the_end()
+        elif status_info[0] == "cai_shen":
+            do_painless_click(x0, y0)
+        elif status_info[0] == "enter_game":
+            mouse_click(x+x0, y+y0) #
+        elif status_info[0] == "home":
+            x,y = fixed_data["home-home"]
+            mouse_click(x+x0, y+y0)
+            if False:
+                if round >= 990:
+                    do_公屏粘贴发言()
+                    do_enter_home()
+        else: # None
+            do_painless_click(x0, y0)
+        logging.info(f"Do {status_info[0]} at {status_info[1]}")
+        print(f"Do {status_info[0]} at {status_info[1]}")
+        time.sleep(MID_TIME*2)
+        # round = 0 跨服宴会时点一下
+        if round == 0:
+            logging.info(f"At round = 0, enter home, enter fuyan")
+            print(f"At round = 0, enter home, enter fuyan")
+            acc_threshold = 0.75
+            results = find_if_yanhui_opened()
+            acc = results[0]
+            pos = results[1]
+            x, y = pos
+            if acc >= acc_threshold:
+                mouse_click(x+x0, y+y0)
+                time.sleep(MID_TIME)
+                mouse_click(x+x0, y+y0)
+                time.sleep(MID_TIME)
+                do_after_invited(x0, y0)
+            else:
+                pass
+        else:
+            logging.info(f"round {round} finished")
+            print(f"round = {round} finished")
+        round = (round+1)%1000
+    pass
+
+
+
+
+
+
+TESTs = ["qian_zhuang", 
+         "xiao_yu", 
+         "home_enter_kua_fu", 
+         "do_huodong_enter_yanhuizhengba", 
+         "do_yan_hui_page_enter_bai_fu_and_fu_yan",
+         "do_exit_to_the_end", 
+         "do_click_cai_shen", 
+         "do_in_cai_shen_miao_click_points", 
+         "go_home_to_cai_shen_miao", 
+         "do_from_home_to_do_all_in_cai_shen_miao"
+        ]
 TEST = TESTs[-1]
+TEST = ""
+
+print("BEGIN")
+ImageTest().starttest()#启动软件
+time.sleep(SHT_TIME)
 if TEST != "":
-    print("BEGIN")
-    ImageTest().starttest()#启动软件
-    time.sleep(SHT_TIME)
     x0, y0 = get_da_zhang_gui_pos()
-    y0 += fixed_data["header"][1]
     if TEST == "qian_zhuang":
         do_enter_stores(x0=x0, y0=y0)
         time.sleep(SHT_TIME)
-        do_click_qian_zhuang(x0=x0, y0=y0, times=100)
+        do_at_stores_click_qian_zhuang(x0=x0, y0=y0, times=1000)
     elif TEST == "xiao_yu":
         do_xiao_yu(x0=x0, y0=y0)
     elif TEST == "home_enter_kua_fu":
         do_home_enter_kua_fu(x0=x0,y0=y0)
     elif TEST == "do_huodong_enter_yanhuizhengba":
-        do_huodong_enter_yanhuizhengba(x0=x0, y0=y0)
+        do_kua_fu_enter_yanhuizhengba(x0=x0, y0=y0)
     elif TEST == "do_yan_hui_page_enter_bai_fu_and_fu_yan":
         do_yan_hui_page_enter_bai_fu_and_fu_yan()
     elif TEST == "do_exit_to_the_end":
@@ -567,9 +790,10 @@ if TEST != "":
         go_home_to_cai_shen_miao()
     elif TEST == "do_from_home_to_do_all_in_cai_shen_miao":
         do_from_home_to_do_all_in_cai_shen_miao()
+# exit()
+process_pre_defined_event_with_interrupt_event()
+
 exit()
-while True:
-    pass
 if __name__ =='__main__':
     ImageTest().starttest()#启动软件
     # Specify the path to the "img_template" subdirectory

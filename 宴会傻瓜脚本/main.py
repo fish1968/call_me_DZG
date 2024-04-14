@@ -96,7 +96,7 @@ def click_picture(picture):
     else:
         print(f"未识别出目标 {picture}, accuracy = {s}", datetime.datetime.now())
 
-def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.7, x0=0, y0=0,window_length = 764, window_height = 1404):
+def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.75, x0=0, y0=0,window_length = 764, window_height = 1404):
     if len(targets) == 0:
         for picture in pictures:
             base_path = os.path.join(picture)
@@ -137,7 +137,7 @@ def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.7, x0=0, y0=0
                     mouse_click(x,y)
                     mouse_click(x,y)
                     time.sleep(0.5)
-            elif "exit" in picture: # exit to the fron page
+            elif "exit" in picture or "7_x" in picture: # exit to the fron page
                 mouse_click(x,y, to_origin=True)
                 im_screen = ImageGrab.grab().crop((left, top, right, bottom))
                 im_screen.save(r'temp.png')
@@ -169,25 +169,88 @@ def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.7, x0=0, y0=0
                 mouse_click(x,y)
                 time.sleep(5) # waits longer for internet delay
         
-
 def get_da_zhang_gui_pos(da_zhang_gui_img_path = "da_zhang_gui_wx.jpg", window_length = 704,window_height = 1404):
-    im_screen = ImageGrab.grab()  # 保存
-    im_screen.save(r'./temp.png')
-    source = cv2.imread(r'./temp.png')
-    template = cv2.imread(da_zhang_gui_img_path)
-    result = cv2.matchTemplate(source, template, cv2.TM_CCOEFF_NORMED)
-    pos_start = cv2.minMaxLoc(result)[3]
-    s = cv2.minMaxLoc(result)[1]  # 测试两幅图像精确度
-    x = int(pos_start[0]) + int(template.shape[1] / 2)
-    y = int(pos_start[1])
+    s = 0
+    while (s < 0.7):
+        im_screen = ImageGrab.grab()  # 保存
+        im_screen.save(r'./temp.png')
+        source = cv2.imread(r'./temp.png')
+        template = cv2.imread(da_zhang_gui_img_path)
+        result = cv2.matchTemplate(source, template, cv2.TM_CCOEFF_NORMED)
+        pos_start = cv2.minMaxLoc(result)[3]
+        s = cv2.minMaxLoc(result)[1]  # 测试两幅图像精确度
+        x = int(pos_start[0]) + int(template.shape[1] / 2)
+        y = int(pos_start[1])
+        time.sleep(10)
+        print(x,y,s)
     print(x,y,s)
-    if (s > 0.7):
-        return (int(x - window_length/2-30), y)
-    else:
-        time.sleep(5)
-        return get_da_zhang_gui_pos(da_zhang_gui_img_path, window_length = 704,window_height = 1404)
+    return (int(x-window_length/2-30), y)
     
+def 公屏粘贴发言(type=True):
+    
+    x0,y0 = get_da_zhang_gui_pos()
+    # 骗赞
+    mouse_click(x0+400, y0+1230)
+    time.sleep(1)
+    mouse_click(x0+400, y0+1230)
+    time.sleep(1)
+    mouse_click(x0+400, y0+1230)
+    if type:
+        # Delay between key presses (in seconds)
+        key_delay = 0.1
 
+        # Press and release 'r' key
+        win32api.keybd_event(ord('R'), 0, 0, 0)
+        win32api.keybd_event(ord('R'), 0, win32con.KEYEVENTF_KEYUP, 0)
+        time.sleep(key_delay)
+
+        # Press and release 'o' key
+        win32api.keybd_event(ord('O'), 0, 0, 0)
+        win32api.keybd_event(ord('O'), 0, win32con.KEYEVENTF_KEYUP, 0)
+        time.sleep(key_delay)
+
+        # Press and release 'b' key
+        win32api.keybd_event(ord('B'), 0, 0, 0)
+        win32api.keybd_event(ord('B'), 0, win32con.KEYEVENTF_KEYUP, 0)
+        time.sleep(key_delay)
+
+        # Press and release 'o' key
+        win32api.keybd_event(ord('O'), 0, 0, 0)
+        win32api.keybd_event(ord('O'), 0, win32con.KEYEVENTF_KEYUP, 0)
+        time.sleep(key_delay)
+
+        # Press and release 't' key
+        win32api.keybd_event(ord('T'), 0, 0, 0)
+        win32api.keybd_event(ord('T'), 0, win32con.KEYEVENTF_KEYUP, 0)
+        time.sleep(key_delay)
+        # # Press and release '?' key
+        # win32api.keybd_event(win32con.VK_SHIFT, 0, 0, 0)  # Press Shift key
+        # win32api.keybd_event(ord('?')-32, 0, 0, 0)  # Press '?' key
+        # time.sleep(key_delay)
+        # win32api.keybd_event(ord('?')-32, 0, win32con.KEYEVENTF_KEYUP, 0)  # Release '?' key
+        # win32api.keybd_event(win32con.VK_SHIFT, 0, win32con.KEYEVENTF_KEYUP, 0)  # Release Shift key
+        # Press Enter key
+        win32api.keybd_event(win32con.VK_RETURN, 0, 0, 0)
+        # Release Enter key
+        win32api.keybd_event(win32con.VK_RETURN, 0, win32con.KEYEVENTF_KEYUP, 0)
+    else:
+        # Press Ctrl key
+        win32api.keybd_event(win32con.VK_CONTROL, 0, 0, 0)
+        # Press V key
+        win32api.keybd_event(0x56, 0, 0, 0)
+        time.sleep(1)
+        # Release V key
+        win32api.keybd_event(0x56, 0, win32con.KEYEVENTF_KEYUP, 0)
+        # Release Ctrl key
+        win32api.keybd_event(win32con.VK_CONTROL, 0, win32con.KEYEVENTF_KEYUP, 0)
+        # Press Enter key
+        win32api.keybd_event(win32con.VK_RETURN, 0, 0, 0)
+        # Release Enter key
+        win32api.keybd_event(win32con.VK_RETURN, 0, win32con.KEYEVENTF_KEYUP, 0)
+    time.sleep(1)
+    mouse_click(x0+680, y0+1230)
+    time.sleep(1)
+    mouse_click(x0+740, y0+320)
 
 if __name__ =='__main__':
     ImageTest().starttest()#启动软件
@@ -214,10 +277,15 @@ if __name__ =='__main__':
         template = cv2.imread(picture_path)
         targets.append(template)
         logging.info("Reading source image " + str(picture_path))
+    
+    speech = 100
     while True:
+        if speech == 100:
+            公屏粘贴发言()
+        speech = (speech + 1)%100
+        time.sleep(100)
         x0,y0 = get_da_zhang_gui_pos()
         click_pictures(pictures=pictures, targets=targets, x0 = x0, y0 = y0)
-        time.sleep(5)
 #   click_picture('picture6.png')
 
 while True:

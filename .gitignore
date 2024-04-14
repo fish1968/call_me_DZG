@@ -16,3 +16,6 @@ trial/*
 *.log
 
 */*my_local/*
+
+# ignore temp picture
+*temp*

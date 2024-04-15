@@ -337,6 +337,8 @@ def do_xiao_yu(x0=0,y0 = 0):
     if x0 == 0 and y0 == 0:
         x0,y0 = get_da_zhang_gui_pos()
     # 在主页
+    do_enter_home(x0, y0)
+    time.sleep(SHT_TIME)
     # 点击小玉
     print(f"x0 ,y0 = {x0, y0}")
     x,y = fixed_data["home-xiao-yu"]
@@ -346,7 +348,9 @@ def do_xiao_yu(x0=0,y0 = 0):
     # 点击执行
     x,y = fixed_data["xiao-yu-execute"]
     mouse_click(x+x0, y+y0, False)
-    time.sleep(MID_TIME)
+    for _ in range(20):
+        do_painless_click(x0,y0)
+        time.sleep(SHT_TIME)
     # 点击确定
     x,y = fixed_data["xiao-yu-execute-over"]
     mouse_click(x+x0, y+y0, False)
@@ -616,15 +620,17 @@ def go_home_to_cai_shen_miao(x0 =0 , y0 =0 ):
     x,y = pos
     mouse_click(x+x0, y+y0)
     time.sleep(SHT_TIME)
+    time.sleep(SHT_TIME)
     x,y = fixed_data["cheng_jiao-cai_shen_miao"]
     mouse_click(x+x0, y+y0)
-    time.sleep(SHT_TIME)
 
 # 从主页进入财神庙，并依次点赞
 def do_from_home_to_do_all_in_cai_shen_miao(x0=0, y0=0, red_imag_path="img_templates/red_point.png"):
     if x0 == 0 and y0 == 0:
         x0,y0 = get_da_zhang_gui_pos()
     go_home_to_cai_shen_miao(x0, y0)
+    time.sleep(SHT_TIME)
+    time.sleep(SHT_TIME)
     do_in_cai_shen_miao_click_points(x0,y0,red_imag_path)
 
 def do_after_invited(x0=0, y0 = 0):
@@ -843,6 +849,10 @@ def process_pre_defined_event_with_interrupt_event():
 
 
 
+
+
+
+
 TESTs = ["qian_zhuang", 
          "xiao_yu", 
          "home_enter_kua_fu", 
@@ -854,35 +864,42 @@ TESTs = ["qian_zhuang",
          "go_home_to_cai_shen_miao", 
          "do_from_home_to_do_all_in_cai_shen_miao"
         ]
-TEST = TESTs[-1]
-TEST = ""
+test_command = ""
+test_command = TESTs[0]
 
-print("BEGIN")
-ImageTest().starttest()#启动软件
-time.sleep(SHT_TIME)
-if TEST != "":
+def do_based_on_TEST_Command(task_command):
     x0, y0 = get_da_zhang_gui_pos()
-    if TEST == "qian_zhuang":
+    if task_command == "qian_zhuang":
         do_enter_stores(x0=x0, y0=y0)
         time.sleep(SHT_TIME)
         do_at_stores_click_qian_zhuang(x0=x0, y0=y0, times=1000)
-    elif TEST == "xiao_yu":
+    elif task_command == "xiao_yu":
         do_xiao_yu(x0=x0, y0=y0)
-    elif TEST == "home_enter_kua_fu":
+    elif task_command == "home_enter_kua_fu":
         do_home_enter_kua_fu(x0=x0,y0=y0)
-    elif TEST == "do_huodong_enter_yanhuizhengba":
+    elif task_command == "do_huodong_enter_yanhuizhengba":
         do_kua_fu_enter_yanhuizhengba(x0=x0, y0=y0)
-    elif TEST == "do_yan_hui_page_enter_bai_fu_and_fu_yan":
+    elif task_command == "do_yan_hui_page_enter_bai_fu_and_fu_yan":
         do_yan_hui_page_enter_bai_fu_and_fu_yan()
-    elif TEST == "do_exit_to_the_end":
+    elif task_command == "do_exit_to_the_end":
         do_exit_to_the_end()
-    elif TEST == "do_in_cai_shen_miao_click_points":
+    elif task_command == "do_in_cai_shen_miao_click_points":
         do_in_cai_shen_miao_click_points()
-    elif TEST == "go_home_to_cai_shen_miao":
+    elif task_command == "go_home_to_cai_shen_miao":
         go_home_to_cai_shen_miao()
-    elif TEST == "do_from_home_to_do_all_in_cai_shen_miao":
+    elif task_command == "do_from_home_to_do_all_in_cai_shen_miao":
         do_from_home_to_do_all_in_cai_shen_miao()
-# exit()
+
+print("BEGIN")
+ImageTest().starttest()#启动软件
+time.sleep(MID_TIME)
+command_list = [1,9,1]
+# one  time task
+for idx in command_list:
+    test_command = command_list[idx]
+    do_based_on_TEST_Command(test_command)
+    time.sleep(SHT_TIME)
+# long looping
 process_pre_defined_event_with_interrupt_event()
 
 exit()

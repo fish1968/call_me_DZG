@@ -15,7 +15,8 @@ trial/*
 # ignore log
 *.log
 
-*/*my_local/*
+# 我想保存一下，准备删档了
+# */*my_local/*
 
 # ignore temp picture
 *temp*

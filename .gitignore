@@ -20,3 +20,7 @@ trial/*
 
 # ignore temp picture
 *temp*
+
+
+# ignore example
+*example*

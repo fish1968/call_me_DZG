@@ -61,7 +61,9 @@ fixed_data = {
     "kei-dong_li-xian-jiang-li" : (520, 1050),
     "kei-dong_event-page-dou-luo": (730, 220),
     "kei-dong_event-page-xian-shi": (730, 230),
-    
+    "kei-dong_go-to-event": (626, 1150),
+    "kei-dong_brightness-detect-pos0": (400, 100),
+    "kei-dong_brightness-detect-pos1": (400, 700),
         # "home-entry-kua-fu": (203, 259),
         # "home-home": (80, 1380),
         # "home-stores": (200, 1380),
@@ -92,7 +94,7 @@ fixed_data = {
 }
 
 LONG_TIME = 60*5
-MID_TIME = 5
+MID_TIME = 10
 SHT_TIME = 1
 EX_SHT_TIME = 0.1
 
@@ -649,7 +651,7 @@ def do_after_invited(x0=0, y0 = 0):
         mouse_click(x+x0, y+y0, True)
         time.sleep(SHT_TIME)
     do_exit_to_the_end(x0, y0)
-# 根据图片推测状态
+# 根据图片推测状态,返回状态，以及对应状态的绝对位置（if any）
 def obtain_status(x0 = 0, y0 = 0, acc_threshold = 0.7):
     # 测试中
     if x0 == 0 and y0 == 0:
@@ -700,14 +702,92 @@ def find_if_yanhui_opened(x0 = 0, y0 = 0, yan_hui_entry_path = "status_templates
     pic_pos = results[3]
     return (acc, pic_pos)
 
+def obtain_screen_x_y_brightness(x, y):
+    im_screen = ImageGrab.grab()  # 保存
+    im_screen.save(r'./temp.png')
+    image = cv2.imread(r'./temp.png')
+    # Convert the image to grayscale
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # Access the pixel value at the specified point
+    brightness = gray_image[y, x]
+    return brightness
+
+def obtain_screen_x_y_pixel(x, y):
+    im_screen = ImageGrab.grab()  # 保存
+    im_screen.save(r'./temp.png')
+    image = cv2.imread(r'./temp.png')
+    pixel = image[y, x] # image bgr
+    return pixel
+
+def do_enter_game(x0 = 0, y0 = 0, debug = False):
+    if x0 == 0 and y0 == 0:
+        x0,y0 = get_da_zhang_gui_pos()
+    status_info = obtain_status(x0, y0, acc_threshold=0.7)
+    x,y = status_info[1]
+    
+    if status_info[0] == "enter_game":
+        mouse_click(x, y)
+        time.sleep(SHT_TIME)
+        if debug:
+            print(f"do_enter_game: click enter at x = {x}, y = {y}")
+    # wait until color changed
+    x,y = fixed_data["kei-dong_brightness-detect-pos0"]
+    x,y = x+x0, y+y0
+    cur_pixel = obtain_screen_x_y_pixel(x, y)
+    if debug:
+        print(f"pixel at x = {x}, y = {y} is {cur_pixel}")
+    nxt_pixel = cur_pixel
+    
+    max_times = 40
+    print(f"nxt_pixel = {nxt_pixel}")
+    while(nxt_pixel[0] == cur_pixel[0] and nxt_pixel[1] == cur_pixel[1] and nxt_pixel[2] == cur_pixel[2]  and max_times > 0):
+        time.sleep(SHT_TIME)
+        nxt_pixel = obtain_screen_x_y_pixel(x,y)
+        if debug:
+            print(f"pixel at x = {x}, y = {y} is {nxt_pixel}")
+        max_times -= 1
+    max_time = 5 # 
+    time.sleep(MID_TIME)
+    if debug:
+        print(f"waited {MID_TIME} seconds before detecting enter-game status")
+    while(max_time != 0):
+        x, y = fixed_data['kei-dong_brightness-detect-pos0']
+        brightness0 = obtain_screen_x_y_brightness(x+x0, y+y0)
+        if debug:
+            print(f"Brightness detected at {x+x0, y+y0} is {brightness0}")
+        x, y = fixed_data['kei-dong_brightness-detect-pos1']
+        brightness1 = obtain_screen_x_y_brightness(x+x0, y+y0)
+        if debug:
+            print(f"Brightness detected at {x+x0, y+y0} is {brightness1}")
+        if brightness1 - brightness0 <= 70 or brightness0 >= 100: 
+            return True
+        else:    
+            x,y = fixed_data['kei-dong_li-xian-jiang-li']
+            mouse_click(x+x0, y+y0)
+            if debug:
+                print(f"do_enter_game: click enter at x = {x+x0}, y = {y+y0}")
+            x,y = fixed_data['kei-dong_event-page-dou-luo']
+            mouse_click(x+x0, y+y0)
+            if debug:
+                print(f"do_enter_game: click enter at x = {x+x0}, y = {y+y0}")
+            x,y = fixed_data['kei-dong_go-to-event']
+            mouse_click(x+x0, y+y0)
+            if debug:
+                print(f"do_enter_game: click enter at x = {x+x0}, y = {y+y0}")
+        max_time -= 1
+        time.sleep(SHT_TIME)
+    if debug:
+        print(f"Unexpected exit function: do_enter_game(x0 = {x0}, y0 = {y0})")
+    return False
+
 # 检测状态，根据结果执行提前编辑的内容
 def process_pre_defined_event_with_interrupt_event():
     round = 990 #0-999
     while True:
-        status_info = obtain_status(acc_threshold=0.7)
+        x0,y0 = get_da_zhang_gui_pos()
+        status_info = obtain_status(x0, y0, acc_threshold=0.7)
         click_pos = status_info[1]
         x,y = click_pos
-        x0,y0 = get_da_zhang_gui_pos()
         if status_info[0] == "invite":
             logging.info("Get invitations")
             do_after_invited(x0, y0)
@@ -718,6 +798,9 @@ def process_pre_defined_event_with_interrupt_event():
         elif status_info[0] == "enter_game":
             logging.info("Enter Game")
             mouse_click(x, y) #
+            time.sleep(MID_TIME) # waits longer
+            if do_enter_game(x0, y0, True) == False:
+                print("do_enter_failed")
             time.sleep(SHT_TIME)
         elif status_info[0] == "home":
             logging.info("Click home-home") # meaningless
@@ -731,7 +814,7 @@ def process_pre_defined_event_with_interrupt_event():
             do_painless_click(x0, y0)
         logging.info(f"Do {status_info[0]} at {status_info[1]}")
         print(f"Do {status_info[0]} at {status_info[1]}")
-        time.sleep(MID_TIME*2)
+        time.sleep(MID_TIME)
         # round = 0 跨服宴会时点一下
         if round == 0:
             logging.info(f"At round = 0, enter home, enter fuyan")

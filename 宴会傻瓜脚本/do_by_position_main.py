@@ -701,17 +701,22 @@ def process_pre_defined_event_with_interrupt_event():
     round = 990 #0-999
     while True:
         status_info = obtain_status(acc_threshold=0.7)
-        pos = status_info[1]
-        x,y = pos
+        click_pos = status_info[1]
+        x,y = click_pos
         x0,y0 = get_da_zhang_gui_pos()
         if status_info[0] == "invite":
+            logging.info("Get invitations")
             do_after_invited(x0, y0)
             do_exit_to_the_end()
         elif status_info[0] == "cai_shen":
+            logging.info("DO Cai Shen")
             do_painless_click(x0, y0)
         elif status_info[0] == "enter_game":
-            mouse_click(x+x0, y+y0) #
+            logging.info("Enter Game")
+            mouse_click(x, y) #
+            time.sleep(SHT_TIME)
         elif status_info[0] == "home":
+            logging.info("Click home-home") # meaningless
             x,y = fixed_data["home-home"]
             mouse_click(x+x0, y+y0)
             if False:
@@ -730,8 +735,8 @@ def process_pre_defined_event_with_interrupt_event():
             acc_threshold = 0.75
             results = find_if_yanhui_opened()
             acc = results[0]
-            pos = results[1]
-            x, y = pos
+            click_pos = results[1]
+            x, y = click_pos
             if acc >= acc_threshold:
                 mouse_click(x+x0, y+y0)
                 time.sleep(MID_TIME)

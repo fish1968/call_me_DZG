@@ -853,7 +853,7 @@ def process_pre_defined_event_with_interrupt_event():
 
 
 
-TESTs = ["qian_zhuang", 
+command_list = ["qian_zhuang", 
          "xiao_yu", 
          "home_enter_kua_fu", 
          "do_huodong_enter_yanhuizhengba", 
@@ -864,8 +864,6 @@ TESTs = ["qian_zhuang",
          "go_home_to_cai_shen_miao", 
          "do_from_home_to_do_all_in_cai_shen_miao"
         ]
-test_command = ""
-test_command = TESTs[0]
 
 def do_based_on_TEST_Command(task_command):
     x0, y0 = get_da_zhang_gui_pos()
@@ -893,10 +891,10 @@ def do_based_on_TEST_Command(task_command):
 print("BEGIN")
 ImageTest().starttest()#启动软件
 time.sleep(MID_TIME)
-command_list = [1,9,1]
+commands = [1,9,1]
 # one  time task
-for idx in command_list:
-    test_command = command_list[idx]
+for command_idx in commands:
+    test_command = command_list[command_idx]
     do_based_on_TEST_Command(test_command)
     time.sleep(SHT_TIME)
 # long looping

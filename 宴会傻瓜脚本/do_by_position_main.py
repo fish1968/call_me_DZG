@@ -57,6 +57,11 @@ fixed_data = {
     "cheng_jiao-cai_shen_miao-bai_fang": (400, 1250), # not used
     "page_full_screen": (765, 1360),
     
+    # 启动
+    "kei-dong_li-xian-jiang-li" : (520, 1050),
+    "kei-dong_event-page-dou-luo": (730, 220),
+    "kei-dong_event-page-xian-shi": (730, 230),
+    
         # "home-entry-kua-fu": (203, 259),
         # "home-home": (80, 1380),
         # "home-stores": (200, 1380),

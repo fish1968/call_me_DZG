@@ -43,11 +43,10 @@ fixed_data = {
     
     "painless-point": (400, 80), #可以随便点，无所谓
     
-    # un certain 需要检查
-    "yanhui-box": (680, 200),
-    "yanhui-open_all_boxes": (400, 1120),
-    "yanhui-next": (80, 1233),
-    "yanhui-in": (590, 1240), # click to enter yanhui from invitation or in the page
+    "yanhui-box": (680, 240),
+    "yanhui-open_all_boxes": (400, 1138),
+    "yanhui-next": (80, 1295),
+    "yanhui-in": (590, 1275), # click to enter yanhui by invitation or in the page
     "yanhui-exit": (40, 80),
     
     "bai-fu_entry": (700, 740),

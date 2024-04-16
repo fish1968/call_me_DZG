@@ -133,15 +133,20 @@ def mouse_dclick(x=None,y=None):
 def mouse_move(x,y):
     windll.user32.SetCursorPos(x, y)
 
-def mouse_roll_up(times, rev = False, wait_time = EX_SHT_TIME):
+def mouse_roll_up(times, rev = False, wait_time = EX_SHT_TIME, x0 = None, y0 = None):
     # roll up / down(rev = True) for times and wait wait_time for each time
+    if x0 == None and y0 == None:
+        x0, y0 = get_da_zhang_gui_pos()
+    cur_x, cur_y = get_mouse_point()
+    mouse_move(x0+400, y0 + 200) # 光标需要在画面内才能 执行滚动成功
+    time.sleep(wait_time)
     for _ in range(times):
         if rev == False:
             win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL, 0, 0, 1, 0)
         else:
             win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL, 0, 0, -1, 0)
         time.sleep(wait_time)
-
+    mouse_move(cur_x, cur_y)
 def key_input(str=''):
     for c in str:
         win32api.keybd_event(VK_CODE[c],0,0,0)
@@ -505,6 +510,7 @@ def do_in_cai_shen_miao_click_points(x0=0, y0 = 0, red_imag_path = "img_template
 
     y_move = 1100
     
+    huge_like = (680, 1220)
     qi_lin = (414, 432)
     xuan_wu = (617, 345)
     qing_long = (667, 582)
@@ -514,19 +520,19 @@ def do_in_cai_shen_miao_click_points(x0=0, y0 = 0, red_imag_path = "img_template
     cai_shen_ye_4 = (627, 1058)
     cai_shen_ye_top2 = (414, 934)
     
-    cai_shen_low_1 = (263,327)
-    cai_shen_low_2 = (554,329)
-    cai_shen_low_31 = (89,490)
-    cai_shen_low_32 = (247,509)
-    cai_shen_low_33 = (565,511)
-    cai_shen_low_34 = (716,503)
-    cai_shen_low_35 = (402,585)
-    cai_shen_low_41 = (151,803)
-    cai_shen_low_42 = (399,831)
-    cai_shen_low_43 = (639,798)
-    cai_shen_low_51 = (161,990)
-    cai_shen_low_52 = (394,1046)
-    cai_shen_low_53 = (629,1000)
+    cai_shen_low_1 = (260,320)
+    cai_shen_low_2 = (550,320)
+    cai_shen_low_31 = (80,500)
+    cai_shen_low_32 = (240,500)
+    cai_shen_low_33 = (565,500)
+    cai_shen_low_34 = (716,500)
+    cai_shen_low_35 = (400,580)
+    cai_shen_low_41 = (151,820)
+    cai_shen_low_42 = (399,820)
+    cai_shen_low_43 = (639,820)
+    cai_shen_low_51 = (161,1010)
+    cai_shen_low_52 = (394,1010)
+    cai_shen_low_53 = (629,1010)
 
     miao_list_up = [    
         xuan_wu, 
@@ -571,9 +577,12 @@ def do_in_cai_shen_miao_click_points(x0=0, y0 = 0, red_imag_path = "img_template
 
 
     # x0, y0 include-header position (NO header)
-    def click_one_miao(x,y,x0,y0):
+    def click_one_miao(x,y,x0,y0, count_header = True):
         print(f"x,y and x0,y0 = {x,y, x0, y0}")
-        y_off = fixed_data["header"][1]
+        if count_header == True:
+            y_off = fixed_data["header"][1]
+        else:
+            y_off = 0
         # 点击财神庙
         mouse_click(x+x0,y+y0+y_off, to_origin=True)
         time.sleep(SHT_TIME*2)
@@ -594,7 +603,13 @@ def do_in_cai_shen_miao_click_points(x0=0, y0 = 0, red_imag_path = "img_template
         print(x0+fixed_data['general_exit'][0], y0 + fixed_data['general_exit'][1])
         mouse_click(x0+fixed_data["general_exit"][0], y0+fixed_data["general_exit"][1], to_origin=False)
         time.sleep(SHT_TIME)
-        
+    # 大点赞
+    x, y = huge_like
+    mouse_click(x+x0, y+y0)
+    for _ in range(4):
+        do_painless_click(x0, y0)
+        time.sleep(SHT_TIME)
+    # 上层庙宇点赞
     for miao_pos in miao_list_up:
         print(f"CLICK ONE MIAO x0, y0 = {x0, y0}")
         click_one_miao(miao_pos[0], miao_pos[1], x0, y0)
@@ -603,7 +618,8 @@ def do_in_cai_shen_miao_click_points(x0=0, y0 = 0, red_imag_path = "img_template
     # move mouse to a lower position on the page (for later dragging event)
     # mouse_move(x0+cai_shen_ye_4[0], y0+cai_shen_ye_4[1])
     # time.sleep(SHT_TIME)
-    
+    do_painless_click(x0, y0)
+    time.sleep(SHT_TIME)
     print("drag begin")
     logging.info("drag starts")
     mouse_roll_up(20, rev=True, wait_time=EX_SHT_TIME)
@@ -621,6 +637,7 @@ def go_home_to_cai_shen_miao(x0 =0 , y0 =0 ):
     x,y = pos
     mouse_click(x+x0, y+y0)
     time.sleep(SHT_TIME)
+    mouse_roll_up(20, rev = False, wait_time = EX_SHT_TIME)
     time.sleep(SHT_TIME)
     x,y = fixed_data["cheng_jiao-cai_shen_miao"]
     mouse_click(x+x0, y+y0)
@@ -663,6 +680,63 @@ def do_after_invited(x0=0, y0 = 0):
         mouse_click(x+x0, y+y0)
         time.sleep(SHT_TIME)
     do_exit_to_the_end(x0, y0)
+
+def do_from_home_do_dian_zan(x0 = 0, y0 = 0, debug = False):
+    fixed_data['cheng-jiao_pai-hang-bang_yi-jian-dian-zan'] = (680, 1380)
+    fixed_data['cheng-jiao_pai-hang-bang'] = (150, 970)
+    fixed_data['cheng-jiao_pai-hang-bang_enter-one'] = (400, 400)
+    fixed_data['cheng-jiao_pai-hang-bang_enter-kua-fu'] = (350,150)
+    if x0 == 0 and y0 == 0:
+        x0,y0 = get_da_zhang_gui_pos()
+    # 进入城郊
+    x, y = fixed_data['home-cheng_jiao']
+    mouse_click(x+x0, y+y0)
+    time.sleep(SHT_TIME)
+    # 进入排行榜页面
+    x, y = fixed_data['cheng-jiao_pai-hang-bang']
+    mouse_click(x+x0, y+y0)
+    time.sleep(SHT_TIME)
+    # 进入可点赞页面
+    x, y = fixed_data["cheng-jiao_pai-hang-bang_enter-one"]
+    mouse_click(x+x0, y+y0)
+    time.sleep(SHT_TIME)
+    # 点击一键点击
+    x, y = fixed_data["cheng-jiao_pai-hang-bang_yi-jian-dian-zan"]
+    mouse_click(x+x0, y+y0)
+    time.sleep(SHT_TIME)
+    # 点击几次完成
+    for _ in range(8):
+        do_painless_click(x0, y0)
+        time.sleep(SHT_TIME)
+    time.sleep(SHT_TIME)
+    # 退出当前点赞页面
+    x, y = fixed_data["general_exit"]
+    mouse_click(x+x0, y+y0)
+    time.sleep(SHT_TIME)
+    # 进入跨服点赞页面
+    x, y = fixed_data["cheng-jiao_pai-hang-bang_enter-kua-fu"]
+    time.sleep(SHT_TIME)
+    mouse_click(x+x0, y+y0)
+    # 进入可点赞页面
+    x, y = fixed_data["cheng-jiao_pai-hang-bang_enter-one"]
+    mouse_click(x+x0, y+y0)
+    time.sleep(SHT_TIME)
+    # 点击一键点击
+    x, y = fixed_data["cheng-jiao_pai-hang-bang_yi-jian-dian-zan"]
+    mouse_click(x+x0, y+y0)
+    time.sleep(SHT_TIME)
+    # 点击几次完成
+    for _ in range(8):
+        do_painless_click(x0, y0)
+        time.sleep(SHT_TIME)
+    # 退出当前点赞页面
+    for _ in range(2):
+        x, y = fixed_data["general_exit"]
+        mouse_click(x+x0, y+y0)
+        time.sleep(SHT_TIME)
+    # 返回 home
+    do_enter_home(x0, y0)
+
 # 根据图片推测状态,返回状态，以及对应状态的绝对位置（if any）
 def obtain_status(x0 = 0, y0 = 0, acc_threshold = 0.7):
     # 测试中
@@ -860,17 +934,17 @@ def process_pre_defined_event_with_interrupt_event():
 
 
 command_list = ["qian_zhuang", 
-         "xiao_yu", 
-         "home_enter_kua_fu", 
-         "do_huodong_enter_yanhuizhengba", 
-         "do_yan_hui_page_enter_bai_fu_and_fu_yan",
-         "do_exit_to_the_end", 
-         "do_click_cai_shen", 
-         "do_in_cai_shen_miao_click_points", 
-         "go_home_to_cai_shen_miao", 
-         "do_from_home_to_do_all_in_cai_shen_miao"
+        "xiao_yu", 
+        "home_enter_kua_fu", 
+        "do_huodong_enter_yanhuizhengba", 
+        "do_yan_hui_page_enter_bai_fu_and_fu_yan",
+        "do_exit_to_the_end", 
+        "do_click_cai_shen", 
+        "do_in_cai_shen_miao_click_points", 
+        "go_home_to_cai_shen_miao", 
+        "do_from_home_to_do_all_in_cai_shen_miao",
+        "do_from_home_do_dian_zan",
         ]
-
 def do_based_on_TEST_Command(task_command):
     x0, y0 = get_da_zhang_gui_pos()
     if task_command == "qian_zhuang":
@@ -895,13 +969,17 @@ def do_based_on_TEST_Command(task_command):
         go_home_to_cai_shen_miao()
     elif task_command == "do_from_home_to_do_all_in_cai_shen_miao":
         do_from_home_to_do_all_in_cai_shen_miao()
+    elif task_command == "do_from_home_do_dian_zan":
+        do_from_home_do_dian_zan()
 
 print("BEGIN")
 ImageTest().starttest()#启动软件
 time.sleep(MID_TIME)
-# commands = [1, 9, 1] 
+# commands = [1, 10, 9, 1] 
 # commands = [0] # 点击钱庄
-commands = [9] # 去财神庙点赞
+# commands = [9] # 去财神庙点赞
+# commands = [10] # 排行榜点赞
+commands = [10, 9]
 # one  time task
 for command_idx in commands:
     test_command = command_list[command_idx]

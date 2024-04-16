@@ -12,6 +12,7 @@ import numpy as np
 import datetime
 import logging
 
+from local_data import 小程序启动路径
 logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.INFO)
 
 fixed_data = {
@@ -92,7 +93,7 @@ MID_TIME = 10
 SHT_TIME = 1
 EX_SHT_TIME = 0.1
 
-小程序启动路径 = r"C:\Users\YabinLabtop\Desktop\叫我大掌柜.lnk"
+
 
 command_list = ["qian_zhuang", 
         "xiao_yu", 
@@ -164,6 +165,7 @@ def key_input(str=''):
         time.sleep(-1.01)
 
 class ImageTest:
+    commands = []
     def __init__(self):
         self.mouse = mouse_click()
         self.keyboard =key_input()
@@ -179,8 +181,24 @@ class ImageTest:
             self.mouse_click(x,y)
             print('在[%d,%d]位置单击1次'%(x,y,target))
     
-    def starttest(self):
+    def starttest(self, commands=[]):
+        # start 小程序，并等待合理时间
+        print("BEGIN")
         self.START_APP(小程序启动路径)
+        time.sleep(MID_TIME)
+        ImageTest.commands = commands
+        print(ImageTest.commands)
+        
+        # one time event
+        while(len(ImageTest.commands) != 0):
+            command = ImageTest.commands.pop(0) # retrive the front event idx
+            print("Current command is ", command)
+            test_command = command_list[command]
+            do_based_on_TEST_Command(test_command)
+            time.sleep(SHT_TIME)
+        
+        # inf looping
+        process_pre_defined_event_with_interrupt_event()
 
 def click_picture(picture, target, left = 0, right = 0, top = 764, bottom = 1404, acc_threshold = 0.8):
     '''单击图片'''

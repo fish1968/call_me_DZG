@@ -1,22 +1,17 @@
 #----All refferred to a CSDN Blog: https://blog.csdn.net/luoyir1997/article/details/119117168
 import dzg_data_and_function as my_dzg 
+from local_data import commands
 
-print("BEGIN")
-my_dzg.ImageTest().starttest()#启动软件
-my_dzg.time.sleep(my_dzg.MID_TIME)
-# commands = [1, 10, 9, 1] 
-# commands = [0] # 点击钱庄
-# commands = [9] # 去财神庙点赞
-# commands = [10] # 排行榜点赞
-# commands = [10, 9] # 点赞排行榜，财神庙点赞
-commands = [11] # 商战
-# one  time task
-for command_idx in commands:
-    test_command = my_dzg.command_list[command_idx]
-    my_dzg.do_based_on_TEST_Command(test_command)
-    my_dzg.time.sleep(SHT_TIME)
+my_dzg.ImageTest().starttest(commands=commands)#启动软件
+
+# one time task
+# for command_idx in commands:
+#     test_command = my_dzg.command_list[command_idx]
+#     my_dzg.do_based_on_TEST_Command(test_command)
+#     my_dzg.time.sleep(my_dzg.SHT_TIME)
+
 # long looping
-my_dzg.process_pre_defined_event_with_interrupt_event()
+# my_dzg.process_pre_defined_event_with_interrupt_event()
 
 exit()
 if __name__ =='__main__':

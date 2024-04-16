@@ -106,15 +106,22 @@ def get_mouse_point():
     windll.user32.GetCursorPos(byref(po))
     return int(po.x), int(po.y)
  
-def mouse_click(x=None,y=None, to_origin = True):
+def mouse_click(x=None,y=None, to_origin = True, debug = False):
     cur_x, cur_y = get_mouse_point()
-    if not x is None and not y is None:
+    if debug:
+        print(f"cursor before move is at {cur_x, cur_y}")
+    if not (x is None) and not (y is None):
         mouse_move(x,y)
-        time.sleep(EX_SHT_TIME)
+    else:
+        return
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
     if to_origin:
+        if debug:
+            print(f"move back to {cur_x, cur_y}")
         mouse_move(cur_x, cur_y)
+    time.sleep(EX_SHT_TIME)
+
 def mouse_dclick(x=None,y=None):
     if not x is None and not y is None:
         mouse_move(x,y)
@@ -125,6 +132,16 @@ def mouse_dclick(x=None,y=None):
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
 def mouse_move(x,y):
     windll.user32.SetCursorPos(x, y)
+
+def mouse_roll_up(times, rev = False, wait_time = EX_SHT_TIME):
+    # roll up / down(rev = True) for times and wait wait_time for each time
+    for _ in range(times):
+        if rev == False:
+            win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL, 0, 0, 1, 0)
+        else:
+            win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL, 0, 0, -1, 0)
+        time.sleep(wait_time)
+
 def key_input(str=''):
     for c in str:
         win32api.keybd_event(VK_CODE[c],0,0,0)
@@ -343,21 +360,21 @@ def do_xiao_yu(x0=0,y0 = 0):
     print(f"x0 ,y0 = {x0, y0}")
     x,y = fixed_data["home-xiao-yu"]
     print(f"home xiaoyu: x ,y = {x, y}")
-    mouse_click(x+x0, y+y0, False)
+    mouse_click(x+x0, y+y0)
     time.sleep(MID_TIME) # 需要等待长一点
     # 点击执行
     x,y = fixed_data["xiao-yu-execute"]
-    mouse_click(x+x0, y+y0, False)
+    mouse_click(x+x0, y+y0)
     for _ in range(20):
         do_painless_click(x0,y0)
         time.sleep(SHT_TIME)
     # 点击确定
     x,y = fixed_data["xiao-yu-execute-over"]
-    mouse_click(x+x0, y+y0, False)
+    mouse_click(x+x0, y+y0)
     time.sleep(SHT_TIME)
     # 退出界面
     x,y = fixed_data["painless-point"]
-    mouse_click(x+x0, y+y0, False)
+    mouse_click(x+x0, y+y0)
     time.sleep(SHT_TIME)
 # 主页 -> 跨服
 def do_home_enter_kua_fu(x0=0, y0=0):
@@ -421,7 +438,7 @@ def do_exit_to_the_end(x0 = 0, y0 = 0, exit_picture_path = "img_templates/13_exi
         x,y = fixed_data["general_exit"]
         if acc < acc_threshold:
             break
-        mouse_click(x+x0, y+y0,to_origin=True)
+        mouse_click(x+x0, y+y0)
         time.sleep(MID_TIME)
         print(f"Exit position found as {(x+x0, y+y0)} with acc {acc:1.4f}")
         round -= 1
@@ -463,7 +480,7 @@ def do_click_all_templates(x0 = 0, y0 = 0, template_pic_path = "img_templates/re
         print(f"Target position found as {pic_pos} with acc {acc:1.4f}")
         round -= 1
         if acc > acc_threshold:
-            mouse_click(x+x0, y+y0,to_origin=True)
+            mouse_click(x+x0, y+y0)
         else:
             break
         if round == 0:
@@ -485,15 +502,6 @@ def do_in_cai_shen_miao_click_points(x0=0, y0 = 0, red_imag_path = "img_template
     cai_shen_exit =     (730, 210)
     cai_shen_bu_pos =   (90, 1200)
     dian_zan_pos =      (400, 1150)
-    
-    # qi_lin =            (414, 432)
-    # xuan_wu =           (520, 360)
-    # qing_long =         (580, 667)
-    # cai_shen_ye_1 =     (766, 407)
-    # cai_shen_ye_2 =     (1107, 189)
-    # cai_shen_ye_3 =     (400, 1100)
-    # cai_shen_ye_4 =     (180, 1100)
-    # cai_shen_ye_top2 =     (615, 1050)
 
     y_move = 1100
     
@@ -520,21 +528,8 @@ def do_in_cai_shen_miao_click_points(x0=0, y0 = 0, red_imag_path = "img_template
     cai_shen_low_52 = (394,1046)
     cai_shen_low_53 = (629,1000)
 
-    # cai_shen_low_1  = (250, 380 )
-    # cai_shen_low_2  = (550, 380 )
-    # cai_shen_low_31 = (80 , 550 )
-    # cai_shen_low_32 = (220, 550 )
-    # cai_shen_low_33 = (550, 550 )
-    # cai_shen_low_34 = (700, 550 )
-    # cai_shen_low_35 = (400, 600 )
-    # cai_shen_low_41 = (150, 850 )
-    # cai_shen_low_42 = (400, 860 )
-    # cai_shen_low_43 = (650, 850 )
-    # cai_shen_low_51 = (150, 1000)
-    # cai_shen_low_52 = (400, 1020)
-    # cai_shen_low_53 = (650, 1000)
     miao_list_up = [    
-        xuan_wu,
+        xuan_wu, 
         qi_lin,
         qing_long,
         cai_shen_ye_1,
@@ -558,6 +553,7 @@ def do_in_cai_shen_miao_click_points(x0=0, y0 = 0, red_imag_path = "img_template
         cai_shen_low_52,
         cai_shen_low_53
     ]
+    # 拖拽 移动
     def drag_and_move_up(y_move=y_move):
         # Simulate mouse down
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
@@ -599,23 +595,24 @@ def do_in_cai_shen_miao_click_points(x0=0, y0 = 0, red_imag_path = "img_template
         mouse_click(x0+fixed_data["general_exit"][0], y0+fixed_data["general_exit"][1], to_origin=False)
         time.sleep(SHT_TIME)
         
-    for point in miao_list_up:
+    for miao_pos in miao_list_up:
         print(f"CLICK ONE MIAO x0, y0 = {x0, y0}")
-        click_one_miao(point[0], point[1], x0, y0)
+        click_one_miao(miao_pos[0], miao_pos[1], x0, y0)
 
     time.sleep(SHT_TIME)
     # move mouse to a lower position on the page (for later dragging event)
-    mouse_move(x0+cai_shen_ye_4[0], y0+cai_shen_ye_4[1])
-    time.sleep(SHT_TIME)
+    # mouse_move(x0+cai_shen_ye_4[0], y0+cai_shen_ye_4[1])
+    # time.sleep(SHT_TIME)
     
     print("drag begin")
     logging.info("drag starts")
-    drag_and_move_up()
+    mouse_roll_up(20, rev=True, wait_time=EX_SHT_TIME)
+    # drag_and_move_up()
     logging.info("drag finished")
     print("drag end")
     
-    for point in miao_list_down:
-        click_one_miao(point[0], point[1], x0, y0)
+    for miao_pos in miao_list_down:
+        click_one_miao(miao_pos[0], miao_pos[1], x0, y0)
 
 def go_home_to_cai_shen_miao(x0 =0 , y0 =0 ):
     if x0 == 0 and y0 == 0:
@@ -632,10 +629,15 @@ def go_home_to_cai_shen_miao(x0 =0 , y0 =0 ):
 def do_from_home_to_do_all_in_cai_shen_miao(x0=0, y0=0, red_imag_path="img_templates/red_point.png"):
     if x0 == 0 and y0 == 0:
         x0,y0 = get_da_zhang_gui_pos()
+    # 从 home 进入财神庙
     go_home_to_cai_shen_miao(x0, y0)
     time.sleep(SHT_TIME)
     time.sleep(SHT_TIME)
+    # 再财神庙进行点击
     do_in_cai_shen_miao_click_points(x0,y0,red_imag_path)
+    # 返回 home
+    time.sleep(SHT_TIME)
+    do_enter_home(x0, y0)
 
 def do_after_invited(x0=0, y0 = 0):
     # 在收到邀请后 进行如宴会，并退出到主页
@@ -646,19 +648,19 @@ def do_after_invited(x0=0, y0 = 0):
             x,y = fixed_data["yanhui-in"]
             print(f"x0 y0 at {(x0,y0)}")
             print(f"Invite at {(x+x0,y+y0)}")
-            mouse_click(x+x0, y+y0, False)
+            mouse_click(x+x0, y+y0)
             time.sleep(SHT_TIME)
         for _ in range(3): # odd number is safer than even
             x,y = fixed_data["yanhui-box"]
-            mouse_click(x+x0, y+y0, True)
+            mouse_click(x+x0, y+y0)
             time.sleep(SHT_TIME)
         x,y = fixed_data["yanhui-open_all_boxes"]
-        mouse_click(x+x0, y+y0, True)
+        mouse_click(x+x0, y+y0)
         time.sleep(SHT_TIME)
         do_painless_click(x0, y0) # exit from openning boxes
         time.sleep(SHT_TIME)
         x,y = fixed_data["yanhui-next"]
-        mouse_click(x+x0, y+y0, True)
+        mouse_click(x+x0, y+y0)
         time.sleep(SHT_TIME)
     do_exit_to_the_end(x0, y0)
 # 根据图片推测状态,返回状态，以及对应状态的绝对位置（if any）
@@ -874,6 +876,8 @@ def do_based_on_TEST_Command(task_command):
     if task_command == "qian_zhuang":
         do_enter_stores(x0=x0, y0=y0)
         time.sleep(SHT_TIME)
+        mouse_roll_up(5, rev = False, wait_time=EX_SHT_TIME)
+        time.sleep(SHT_TIME)
         do_at_stores_click_qian_zhuang(x0=x0, y0=y0, times=1000)
     elif task_command == "xiao_yu":
         do_xiao_yu(x0=x0, y0=y0)
@@ -895,9 +899,9 @@ def do_based_on_TEST_Command(task_command):
 print("BEGIN")
 ImageTest().starttest()#启动软件
 time.sleep(MID_TIME)
-#commands = [1, 9, 1] 
-commands = [0] # 点击钱庄
-#commands = [9] # 去财神庙点赞
+# commands = [1, 9, 1] 
+# commands = [0] # 点击钱庄
+commands = [9] # 去财神庙点赞
 # one  time task
 for command_idx in commands:
     test_command = command_list[command_idx]

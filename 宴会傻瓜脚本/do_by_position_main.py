@@ -5,8 +5,6 @@ from common_dzg_data import *
 
 logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.INFO)
 
-
-
 print("BEGIN")
 ImageTest().starttest()#启动软件
 time.sleep(MID_TIME)
@@ -58,21 +56,3 @@ if __name__ =='__main__':
         time.sleep(MID_TIME)
         x0,y0 = get_da_zhang_gui_pos()
         click_pictures(pictures=pictures, targets=targets, x0 = x0, y0 = y0)
-#   click_picture('picture6.png')
-
-if False:
-    img_template_path = os.path.join(os.getcwd(), 'test.jpg') #定义一个模板图片路径
-    im_screen = ImageGrab.grab() #调用ImageGrab库函数实现对当前主机画面截图并存储至im变量
-    im_screen.save(r'SCREEN2.png') #将截图变量im_screen输出保存至工程路径下命名为SCREEN2.PNG
-    source = cv2.imread(r'SCREEN2.png')  # 读取当前屏幕截图
-    template = cv2.imread(img_template_path)  # 打开要点击的模板图片
-    result = cv2.matchTemplate(source, template, cv2.TM_CCOEFF_NORMED)
-    print(result)
-    pos_start = cv2.minMaxLoc(result)[3]
-    x = int(pos_start[0]) + int(template.shape[1] / 2)
-    y = int(pos_start[1]) + int(template.shape[0] / 2)
-    mouse_click(x, y) #鼠标点击返回坐标点
-    time.sleep(2)
-    mouse_click(x, y) #鼠标点击返回坐标点
-    print(x, y) #打印返回坐标点
-

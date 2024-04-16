@@ -93,6 +93,19 @@ EX_SHT_TIME = 0.1
 
 小程序启动路径 = r"C:\Users\YabinLabtop\Desktop\叫我大掌柜.lnk"
 
+command_list = ["qian_zhuang", 
+        "xiao_yu", 
+        "home_enter_kua_fu", 
+        "do_huodong_enter_yanhuizhengba", 
+        "do_yan_hui_page_enter_bai_fu_and_fu_yan",
+        "do_exit_to_the_end", 
+        "do_click_cai_shen", 
+        "do_in_cai_shen_miao_click_points", 
+        "go_home_to_cai_shen_miao", 
+        "do_from_home_to_do_all_in_cai_shen_miao",
+        "do_from_home_do_dian_zan",
+        ]
+
 class POINT(Structure):
     _fields_ = [("x", c_ulong),("y", c_ulong)]
  
@@ -919,18 +932,6 @@ def process_pre_defined_event_with_interrupt_event():
         round = (round+1)%1000
     pass
 
-command_list = ["qian_zhuang", 
-        "xiao_yu", 
-        "home_enter_kua_fu", 
-        "do_huodong_enter_yanhuizhengba", 
-        "do_yan_hui_page_enter_bai_fu_and_fu_yan",
-        "do_exit_to_the_end", 
-        "do_click_cai_shen", 
-        "do_in_cai_shen_miao_click_points", 
-        "go_home_to_cai_shen_miao", 
-        "do_from_home_to_do_all_in_cai_shen_miao",
-        "do_from_home_do_dian_zan",
-        ]
 def do_based_on_TEST_Command(task_command):
     x0, y0 = get_da_zhang_gui_pos()
     if task_command == "qian_zhuang":

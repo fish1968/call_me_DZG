@@ -105,6 +105,7 @@ command_list = ["qian_zhuang",
         "go_home_to_cai_shen_miao", 
         "do_from_home_to_do_all_in_cai_shen_miao",
         "do_from_home_do_dian_zan",
+        "do_from_home_do_shang_zhan",
         ]
 
 class POINT(Structure):
@@ -875,6 +876,36 @@ def do_enter_game(x0 = 0, y0 = 0, debug = False):
         print(f"Unexpected exit function: do_enter_game(x0 = {x0}, y0 = {y0})")
     return False
 
+def do_from_home_do_shang_zhan(x0 = None, y0 = None, debug = False):
+    if x0 == None or y0 == None:
+        x0, y0 = get_da_zhang_gui_pos()
+    do_enter_home(x0, y0)
+    time.sleep(SHT_TIME)
+    x,y = fixed_data["home-cheng_jiao"]
+    mouse_click(x+x0, y+y0, debug = debug)
+    time.sleep(SHT_TIME)
+    fixed_data["cheng-jiao_shang-zhan"] = (650, 800)
+    x,y = fixed_data["cheng-jiao_shang-zhan"]
+    mouse_roll_up(20, rev = False, wait_time=EX_SHT_TIME, x0 = x0, y0 = y0)
+    mouse_click(x+x0, y+y0, debug = debug)
+    time.sleep(SHT_TIME)
+    
+    fixed_data["cheng-jiao_shang-zhan_zhan-dou"] = (700, 1060)
+    x,y = fixed_data["cheng-jiao_shang-zhan_zhan-dou"]
+    mouse_click(x+x0, y+y0, debug = debug)
+    time.sleep(SHT_TIME)
+    
+    fixed_data["cheng-jiao_shang-zhan_zhan-dou_quick"] = (400, 1130)
+    x,y = fixed_data["cheng-jiao_shang-zhan_zhan-dou_quick"]
+    mouse_click(x+x0, y+y0, debug = debug)
+    time.sleep(SHT_TIME)
+    
+    for _ in range(3):
+        do_painless_click(x0, y0)
+    
+    # go back home
+    do_enter_home(x0, y0)
+    
 # 检测状态，根据结果执行提前编辑的内容
 def process_pre_defined_event_with_interrupt_event():
     round = 990 #0-999
@@ -959,3 +990,5 @@ def do_based_on_TEST_Command(task_command):
         do_from_home_to_do_all_in_cai_shen_miao()
     elif task_command == "do_from_home_do_dian_zan":
         do_from_home_do_dian_zan()
+    elif task_command == "do_from_home_do_shang_zhan":
+        do_from_home_do_shang_zhan(x0, y0)

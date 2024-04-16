@@ -8,7 +8,8 @@ my_dzg.time.sleep(my_dzg.MID_TIME)
 # commands = [0] # 点击钱庄
 # commands = [9] # 去财神庙点赞
 # commands = [10] # 排行榜点赞
-commands = [10, 9] # 点赞排行榜，财神庙点赞
+# commands = [10, 9] # 点赞排行榜，财神庙点赞
+commands = [11] # 商战
 # one  time task
 for command_idx in commands:
     test_command = my_dzg.command_list[command_idx]

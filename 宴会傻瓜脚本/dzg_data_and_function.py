@@ -12,6 +12,7 @@ import numpy as np
 import datetime
 import logging
 
+logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.INFO)
 
 fixed_data = {
     # 包括 header 的 y 位置 ！！！ 一定不要乱

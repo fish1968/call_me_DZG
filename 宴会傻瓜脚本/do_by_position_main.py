@@ -1,25 +1,21 @@
-
-
 #----All refferred to a CSDN Blog: https://blog.csdn.net/luoyir1997/article/details/119117168
-from dzg_data_and_function import *
-
-logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.INFO)
+import dzg_data_and_function as my_dzg 
 
 print("BEGIN")
-ImageTest().starttest()#启动软件
-time.sleep(MID_TIME)
+my_dzg.ImageTest().starttest()#启动软件
+my_dzg.time.sleep(my_dzg.MID_TIME)
 # commands = [1, 10, 9, 1] 
 # commands = [0] # 点击钱庄
 # commands = [9] # 去财神庙点赞
 # commands = [10] # 排行榜点赞
-commands = [10, 9]
+commands = [10, 9] # 点赞排行榜，财神庙点赞
 # one  time task
 for command_idx in commands:
-    test_command = command_list[command_idx]
-    do_based_on_TEST_Command(test_command)
-    time.sleep(SHT_TIME)
+    test_command = my_dzg.command_list[command_idx]
+    my_dzg.do_based_on_TEST_Command(test_command)
+    my_dzg.time.sleep(SHT_TIME)
 # long looping
-process_pre_defined_event_with_interrupt_event()
+my_dzg.process_pre_defined_event_with_interrupt_event()
 
 exit()
 if __name__ =='__main__':

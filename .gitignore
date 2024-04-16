@@ -24,3 +24,6 @@ trial/*
 
 # ignore example
 *example*
+
+# ignore pyc
+*.pyc

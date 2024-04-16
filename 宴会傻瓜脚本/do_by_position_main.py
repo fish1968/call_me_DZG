@@ -571,29 +571,33 @@ def do_in_cai_shen_miao_click_points(x0=0, y0 = 0, red_imag_path = "img_template
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
 
         # Wait for a short period of time
-        time.sleep(0.5)  # Adjust the sleep duration as needed
+        time.sleep(SHT_TIME)  # Adjust the sleep duration as needed
 
 
     # x0, y0 include-header position (NO header)
     def click_one_miao(x,y,x0,y0):
         print(f"x,y and x0,y0 = {x,y, x0, y0}")
         y_off = fixed_data["header"][1]
+        # 点击财神庙
         mouse_click(x+x0,y+y0+y_off, to_origin=True)
-        time.sleep(SHT_TIME)
+        time.sleep(SHT_TIME*2)
+        # 点击财神簿
         mouse_click(x0+cai_shen_bu_pos[0],y0+cai_shen_bu_pos[1]+y_off, to_origin=True)
-        time.sleep(SHT_TIME)
+        time.sleep(SHT_TIME*2)
+        # 点击点赞
         mouse_click(x0+dian_zan_pos[0],y0+dian_zan_pos[1]+y_off, to_origin=True)
-        time.sleep(SHT_TIME)
+        time.sleep(SHT_TIME*2)
         # exit
-        for _ in range(2): # 需要点赞 与 没有点赞的情况各需要 1-2次
+        for _ in range(4): # 需要点赞 与 没有点赞的情况各需要 1-2次
             do_painless_click(x0=x0, y0=y0)
-            time.sleep(SHT_TIME)
-        mouse_click(x0 + cai_shen_exit[0], y0+cai_shen_exit[1]+y_off)
+            time.sleep(EX_SHT_TIME)
+        # time.sleep(SHT_TIME)
+        # mouse_click(x0 + cai_shen_exit[0], y0+cai_shen_exit[1]+y_off)
         time.sleep(SHT_TIME)
         print(f"x0,y0 = {x0, y0}")
         print(x0+fixed_data['general_exit'][0], y0 + fixed_data['general_exit'][1])
         mouse_click(x0+fixed_data["general_exit"][0], y0+fixed_data["general_exit"][1], to_origin=False)
-        time.sleep(SHT_TIME * 3)
+        time.sleep(SHT_TIME)
         
     for point in miao_list_up:
         print(f"CLICK ONE MIAO x0, y0 = {x0, y0}")
@@ -891,7 +895,9 @@ def do_based_on_TEST_Command(task_command):
 print("BEGIN")
 ImageTest().starttest()#启动软件
 time.sleep(MID_TIME)
-commands = [1,9,1]
+#commands = [1, 9, 1] 
+commands = [0] # 点击钱庄
+#commands = [9] # 去财神庙点赞
 # one  time task
 for command_idx in commands:
     test_command = command_list[command_idx]

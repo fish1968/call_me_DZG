@@ -1,7 +1,7 @@
 
 
 #----All refferred to a CSDN Blog: https://blog.csdn.net/luoyir1997/article/details/119117168
-from common_dzg_data import *
+from dzg_data_and_function import *
 
 logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.INFO)
 

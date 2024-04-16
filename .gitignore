@@ -27,3 +27,8 @@ trial/*
 
 # ignore pyc
 *.pyc
+
+# stop following local file
+
+local_data.py
+宴会傻瓜脚本/local_data.py

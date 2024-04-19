@@ -21,6 +21,7 @@ def click_qian_zhuang_from_home(times = 100):
 def obtain_screenshot(x0 = 0, y0 = 0, x1 = 1080, y1 = 1920):
     # yet implemented
     # ref: https://blog.csdn.net/fxdaniel/article/details/45846333
+    # ref2: https://www.cnblogs.com/shaosks/p/14043177.html
     pass
 
 start = time.time()

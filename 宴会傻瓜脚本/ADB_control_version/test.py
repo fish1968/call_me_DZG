@@ -18,6 +18,11 @@ def click_qian_zhuang_from_home(times = 100):
         subprocess.Popen(["adb", "shell", "input", "tap", str(x), str(y)])
         time.sleep(0.1)
 
+def obtain_screenshot(x0 = 0, y0 = 0, x1 = 1080, y1 = 1920):
+    # yet implemented
+    # ref: https://blog.csdn.net/fxdaniel/article/details/45846333
+    pass
+
 start = time.time()
 click_qian_zhuang_from_home(100)
 

@@ -104,7 +104,7 @@ def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
     
     # 点击几次领取
     x, y = resources_1080_1920.home.home_data.home_Shang_cheng["guan-ying-you-li_ling-qu"]
-    for _ in range(4):
+    for _ in range(6):
         click_once(x, y, device=device, sleep_time=0.2)
         for _ in range(2):
             click_painless(device=device, sleep_time=sleep_time)

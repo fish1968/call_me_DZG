@@ -17,7 +17,9 @@ tu_di = {
     "entry" : (100, 1300),
     "check": (935, 1450),
     "child0": (135, 1615),
-    "delta": 200
+    "delta": 200,
+    "ci_ming_confirm": (550, 1270),
+    "raised_up_confirm": (300, 1620),
 }
 home_upper_list = {
     "delta": (160, 160),

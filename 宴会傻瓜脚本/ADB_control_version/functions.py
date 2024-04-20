@@ -1,6 +1,5 @@
 import os
 import subprocess
-import re
 import time
 import resources_1080_1920.cheng_jiao
 import resources_1080_1920.cheng_jiao.cheng_jiao_data
@@ -256,10 +255,11 @@ def daily_click_rank(device = local_device, sleep_time = 1):
         click_once(ex,ey, device=device, sleep_time=sleep_time)
     enter_home(device=device, sleep_time=sleep_time)
 
-start = time.time()
-daily_click_rank(local_device, 1)
-end = time.time()
-print(end-start)
+def test():
+    start = time.time()
+    daily_click_rank(local_device, 1)
+    end = time.time()
+    print(end-start)
 
 def need_test():
     obtain_screenshot()

@@ -5,6 +5,10 @@ rank = {
     "ben_fu": (150, 150),
     "kua_fu": (500, 150),
     "yi_jian_dian_zan": (950, 1800),
+    "person_bai_fang": (720, 620),
+    "person_pos": (350, 340),
+    "bai_fang_like": (150, 1820),
+    "bai_fang_back": (940, 1650),
 }
 
 shang_zhan = {

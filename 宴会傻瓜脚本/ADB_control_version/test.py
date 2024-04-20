@@ -8,6 +8,7 @@ from local_data import local_device
 
 def need_test():
     obtain_screenshot()
+    tu_di_raise_up(device=local_device) # 弹窗 导致卡死
 
 def passed_test():
     click_qian_zhuang_from_home(100)
@@ -49,6 +50,10 @@ def daily_once(device = local_device):
     click_painless(device=device, times=10)
     shang_zhan(device=device)
 start = time.time()
-daily_once(device=local_device)
+# daily_once(device=local_device)
+# drag_and_move(start_x=800, start_y=980, move_x=400, move_y=0, local_device, 100)
+# click_qian_zhuang_from_home(30)
+# daily_click_rank()
+tu_di_raise_up(device=local_device)
 end = time.time()
 print(end-start)

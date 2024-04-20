@@ -8,6 +8,17 @@ home_bar = {
     "home_bei-bao":     (960, 1850),
 }
 
+zhen_shou = {
+    "entry" : (360, 1050),
+    "page"  :-1, # 最左边
+}
+
+tu_di = {
+    "entry" : (100, 1300),
+    "check": (935, 1450),
+    "child0": (135, 1615),
+    "delta": 200
+}
 home_upper_list = {
     "delta": (160, 160),
     "home_xian-shi-jiang-li": (100, 300),

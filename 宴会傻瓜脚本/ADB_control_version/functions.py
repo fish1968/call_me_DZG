@@ -252,3 +252,24 @@ def daily_click_rank(device = local_device, sleep_time = 1):
     for _ in range(3):
         click_once(ex,ey, device=device, sleep_time=sleep_time)
     enter_home(device=device, sleep_time=sleep_time)
+
+def ri_chang_ren_wu_zhen_shou_five():
+    # 珍兽技能五次
+    pass
+def guan_zhong_mao_yi():
+    # 关中贸易
+    pass
+def ri_chang_ren_wu_zhi_you_five():
+    # 挚友技能提升五次
+    pass
+def ri_chang_ren_wu_zhi_you_two():
+    # 挚友赠送两次
+    pass
+def ri_chang_ren_wu_qian_zhuang20(device = local_device, sleep_time = 0.1):
+    click_qian_zhuang_from_home(times=20*2, sleep_time=sleep_time)
+def ri_chang_ren_wu_zhi_you_tan_xin_five():
+    # 挚友谈心五次
+    pass
+def ri_chang_ren_wu_tu_di_100():
+    # 徒弟培养100次
+    pass

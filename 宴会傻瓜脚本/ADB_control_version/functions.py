@@ -1,16 +1,14 @@
 import os
 import subprocess
 import time
+import resources_1080_1920
+import resources_1080_1920.general
 import resources_1080_1920.cheng_jiao
 import resources_1080_1920.cheng_jiao.cheng_jiao_data
-import resources_1080_1920.general
 import resources_1080_1920.home.home_data
 import resources_1080_1920.shang_pu
 import resources_1080_1920.shang_pu.shang_pu_data
-
-# just for my debug
-local_device = "localhost:5555"
-# my debug part end
+from local_data import local_device
 
 def click_once(x = 0, y = 0, device = local_device, sleep_time = None):
     if device == None:
@@ -31,7 +29,7 @@ def click_painless(device = local_device, sleep_time = None, times = 1):
         click_once(x=500, y =5, device=device, sleep_time=sleep_time)
 
 def click_qian_zhuang_from_home(times = 100, sleep_time = 0.1):
-    x, y = resources_1080_1920.home_bar.home_data.home_bar["home_shang-pu"]
+    x, y = resources_1080_1920.home.home_data.home_bar["home_shang-pu"]
     subprocess.Popen(["adb", "shell", "input", "tap", str(x), str(y)])
     time.sleep(5)
     x,y = 300, 666
@@ -254,27 +252,3 @@ def daily_click_rank(device = local_device, sleep_time = 1):
     for _ in range(3):
         click_once(ex,ey, device=device, sleep_time=sleep_time)
     enter_home(device=device, sleep_time=sleep_time)
-
-def test():
-    start = time.time()
-    daily_click_rank(local_device, 1)
-    end = time.time()
-    print(end-start)
-
-def need_test():
-    obtain_screenshot()
-
-def passed_test():
-    click_qian_zhuang_from_home(100)
-    
-    
-    click_union_basic_constrcut()
-
-    test_move_screenshot()
-
-    remove_local_file()
-    daily_click_home_shang_cheng_ling_qu(device=local_device, sleep_time=1)
-
-    daily_click_xian_shi_chong_zhi(device=local_device, sleep_time=1)
-    daily_click_qian_dao(device=local_device, sleep_time=1)
-    daily_click_qian_zhuang_wei_ren(device=local_device, sleep_time=1)

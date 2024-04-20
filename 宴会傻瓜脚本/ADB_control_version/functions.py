@@ -253,6 +253,48 @@ def daily_click_rank(device = local_device, sleep_time = 1):
         click_once(ex,ey, device=device, sleep_time=sleep_time)
     enter_home(device=device, sleep_time=sleep_time)
 
+def daily_xing_yun_duo_bao_2(device = local_device, sleep_time = 1):
+    # 赠送的幸运夺宝两次
+    enter_home(device=  device, sleep_time=sleep_time)
+    # 入口汇编会变！
+    x, y = resources_1080_1920.home.home_data.xing_yun_duo_bao["entry"]
+    click_once(x, y, device=device, sleep_time=sleep_time)
+    
+    x, y = resources_1080_1920.home.home_data.xing_yun_duo_bao["duo_bao_five"]
+    jx, jy = resources_1080_1920.home.home_data.xing_yun_duo_bao["tiao_guo"]
+    for _ in range(2):
+        click_once(x, y, device=device,sleep_time=sleep_time)
+        click_once(jx, jy, device=device,sleep_time=sleep_time)
+        
+        click_painless(device=device, sleep_time=sleep_time, times=2)
+    x, y = resources_1080_1920.general.general_pos["exit"]
+    click_once(x, y, device=device, sleep_time=sleep_time)
+
+def enter_cheng_jiao(device = local_device, sleep_time = 1):
+    x, y = resources_1080_1920.home.home_data.home_bar["home_cheng-jiao"]
+    click_once(x, y, device=device, sleep_time=sleep_time)
+
+def shang_zhan(device= local_device,sleep_time = 1):
+    enter_home(device=device, sleep_time=sleep_time)
+    enter_cheng_jiao(device=device, sleep_time=sleep_time)
+    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shang_zhan["entry"]
+    click_once(x = x, y = y, device= device, sleep_time=sleep_time)
+    # 领取 money
+    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shang_zhan["money"]
+    click_once(x = x, y = y, device= device, sleep_time=sleep_time)
+    
+    # 不检查是否点击了一键，做两次
+    # 点击fight check
+    for _ in range(2):
+        x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shang_zhan["fight_check"]
+        click_once(x = x, y = y, device= device, sleep_time=sleep_time)
+        x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shang_zhan["fight"]
+        click_once(x = x, y = y, device= device, sleep_time=sleep_time)
+        x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shang_zhan["confirm_fight"]
+        click_once(x = x, y = y, device= device, sleep_time=sleep_time)
+        
+        click_painless(device=device, sleep_time=sleep_time, times=2)
+    enter_home(device=device, sleep_time=sleep_time)
 def ri_chang_ren_wu_zhen_shou_five():
     # 珍兽技能五次
     pass
@@ -265,7 +307,7 @@ def ri_chang_ren_wu_zhi_you_five():
 def ri_chang_ren_wu_zhi_you_two():
     # 挚友赠送两次
     pass
-def ri_chang_ren_wu_qian_zhuang20(device = local_device, sleep_time = 0.1):
+def ri_chang_ren_wu_qian_zhuang_20(device = local_device, sleep_time = 0.1):
     click_qian_zhuang_from_home(times=20*2, sleep_time=sleep_time)
 def ri_chang_ren_wu_zhi_you_tan_xin_five():
     # 挚友谈心五次

@@ -27,8 +27,28 @@ def passed_test():
     daily_click_qian_zhuang_wei_ren(device=local_device, sleep_time=1)
 
     daily_click_rank(local_device, 1)
+    
+    ri_chang_ren_wu_qian_zhuang_20()
+    daily_xing_yun_duo_bao_2()
 
+def daily_once(device = local_device):
+    click_union_basic_constrcut(device=device)
+    daily_click_rank(device=device, sleep_time=1)
+    daily_click_qian_zhuang_wei_ren(device=device, sleep_time=1)
+    daily_xing_yun_duo_bao_2(device=device)
+    ri_chang_ren_wu_qian_zhuang_20(device=device)
+    shang_zhan(device=device)
+    for _ in range(3):
+        time.sleep(60*10)
+        click_painless(device=device, times = 10)
+        click_union_basic_constrcut(device=device)
+    time.sleep(3600 - 3  * 60 * 10)
+    click_painless(device=device, times=10)
+    shang_zhan(device=device)
+    time.sleep(3600)
+    click_painless(device=device, times=10)
+    shang_zhan(device=device)
 start = time.time()
-click_qian_zhuang_from_home(20, 0.1)
+daily_once(device=local_device)
 end = time.time()
 print(end-start)

@@ -37,3 +37,10 @@ home_Shang_cheng = {
     "guan-ying-you-li_ling-qu": (860, 860), # four times 
     "guan-ying-you-li_zi-zhi": (840, 400)
 }
+
+xing_yun_duo_bao = {
+    # entry 可能会变！
+    "entry" : (800, 300),
+    "duo_bao_five": (100, 1500),
+    "tiao_guo": (600, 1450)
+}

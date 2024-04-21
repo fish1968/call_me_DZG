@@ -354,8 +354,8 @@ def daily_cheng_jiao_you_li(device = local_device, sleep_time = 1):
     enter_home(device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time)
 
-    mx, my = resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["drag_move"]
-    drag_and_move(move_x=mx, move_y=my, start_x=1000, start_y=500, device=device, duration_ms=500)
+    move_x, move_y = resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["drag_move"]
+    drag_and_move(move_x=move_x, move_y=move_y, start_x=1000, start_y=500, device=device, duration_ms=500)
     x, y =resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["entry"]
     click_once(x, y , device=device, sleep_time=sleep_time)
     
@@ -373,8 +373,26 @@ def daily_cheng_jiao_you_li(device = local_device, sleep_time = 1):
         click_once(mx, my, device=device, sleep_time=sleep_time)
         click_painless(device, sleep_time=sleep_time, times=2)
     enter_home(device=device, sleep_time=sleep_time)
-    
 
+def daily_ling_qu_yu_gan(device = local_device, sleep_time = 1):
+    # 领取鱼竿
+    enter_home(device=device, sleep_time=sleep_time)
+    enter_cheng_jiao(device=device, sleep_time=sleep_time)
+    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.zhuang_yuan["entry"]
+    click_once(x, y, device=device, sleep_time=sleep_time)
+    move_x, move_y = resources_1080_1920.cheng_jiao.cheng_jiao_data.zhuang_yuan["drag_to_yu_gan"]
+    drag_and_move(move_x=move_x, move_y=move_y, start_x=1000, start_y=500, device=device, duration_ms=500)
+    
+    yu_x, yu_y = resources_1080_1920.cheng_jiao.cheng_jiao_data.zhuang_yuan["yu_gan"]
+    click_once(yu_x, yu_y, device=device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time, times=2)
+    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.zhuang_yuan["shou_huo"]
+    click_once(x, y, device=device, sleep_time=sleep_time)
+    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.zhuang_yuan["shou_huo_confirm"]
+    click_once(x, y, device=device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time, times=2)
+    enter_home(device=device, sleep_time=sleep_time)
+    
 
 def ri_chang_ren_wu_zhen_shou_five():
     # 珍兽技能五次

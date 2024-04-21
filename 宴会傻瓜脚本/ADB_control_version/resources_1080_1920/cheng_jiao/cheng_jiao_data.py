@@ -27,3 +27,12 @@ you_li = {
     "ya_jiu": (550, 1600), # 呀九，also 游历按钮
     "you_li_5": (970, 1620),
 }
+
+zhuang_yuan = {
+    "entry" : (520, 380),
+    
+    "drag_to_yu_gan": (-900, 0),
+    "yu_gan": (840, 1350),
+    "shou_huo": (950, 1630),
+    "shou_huo_confirm": (550, 1730)
+}

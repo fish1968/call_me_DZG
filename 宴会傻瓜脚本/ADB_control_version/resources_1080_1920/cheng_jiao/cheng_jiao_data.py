@@ -30,6 +30,7 @@ you_li = {
     "shi_jiao_gift": (100, 1620),
     "shi_jiao_give": (300, 1480),
     "shi_jiao_obtain": (780, 1480),
+    "drink": (900, 1680)
 }
 
 zhuang_yuan = {
@@ -53,4 +54,14 @@ shou_lie = {
     "help_00":(280, 620),
     "help_delta": (275, 420),
     "confirm": (550, 1540)
+}
+
+xing_shan = {
+    "entry" : (950, 670),
+    "do" : (920, 1520),
+    "click_times": 20,
+    "period": 2,
+    "confirm": (720, 1050),
+    "drag": (-1000, 0),
+    "one_click": (950, 1680)
 }

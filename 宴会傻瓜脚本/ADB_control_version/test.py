@@ -42,6 +42,7 @@ def daily_once(device = local_device):
     daily_ling_qu_yu_gan(device = device, sleep_time = 1)
     ri_chang_ren_wu_qian_zhuang_20(device=device)
     shang_zhan(device=device)
+    daily_xing_shan(device=device)
     for _ in range(3):
         time.sleep(60*10)
         click_painless(device=device, times = 10)
@@ -61,7 +62,8 @@ start = time.time()
 # tu_di_raise_up(device=local_device)
 # daily_ling_qu_yu_gan(device = local_device, sleep_time = 1)
 # shou_lie(device=local_device, sleep_time=1)
-ri_chang_chuang_dang()
+# ri_chang_chuang_dang()
+# daily_xing_shan()
 end = time.time()
 print(end-start)
 

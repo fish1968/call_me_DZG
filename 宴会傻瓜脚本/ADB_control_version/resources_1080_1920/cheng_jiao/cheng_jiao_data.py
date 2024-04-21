@@ -26,6 +26,10 @@ you_li = {
     "men_ke_xuan_ze": (850, 650), # also 挚友选择 （first）
     "ya_jiu": (550, 1600), # 呀九，also 游历按钮
     "you_li_5": (970, 1620),
+    "you_li_buy_cancel":(1020, 640),
+    "shi_jiao_gift": (100, 1620),
+    "shi_jiao_give": (300, 1480),
+    "shi_jiao_obtain": (780, 1480),
 }
 
 zhuang_yuan = {

@@ -10,7 +10,7 @@ import resources_1080_1920.cheng_jiao.cheng_jiao_data
 import resources_1080_1920.home.home_data
 import resources_1080_1920.shang_pu
 import resources_1080_1920.shang_pu.shang_pu_data
-from local_data import local_device
+from local_data import local_device, debugging
 
 def click_once(x = 0, y = 0, device = local_device, sleep_time = None):
     if device == None:
@@ -35,6 +35,8 @@ def drag_and_move(move_x=0, move_y=0, start_x=500, start_y=1000, device = local_
     subprocess.run(adb_command)
 
 def click_qian_zhuang_from_home(times = 100, sleep_time = 0.1, device = local_device):
+    if debugging: 
+        print(f"click_qian_zhuang_from_home: times = {times}, sleep_time: {sleep_time}, device: {device}")
     x, y = resources_1080_1920.home.home_data.home_bar["home_shang-pu"]
     subprocess.Popen(["adb", "-s", device, "shell", "input", "tap", str(x), str(y)])
     time.sleep(5)
@@ -45,11 +47,15 @@ def click_qian_zhuang_from_home(times = 100, sleep_time = 0.1, device = local_de
     for _ in range(times):
         subprocess.Popen(["adb", "shell", "input", "tap", str(x), str(y)])
         time.sleep(sleep_time)
+    if debugging: 
+        print(f"click_qian_zhuang_from_home: end")
     
     enter_home(device=device, sleep_time=sleep_time)
 
 def click_union_basic_constrcut(device = local_device, sleep_time = 1):
-    # at home click cheng-jiao
+        # at home click cheng-jiao
+    if debugging:
+        print(f"click_union_basic_constrcut begin")
     x, y = resources_1080_1920.home.home_data.home_bar["home_cheng-jiao"]
     click_once(x, y, device=device)
     time.sleep(sleep_time)
@@ -72,8 +78,12 @@ def click_union_basic_constrcut(device = local_device, sleep_time = 1):
     x, y = resources_1080_1920.home.home_data.home_bar["home_home"]
     click_once(x, y, device=device)
     time.sleep(sleep_time)
+    if debugging:
+        print(f"click_union_basic_constrcut end")
 
 def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"daily_click_home_shang_cheng_ling_qu begin")
     # 进入主页
     x, y = resources_1080_1920.home.home_data.home_bar["home_home"]
     click_once(x, y, device=device, sleep_time=sleep_time)
@@ -92,7 +102,8 @@ def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
     # 点击礼包
     x, y = resources_1080_1920.home.home_data.home_Shang_cheng["li-bao"]
     click_once(x, y, device=device, sleep_time=sleep_time)
-    
+    cancel = (365, 1050)
+    click_once(cancel[0], cancel[1], device=device, sleep_time=sleep_time) # 点击过的情况 会进入购买，需要取消退出
     # 点击免费的
     x, y = resources_1080_1920.home.home_data.home_Shang_cheng["li-bao_free"]
     click_once(x, y, device=device, sleep_time=sleep_time)
@@ -119,7 +130,12 @@ def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
     x, y = resources_1080_1920.home.home_data.home_bar["home_home"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     
+    if debugging:
+        print(f"daily_click_home_shang_cheng_ling_qu end")
+
 def daily_click_xian_shi_chong_zhi(device= local_device, sleep_time = 1):
+    if debugging:
+        print(f"daily_click_xian_shi_chong_zhi begin")
     # 主页
     x, y = resources_1080_1920.home.home_data.home_bar["home_home"]
     click_once(x, y, device=device, sleep_time=sleep_time)
@@ -144,9 +160,13 @@ def daily_click_xian_shi_chong_zhi(device= local_device, sleep_time = 1):
     # exit
     x, y = resources_1080_1920.general.general_pos["exit"]
     click_once(x, y, device=device, sleep_time=sleep_time)
+    if debugging:
+        print(f"daily_click_xian_shi_chong_zhi end")
     
 # 需要修改，貌似如果程序过早退出，照片会搬运不完整，如何保证搬移完整后再退出程序？
 def obtain_screenshot(img_name = "test.png", device = local_device):
+    if debugging:
+        print(f"obtain_screenshot: img_name = {img_name}")
     # yet implemented
     # ref: https://blog.csdn.net/fxdaniel/article/details/45846333
     # ref2: https://www.cnblogs.com/shaosks/p/14043177.html
@@ -157,14 +177,23 @@ def obtain_screenshot(img_name = "test.png", device = local_device):
     adb_command = ["adb", "-s", device, "pull", "/sdcard/"+img_name, "./"+img_name]
     subprocess.Popen(adb_command, stdout=subprocess.PIPE)
     time.sleep(1)
-    pass
+    if debugging:
+        print(f"obtain_screenshot: img_name = {img_name} end")
+
 
 def test_move_screenshot(img_name = "test.png", device = local_device):
+    if debugging:
+        print(f"test_move_screenshot: img_name = {img_name} begin")
     adb_command = ["adb", "-s", device, "pull", "/sdcard/"+img_name, "./"+img_name]
     subprocess.Popen(adb_command, stdout=subprocess.PIPE)
     time.sleep(1)
+    if debugging:
+        print(f"test_move_screenshot: img_name = {img_name} end")
     
 def daily_click_qian_dao(device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"daily_click_qian_dao: begin")
+    
     # eneter shang pu
     x, y = resources_1080_1920.home.home_data.home_bar["home_shang-pu"]
     click_once(x, y, device=device, sleep_time=sleep_time)
@@ -180,7 +209,12 @@ def daily_click_qian_dao(device = local_device, sleep_time = 1):
     x, y = resources_1080_1920.home.home_data.home_bar["home_home"]
     click_once(x, y, device=device, sleep_time=sleep_time)
 
+    if debugging:
+        print(f"daily_click_qian_dao: end")
+
 def daily_click_qian_zhuang_wei_ren(device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"daily_click_qian_zhuang_wei_ren begin")
     # eneter shang pu
     x, y = resources_1080_1920.home.home_data.home_bar["home_shang-pu"]
     click_once(x, y, device=device, sleep_time=sleep_time)
@@ -222,21 +256,53 @@ def daily_click_qian_zhuang_wei_ren(device = local_device, sleep_time = 1):
     x, y = resources_1080_1920.home.home_data.home_bar["home_home"]
     click_once(x, y, device=device, sleep_time=sleep_time)
 
+    if debugging:
+        print(f"daily_click_qian_zhuang_wei_ren end")
 def remove_local_file(img_file_path="test.png"):
+    if debugging:
+        print(f"remove_local_file img_path = {img_file_path} begin")
     if os.path.exists(img_file_path):
         os.remove(img_file_path)
     else:
         pass
+    if debugging:
+        print(f"remove_local_file img_path = {img_file_path} end")
 
 def enter_cheng_jiao(device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"enter_cheng_jiao 进入城郊界面 begin")
     x, y = resources_1080_1920.home.home_data.home_bar["home_cheng-jiao"]
     click_once(x,y, device=device, sleep_time=sleep_time)
+    if debugging:
+        print(f"enter_cheng_jiao 进入城郊界面 end")
 
 def enter_home(device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"enter_home 进入首页界面 begin")
     x, y = resources_1080_1920.home.home_data.home_bar["home_home"]
     click_once(x,y, device=device, sleep_time=sleep_time)
+    if debugging:
+        print(f"enter_home 进入首页界面 end")
 
+def enter_cheng_jiao(device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"enter_cheng_jiao 进入城郊界面 begin")
+    x, y = resources_1080_1920.home.home_data.home_bar["home_cheng-jiao"]
+    click_once(x, y, device=device, sleep_time=sleep_time)
+    if debugging:
+        print(f"enter_cheng_jiao 进入城郊界面 end")
+
+def enter_chuang_dang(device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"enter_chuang_dang 城郊 begin")
+    x, y = resources_1080_1920.home.home_data.home_bar["home_chuang-dang"]
+    click_once(x = x, y = y, device= device, sleep_time=sleep_time*3)
+    if debugging:
+        print(f"enter_chuang_dang 闯荡 end")
+    
 def daily_click_rank(device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"daily_click_rank 排行榜点赞 begin")
     ex, ey = resources_1080_1920.general.general_pos["exit"]
     enter_cheng_jiao(device=    device, sleep_time=sleep_time)
     
@@ -280,8 +346,12 @@ def daily_click_rank(device = local_device, sleep_time = 1):
     for _ in range(3):
         click_once(ex,ey, device=device, sleep_time=sleep_time)
     enter_home(device=device, sleep_time=sleep_time)
+    if debugging:
+        print(f"daily_click_rank 排行榜点赞 end")
 
 def daily_xing_yun_duo_bao_2(device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"daily_xing_yun_duo_bao_2 幸运夺宝 begin")
     # 赠送的幸运夺宝两次
     enter_home(device=  device, sleep_time=sleep_time)
     # 入口汇编会变！
@@ -298,15 +368,13 @@ def daily_xing_yun_duo_bao_2(device = local_device, sleep_time = 1):
     x, y = resources_1080_1920.general.general_pos["exit"]
     click_once(x, y, device=device, sleep_time=sleep_time)
 
-def enter_cheng_jiao(device = local_device, sleep_time = 1):
-    x, y = resources_1080_1920.home.home_data.home_bar["home_cheng-jiao"]
-    click_once(x, y, device=device, sleep_time=sleep_time)
+    if debugging:
+        print(f"daily_xing_yun_duo_bao_2 幸运夺宝 end")
 
-def enter_chuang_dang(device = local_device, sleep_time = 1):
-    x, y = resources_1080_1920.home.home_data.home_bar["home_chuang-dang"]
-    click_once(x = x, y = y, device= device, sleep_time=sleep_time*3)
-    
+
 def shang_zhan(device= local_device,sleep_time = 1):
+    if debugging:
+        print(f"shang_zhan 商战")
     enter_home(device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time)
     x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shang_zhan["entry"]
@@ -327,8 +395,12 @@ def shang_zhan(device= local_device,sleep_time = 1):
         
         click_painless(device=device, sleep_time=sleep_time, times=2)
     enter_home(device=device, sleep_time=sleep_time)
+    if debugging:
+        print(f"shang_zhan 商战 end now at home")
 
 def tu_di_raise_up(device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"tu_di_raise_up 徒弟培养 ")
     # 容易出现弹窗，导致卡死。。。
     cx, cy = resources_1080_1920.home.home_data.tu_di["check"]
     delta = resources_1080_1920.home.home_data.tu_di["delta"]
@@ -356,7 +428,12 @@ def tu_di_raise_up(device = local_device, sleep_time = 1):
             time.sleep(10)
     click_once(ex, ey, device= device, sleep_time=sleep_time)
 
+    if debugging:
+        print(f"tu_di_raise_up 徒弟培养 end")
+
 def daily_cheng_jiao_you_li(device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"daily_cheng_jiao_you_li 城郊游历")
     enter_home(device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time)
 
@@ -379,8 +456,12 @@ def daily_cheng_jiao_you_li(device = local_device, sleep_time = 1):
         click_once(mx, my, device=device, sleep_time=sleep_time)
         click_painless(device, sleep_time=sleep_time, times=2)
     enter_home(device=device, sleep_time=sleep_time)
+    if debugging:
+        print(f"daily_cheng_jiao_you_li 城郊游历 end")
 
 def daily_ling_qu_yu_gan(device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"daily_ling_qu_yu_gan 领取鱼竿")
     # 领取鱼竿
     enter_home(device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time)
@@ -398,8 +479,12 @@ def daily_ling_qu_yu_gan(device = local_device, sleep_time = 1):
     click_once(x, y, device=device, sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time, times=2)
     enter_home(device=device, sleep_time=sleep_time)
+    if debugging:
+        print(f"daily_ling_qu_yu_gan 领取鱼竿 end")
 
 def shou_lie(device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"shou_lie begin")
     enter_home(device=device, sleep_time=sleep_time)
     ex, ey = resources_1080_1920.general.general_pos["exit"]
     enter_cheng_jiao(device=device, sleep_time=sleep_time)
@@ -437,8 +522,12 @@ def shou_lie(device = local_device, sleep_time = 1):
     
     click_once(ex, ey, device=device, sleep_time=sleep_time, times = 2)
     enter_home(device=device, sleep_time=sleep_time)
+    if debugging:
+        print(f"shou_lie end")
 
 def ri_chang_chuang_dang(device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"ri_chang_chuang_dang begin")
     # 日常闯荡
     enter_chuang_dang(device=device, sleep_time=sleep_time)
     # 进入关卡
@@ -462,6 +551,8 @@ def ri_chang_chuang_dang(device = local_device, sleep_time = 1):
     
     click_painless(device=device, sleep_time=sleep_time, times = 3)
     enter_home(device=device, sleep_time=sleep_time)
+    if debugging:
+        print(f"    ri_chang_chuang_dang end")
     
 def ri_chang_ren_wu_zhen_shou_five():
     # 珍兽技能五次

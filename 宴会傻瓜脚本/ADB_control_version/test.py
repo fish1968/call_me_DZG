@@ -1,7 +1,6 @@
 import os
 import subprocess
 import time
-import resources_1080_1920
 from functions import *
 from local_data import local_device
 
@@ -36,6 +35,7 @@ def daily_once(device = local_device):
     click_union_basic_constrcut(device=device)
     daily_click_home_shang_cheng_ling_qu(device=device, sleep_time=1)
     daily_click_rank(device=device, sleep_time=1)
+    ri_chang_chuang_dang(device=device, sleep_time=1)
     daily_click_qian_zhuang_wei_ren(device=device, sleep_time=1)
     daily_xing_yun_duo_bao_2(device=device)
     daily_cheng_jiao_you_li(device=device)
@@ -52,12 +52,18 @@ def daily_once(device = local_device):
     time.sleep(3600)
     click_painless(device=device, times=10)
     shang_zhan(device=device)
+
 start = time.time()
 # daily_once(device=local_device)
 # drag_and_move(start_x=800, start_y=980, move_x=400, move_y=0, local_device, 100)
 # click_qian_zhuang_from_home(30)
 # daily_click_rank()
 # tu_di_raise_up(device=local_device)
-daily_ling_qu_yu_gan(device = local_device, sleep_time = 1)
+# daily_ling_qu_yu_gan(device = local_device, sleep_time = 1)
+# shou_lie(device=local_device, sleep_time=1)
+ri_chang_chuang_dang()
 end = time.time()
 print(end-start)
+
+while True:
+    click_painless(device=local_device, sleep_time=100,times=1000)

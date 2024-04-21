@@ -36,3 +36,17 @@ zhuang_yuan = {
     "shou_huo": (950, 1630),
     "shou_huo_confirm": (550, 1730)
 }
+
+shou_lie = {
+    "drag_to_shou_lie": (-10000, 0),
+    "entry": (730, 300),
+    "enter": (550, 850),
+    "shou_lie_button": (550, 960),
+    "auto": (980, 1620),
+    "shang_hui_help": (980, 1750),
+    "shang_hui_help_page": (500, 330),
+    "period": 1.5,
+    "help_00":(280, 620),
+    "help_delta": (275, 420),
+    "confirm": (550, 1540)
+}

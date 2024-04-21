@@ -2,6 +2,8 @@ import os
 import subprocess
 import time
 import resources_1080_1920
+import resources_1080_1920.chuang_dang
+import resources_1080_1920.chuang_dang.chuang_dang_data
 import resources_1080_1920.general
 import resources_1080_1920.cheng_jiao
 import resources_1080_1920.cheng_jiao.cheng_jiao_data
@@ -300,6 +302,10 @@ def enter_cheng_jiao(device = local_device, sleep_time = 1):
     x, y = resources_1080_1920.home.home_data.home_bar["home_cheng-jiao"]
     click_once(x, y, device=device, sleep_time=sleep_time)
 
+def enter_chuang_dang(device = local_device, sleep_time = 1):
+    x, y = resources_1080_1920.home.home_data.home_bar["home_chuang-dang"]
+    click_once(x = x, y = y, device= device, sleep_time=sleep_time*3)
+    
 def shang_zhan(device= local_device,sleep_time = 1):
     enter_home(device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time)
@@ -392,8 +398,71 @@ def daily_ling_qu_yu_gan(device = local_device, sleep_time = 1):
     click_once(x, y, device=device, sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time, times=2)
     enter_home(device=device, sleep_time=sleep_time)
-    
 
+def shou_lie(device = local_device, sleep_time = 1):
+    enter_home(device=device, sleep_time=sleep_time)
+    ex, ey = resources_1080_1920.general.general_pos["exit"]
+    enter_cheng_jiao(device=device, sleep_time=sleep_time)
+    # move to shou_lie
+    move_x, move_y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["drag_to_shou_lie"]
+    drag_and_move(move_x=move_x, move_y=move_y, start_x=1000, start_y=500, device=device, duration_ms=500)
+    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["entry"]
+    click_once(x, y, device=device, sleep_time=sleep_time)
+    # 进入 狩猎 page
+    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["enter"]
+    click_once(x, y, device=device, sleep_time=sleep_time)
+    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["auto"]
+    click_once(x, y, device=device, sleep_time=sleep_time)
+    # 点击自动
+    period = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["period"]
+    for _ in range(50):
+        click_painless(device=device, sleep_time=period)
+    
+    x_help, y_help = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["shang_hui_help"]
+    x2_help, y2_help = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["shang_hui_help_page"]
+    x0, y0 = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["help_00"]
+    dx, dy = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["help_delta"]
+    
+    x_con, y_con = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["confirm"]
+    
+    for index in range(4, -1, -1): # 0 -> 4
+        y_t = index // 3
+        x_t = index % 3
+        x, y = x_t * dx * x_t + x0, dy * y_t + y0
+        click_once(x_help, y_help, device=device, sleep_time=sleep_time)
+        click_once(x2_help, y2_help, device=device, sleep_time=sleep_time)
+        click_once(x_con, y_con, device=device, sleep_time=sleep_time)
+        click_once(x_t, y_t, device=device, sleep_time=sleep_time)
+        click_painless(device=device, sleep_time=period, times = 2)
+    
+    click_once(ex, ey, device=device, sleep_time=sleep_time, times = 2)
+    enter_home(device=device, sleep_time=sleep_time)
+
+def ri_chang_chuang_dang(device = local_device, sleep_time = 1):
+    # 日常闯荡
+    enter_chuang_dang(device=device, sleep_time=sleep_time)
+    # 进入关卡
+    x, y = resources_1080_1920.chuang_dang.chuang_dang_data.guan_ka["entry"]
+    click_once(x, y, device, sleep_time=sleep_time*3)
+    x, y = resources_1080_1920.chuang_dang.chuang_dang_data.guan_ka["chuang_dang"]
+    click_once(x, y, device, sleep_time=sleep_time*3)
+    xc, yc = resources_1080_1920.chuang_dang.chuang_dang_data.guan_ka["chuang_dang"]
+    xcf, ycf = resources_1080_1920.chuang_dang.chuang_dang_data.guan_ka["chuang_dang"]
+    click_once(xc, yc, device, sleep_time=sleep_time)
+    click_once(xcf, ycf, device, sleep_time=sleep_time)
+    ex, ey = resources_1080_1920.chuang_dang.chuang_dang_data.guan_ka["event"]
+    click_once(ex, ey, device, sleep_time=sleep_time)
+    x, y = resources_1080_1920.chuang_dang.chuang_dang_data.guan_ka["process_event"]
+    click_once(x, y, device, sleep_time=sleep_time)
+    cx, cy = resources_1080_1920.chuang_dang.chuang_dang_data.guan_ka["argue"]
+    click_once(cx, cy, device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time, times = 3)
+    ex, ey = resources_1080_1920.general.general_pos["exit"]
+    click_once(ex, ey, device, sleep_time=sleep_time)
+    
+    click_painless(device=device, sleep_time=sleep_time, times = 3)
+    enter_home(device=device, sleep_time=sleep_time)
+    
 def ri_chang_ren_wu_zhen_shou_five():
     # 珍兽技能五次
     pass

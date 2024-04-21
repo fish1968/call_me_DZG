@@ -19,3 +19,11 @@ shang_zhan = {
     "confirm_fight": (540, 1510)
     
 }
+
+you_li = {
+    "drag_move": (-800, 0),
+    "entry": (730, 440),
+    "men_ke_xuan_ze": (850, 650), # also 挚友选择 （first）
+    "ya_jiu": (550, 1600), # 呀九，also 游历按钮
+    "you_li_5": (970, 1620),
+}

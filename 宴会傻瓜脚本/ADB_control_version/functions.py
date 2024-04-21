@@ -349,7 +349,33 @@ def tu_di_raise_up(device = local_device, sleep_time = 1):
             click_once(x = 500, y = 500, device= device, sleep_time=sleep_time)
             time.sleep(10)
     click_once(ex, ey, device= device, sleep_time=sleep_time)
+
+def daily_cheng_jiao_you_li(device = local_device, sleep_time = 1):
+    enter_home(device=device, sleep_time=sleep_time)
+    enter_cheng_jiao(device=device, sleep_time=sleep_time)
+
+    mx, my = resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["drag_move"]
+    drag_and_move(move_x=mx, move_y=my, start_x=1000, start_y=500, device=device, duration_ms=500)
+    x, y =resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["entry"]
+    click_once(x, y , device=device, sleep_time=sleep_time)
     
+    cx, cy = resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["ya_jiu"] # center position
+    mx, my = resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["men_ke_xuan_ze"] # men position
+    x, y =resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["you_li_5"]
+    for _ in range(2):
+        click_once(x, y , device=device, sleep_time=sleep_time)
+        click_painless(device=device, sleep_time=sleep_time, times=3)
+        click_once(mx, my, device=device, sleep_time=sleep_time)
+        click_once(cx, cy, device=device, sleep_time=sleep_time)
+    
+    for _ in range(10):
+        click_once(cx, cy, device=device, sleep_time=sleep_time)
+        click_once(mx, my, device=device, sleep_time=sleep_time)
+        click_painless(device, sleep_time=sleep_time, times=2)
+    enter_home(device=device, sleep_time=sleep_time)
+    
+
+
 def ri_chang_ren_wu_zhen_shou_five():
     # 珍兽技能五次
     pass

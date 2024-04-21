@@ -385,7 +385,7 @@ def shang_zhan(device= local_device,sleep_time = 1):
         x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shang_zhan["confirm_fight"]
         click_once(x = x, y = y, device= device, sleep_time=sleep_time)
         
-        click_painless(device=device, sleep_time=sleep_time, times=2)
+        click_painless(device=device, sleep_time=sleep_time, times=4)
     enter_home(device=device, sleep_time=sleep_time)
     if debugging:
         print(f"shang_zhan 商战 end now at home")

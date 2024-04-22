@@ -383,6 +383,41 @@ def daily_xing_yun_duo_bao_2(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_xing_yun_duo_bao_2 幸运夺宝 end")
 
+def daily_qiao_qian(device = local_device, sleep_time = 1):
+    
+    from resources_1080_1920.cheng_jiao.cheng_jiao_data import qiao_qian
+    print("daily_qiao_qian begin")
+    enter_home(device= device, sleep_time=sleep_time)
+    enter_cheng_jiao(device= device, sleep_time=sleep_time)
+    entry = qiao_qian["entry"]
+    low_like = qiao_qian["low_like"]
+    huang_like = qiao_qian["huang_like"]
+    huang_entry = qiao_qian["huang_entry"]
+    qin_entry = qiao_qian["qin_entry"]
+    bei_shan_entry = qiao_qian["bei_shan_entry"]
+    move_y = qiao_qian["bei_shan_move_y"]
+    ex = resources_1080_1920.general.general_pos["exit"]
+    click_once(x=entry[0], y = entry[1], device=device,sleep_time=sleep_time*2)
+    
+    click_once(huang_entry[0], huang_entry[1], device=device,sleep_time=sleep_time*2)
+    click_once(huang_like[0], huang_like[1], device=device,sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time, times = 2)
+    click_once(ex[0], ex[1], device=device,sleep_time=sleep_time)
+    
+    click_once(qin_entry[0], qin_entry[1], device=device,sleep_time=sleep_time*2)
+    click_once(low_like[0], low_like[1], device=device,sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time, times = 2)
+    click_once(ex[0], ex[1], device=device,sleep_time=sleep_time)
+
+    drag_and_move(move_y=move_y, device=device,duration_ms=sleep_time*1000)
+    time.sleep(sleep_time)
+    click_once(bei_shan_entry[0], bei_shan_entry[1], device=device,sleep_time=sleep_time*2)
+    click_once(low_like[0], low_like[1], device=device,sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time, times = 2)
+    click_once(ex[0], ex[1], device=device,sleep_time=sleep_time)
+
+    enter_home(device= device, sleep_time=sleep_time)
+    print("daily_qiao_qian ends")
 
 def shang_zhan(device= local_device,sleep_time = 1):
     if debugging:

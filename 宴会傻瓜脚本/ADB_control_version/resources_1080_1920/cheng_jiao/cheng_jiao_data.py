@@ -97,3 +97,14 @@ cai_shen_miao = {
     "cai_shen_pu": (120, 1650),
     "cai_shen_like": (540, 1570),
 }
+    
+qiao_qian = {
+    "entry": (180, 380),
+    "low_like":(540, 1860),
+    "huang_like": (960, 1750),
+    "bottom":(440 , 1400),
+    "huang_entry": (730, 400),
+    "qin_entry": (650, 1530),
+    "bei_shan_entry": (450, 1430),
+    "bei_shan_move_y": -1000
+}

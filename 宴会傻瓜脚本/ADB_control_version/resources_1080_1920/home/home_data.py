@@ -7,7 +7,10 @@ home_bar = {
     "home_cheng-jiao":  (800, 1850),
     "home_bei-bao":     (960, 1850),
 }
-
+profile = {
+    "entry": (100, 140),
+    "obtain":(1000, 1480)
+}
 zhen_shou = {
     "entry" : (360, 1050),
     "page"  :-1, # 最左边

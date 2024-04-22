@@ -383,6 +383,21 @@ def daily_xing_yun_duo_bao_2(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_xing_yun_duo_bao_2 幸运夺宝 end")
 
+def daily_profile_yuan_bao(device = local_device, sleep_time = 1):
+    print("enter daily_profile_yuan_bao 身份元宝")
+    from resources_1080_1920.home.home_data import profile
+    from resources_1080_1920.general import general_pos
+    ex = general_pos["exit"]
+    entry = profile["entry"]
+    obtain = profile["obtain"]
+    click_painless(device=device, sleep_time=sleep_time,times=2)
+    enter_home(device=device,sleep_time=sleep_time)
+    click_once(entry[0], entry[1], device=device, sleep_time=sleep_time)
+    clicks(obtain[0], obtain[1], device=device, sleep_time=sleep_time, times=2)
+    click_painless(device=device, sleep_time=sleep_time,times=2)
+    click_once(ex[0], ex[1], device=device, sleep_time=sleep_time)
+    print("enter daily_profile_yuan_bao 身份元宝 ends")
+    
 def daily_qiao_qian(device = local_device, sleep_time = 1):
     
     from resources_1080_1920.cheng_jiao.cheng_jiao_data import qiao_qian

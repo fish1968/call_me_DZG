@@ -32,13 +32,15 @@ def passed_test():
     daily_xing_yun_duo_bao_2()
 
 def daily_once(device = local_device):
+    daily_profile_yuan_bao(device=device,sleep_time=1)
     click_union_basic_constrcut(device=device)
     daily_click_home_shang_cheng_ling_qu(device=device, sleep_time=1)
     daily_cai_shen_miao_like(device=device, sleep_time=1)
+    daily_qiao_qian(device=device, sleep_time=1)
     daily_click_rank(device=device, sleep_time=1)
     ri_chang_chuang_dang(device=device, sleep_time=1)
     daily_click_qian_zhuang_wei_ren(device=device, sleep_time=1)
-    daily_xing_yun_duo_bao_2(device=device)
+    daily_xing_yun_duo_bao_2(device=device) # 貌似点不到？
     daily_cheng_jiao_you_li(device=device)
     daily_ling_qu_yu_gan(device = device, sleep_time = 1)
     ri_chang_ren_wu_qian_zhuang_20(device=device)
@@ -68,9 +70,11 @@ start = time.time()
 # shang_zhan()
 # move_to_end(bottom=1)
 # daily_cai_shen_miao_like()
-time.sleep(3)
+# daily_qiao_qian()
+# time.sleep(3)
+# daily_profile_yuan_bao()
 end = time.time()
 print(end-start)
 
 while True:
-    click_painless(device=local_device, sleep_time=100,times=1000)
+    click_painless(device=local_device, sleep_time=10,times=1000)

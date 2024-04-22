@@ -34,6 +34,7 @@ def passed_test():
 def daily_once(device = local_device):
     click_union_basic_constrcut(device=device)
     daily_click_home_shang_cheng_ling_qu(device=device, sleep_time=1)
+    daily_cai_shen_miao_like(device=device, sleep_time=1)
     daily_click_rank(device=device, sleep_time=1)
     ri_chang_chuang_dang(device=device, sleep_time=1)
     daily_click_qian_zhuang_wei_ren(device=device, sleep_time=1)
@@ -55,8 +56,8 @@ def daily_once(device = local_device):
     shang_zhan(device=device)
 
 start = time.time()
+# daily_cheng_jiao_you_li()
 # daily_once(device=local_device)
-# drag_and_move(start_x=800, start_y=980, move_x=400, move_y=0, local_device, 100)
 # click_qian_zhuang_from_home(30)
 # daily_click_rank()
 # tu_di_raise_up(device=local_device)
@@ -64,6 +65,10 @@ start = time.time()
 # shou_lie(device=local_device, sleep_time=1)
 # ri_chang_chuang_dang()
 # daily_xing_shan()
+# shang_zhan()
+# move_to_end(bottom=1)
+# daily_cai_shen_miao_like()
+time.sleep(3)
 end = time.time()
 print(end-start)
 

@@ -475,7 +475,7 @@ def daily_ling_qu_yu_gan(device = local_device, sleep_time = 1):
     drag_and_move(move_x=move_x, move_y=move_y, start_x=1000, start_y=500, device=device, duration_ms=500)
     
     yu_x, yu_y = resources_1080_1920.cheng_jiao.cheng_jiao_data.zhuang_yuan["yu_gan"]
-    click_once(yu_x, yu_y, device=device, sleep_time=sleep_time)
+    clicks(yu_x, yu_y, device=device, sleep_time=sleep_time, times=3)
     click_painless(device=device, sleep_time=sleep_time, times=2)
     x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.zhuang_yuan["shou_huo"]
     click_once(x, y, device=device, sleep_time=sleep_time)

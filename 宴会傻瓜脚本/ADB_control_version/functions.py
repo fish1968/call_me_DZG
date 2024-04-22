@@ -436,9 +436,9 @@ def daily_cheng_jiao_you_li(device = local_device, sleep_time = 1):
     click_once(x, y , device=device, sleep_time=sleep_time*3) # easily blocked
     # 赠礼
     gift_entry =resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["shi_jiao_gift"] 
-    donate =resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["shi_jiao_gift"] 
+    donate =resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["shi_jiao_give"] 
     obtain =resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["shi_jiao_obtain"] 
-    click_once(gift_entry[0], gift_entry[1], device=device, sleep_time=sleep_time)
+    click_once(gift_entry[0], gift_entry[1], device=device, sleep_time=sleep_time*3)
     click_once(donate[0], donate[1], device=device, sleep_time=sleep_time)
     click_once(obtain[0], obtain[1], device=device, sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time, times =  2)

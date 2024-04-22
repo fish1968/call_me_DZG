@@ -498,11 +498,13 @@ def daily_xing_shan(device = local_device, sleep_time = 1):
     
     do = resources_1080_1920.cheng_jiao.cheng_jiao_data.xing_shan["do"]
     one_click = resources_1080_1920.cheng_jiao.cheng_jiao_data.xing_shan["one_click"]
-    for _ in range(38):
-        click_once(do[0], do[1], device=device, sleep_time=sleep_time)
-        click_once(do[0], do[1], device=device, sleep_time=sleep_time)
+    for _ in range(2):
         click_painless(device=device, sleep_time=sleep_time, times=2)
         click_once(one_click[0], one_click[1], device=device, sleep_time=sleep_time/3)
+        for _ in range(19):
+            click_once(do[0], do[1], device=device, sleep_time=sleep_time)
+            click_once(do[0], do[1], device=device, sleep_time=sleep_time)
+            click_painless(device=device, sleep_time=sleep_time, times=2)
         
     confirm = resources_1080_1920.cheng_jiao.cheng_jiao_data.xing_shan["confirm"]
     for _ in range(4):

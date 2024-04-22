@@ -34,6 +34,26 @@ def drag_and_move(move_x=0, move_y=0, start_x=500, start_y=1000, device = local_
     adb_command = ['adb',"-s", device, 'shell', 'input', 'swipe', str(start_x), str(start_y), str(start_x+move_x), str(start_y+move_y), str(duration_ms)]
     subprocess.run(adb_command)
 
+def move_to_end(left =0, right = 0, top = 0, bottom = 0, sleep_time = .5, device = local_device):
+    move_x = 0
+    move_y = 0
+    if left == 1:
+        move_x = 4000
+        print("    move to the left")
+    elif right == 1:
+        move_x = -4000
+        print("    move to the right")
+    elif top == 1:
+        move_y = 8000
+        print("    move to the top")
+    elif bottom == 1:
+        move_y = -8000
+        print("    move to the bottom")
+    else:
+        print("    No move")
+    drag_and_move(move_x=move_x, move_y=move_y, device=device, duration_ms=int(sleep_time*1000))
+    time.sleep(sleep_time)
+    print("    move ends")
 def click_qian_zhuang_from_home(times = 100, sleep_time = 0.1, device = local_device):
     if debugging: 
         print(f"click_qian_zhuang_from_home: times = {times}, sleep_time: {sleep_time}, device: {device}")
@@ -462,6 +482,41 @@ def daily_cheng_jiao_you_li(device = local_device, sleep_time = 1):
     enter_home(device=device, sleep_time=sleep_time)
     if debugging:
         print(f"daily_cheng_jiao_you_li 城郊游历 end")
+
+def daily_cai_shen_miao_like(device = local_device, sleep_time = 1):
+    print("daily_cai_shen_miao_like begin")
+    enter_home(device=device, sleep_time=sleep_time)
+    enter_cheng_jiao(device=device, sleep_time=sleep_time)
+    # enter miao
+    cai_shen = resources_1080_1920.cheng_jiao.cheng_jiao_data.cai_shen_miao["pos"]
+    click_once(cai_shen[0], cai_shen[1], device, sleep_time=sleep_time)
+    ex = resources_1080_1920.general.general_pos["exit"]
+    cai_shen_pu = resources_1080_1920.cheng_jiao.cheng_jiao_data.cai_shen_miao["cai_shen_pu"]
+    cai_shen_like = resources_1080_1920.cheng_jiao.cheng_jiao_data.cai_shen_miao["cai_shen_like"]
+    big_like = resources_1080_1920.cheng_jiao.cheng_jiao_data.cai_shen_miao["like"]
+    # 点大赞
+    click_once(big_like[0], big_like[1], device=device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/2, times = 3)
+    
+    # 点赞上方的庙宇
+    for pos in resources_1080_1920.cheng_jiao.cheng_jiao_data.cai_shen_miao["ups"]:
+        click_once(pos[0], pos[1], device=device, sleep_time=sleep_time*2)
+        click_once(cai_shen_pu[0], cai_shen_pu[1], device=device, sleep_time=sleep_time*2)
+        click_once(cai_shen_like[0], cai_shen_pu[1], device=device, sleep_time=sleep_time*2)
+        click_painless(device=device, sleep_time=sleep_time/2, times = 3)
+        click_once(ex[0], ex[1], device=device, sleep_time=sleep_time*2)
+    
+    # 点赞下方的庙宇
+    move_to_end(bottom=1, sleep_time=0.5)
+    for pos in resources_1080_1920.cheng_jiao.cheng_jiao_data.cai_shen_miao["lows"]:
+        click_once(pos[0], pos[1], device=device, sleep_time=sleep_time*2)
+        click_once(cai_shen_pu[0], cai_shen_pu[1], device=device, sleep_time=sleep_time*2)
+        click_once(cai_shen_like[0], cai_shen_pu[1], device=device, sleep_time=sleep_time*2)
+        click_painless(device=device, sleep_time=sleep_time/2, times = 3)
+        click_once(ex[0], ex[1], device=device, sleep_time=sleep_time*2)
+    
+    enter_home(device=device, sleep_time=sleep_time)
+    print("daily_cai_shen_miao_like ends")
 
 def daily_ling_qu_yu_gan(device = local_device, sleep_time = 1):
     if debugging:

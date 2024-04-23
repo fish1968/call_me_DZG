@@ -29,7 +29,7 @@ def passed_test():
 
     daily_click_rank(local_device, 1)
     
-    ri_chang_ren_wu_qian_zhuang_20()
+    daily_qian_zhuang_20()
     daily_xing_yun_duo_bao_2()
 
 def test_yu_gan():
@@ -47,41 +47,15 @@ def daily_once(device = local_device):
     enter_cheng_jiao(device=device, sleep_time=6)
     enter_shang_pu(device=device, sleep_time=6)
     enter_home(device=device, sleep_time=6)
-    # 行善
-    daily_xing_shan(device=device)
-    # 日常邮件
-    daily_mail_process(device=device)
-    # 商会建设
-    click_union_basic_constrcut(device=device)
-    # 商战
-    shang_zhan(device=device)
-    # 身份元宝领取
-    daily_profile_yuan_bao(device=device,sleep_time=1)
-    # 幸运夺宝
-    daily_xing_yun_duo_bao_2(device=device) # 貌似点不到？
-    # 免费商城领取
-    daily_click_home_shang_cheng_ling_qu(device=device, sleep_time=1)
-    # 钱庄点击 20
-    ri_chang_ren_wu_qian_zhuang_20(device=device)
-    # 日常钱庄委任更换
-    daily_click_qian_zhuang_wei_ren(device=device, sleep_time=1)
-    # 乔迁点赞
-    daily_qiao_qian(device=device, sleep_time=0.8)
-    # 排行榜点赞与上门点赞
-    daily_click_rank(device=device, sleep_time=1)
-    # 财神庙点赞
-    daily_cai_shen_miao_like(device=device, sleep_time=0.8)
+    # home
+    daily_in_home       (device=device, sleep_time=1)
+    # 城郊
+    daily_in_cheng_jiao (device=device, sleep_time=1)
+    # 商铺
+    daily_in_shang_pu   (device=device, sleep_time=1)
     # 日常闯荡一次
     ri_chang_chuang_dang(device=device, sleep_time=1)
-    # 城郊游历
-    daily_cheng_jiao_you_li(device=device)
-    # 庄园与鱼竿领取
-    daily_ling_qu_yu_gan(device = device, sleep_time = 1)
-    # 商铺的三个 医馆 酒肆 药铺
-    daily_do_yi_guan()
-    daily_do_jiu_si()
-    daily_do_yao_pu()
-    # 等待
+    
     for _ in range(3):
         for _ in range(10):
             time.sleep(60)
@@ -97,6 +71,8 @@ def daily_once(device = local_device):
 
 start = time.time()
 daily_once(device=local_device)
+# daily_do_shang_pu_qian_dao()
+# click_union_basic_constrcut()
 # daily_mail_process()
 # daily_cai_shen_miao_like(sleep_time=0.6)
 # daily_cheng_jiao_you_li()

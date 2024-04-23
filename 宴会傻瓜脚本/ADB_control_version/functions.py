@@ -484,16 +484,6 @@ def daily_do_yao_pu (device = local_device, sleep_time = 1):
     if debugging:
         print(f"    daily_do_yao_pu 药铺 ends")
 
-def daily_in_shang_pu (device = local_device, sleep_time = 1):
-    daily_do_shang_pu_qian_dao  (device= device, sleep_time=sleep_time)
-    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
-    daily_do_yi_guan            (device= device, sleep_time=sleep_time)
-    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
-    daily_do_jiu_si             (device= device, sleep_time=sleep_time)
-    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
-    daily_do_yao_pu             (device= device, sleep_time=sleep_time)
-    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
-
 def daily_click_rank(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_rank 排行榜点赞 begin")
@@ -902,7 +892,76 @@ def ri_chang_chuang_dang(device = local_device, sleep_time = 1):
     enter_home(device=device, sleep_time=sleep_time)
     if debugging:
         print(f"    ri_chang_chuang_dang end")
+
+def daily_in_home(device = local_device, sleep_time = 1):
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    enter_home(device=device, sleep_time=sleep_time)
+    # 身份元宝领取
+    daily_profile_yuan_bao(device=device,sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    # 幸运夺宝
+    daily_xing_yun_duo_bao_2(device=device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    # 免费商城领取
+    daily_click_home_shang_cheng_ling_qu(device=device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    # 日常邮件
+    daily_mail_process(device=device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+def daily_in_cheng_jiao         (device= local_device, sleep_time=1):
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    enter_cheng_jiao            (device=device, sleep_time=sleep_time)
+    # 行善
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    daily_xing_shan             (device=device, sleep_time=sleep_time)
+    # 商会建设
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    click_union_basic_constrcut (device=device, sleep_time=sleep_time)
+    # 商战
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    shang_zhan                  (device=device, sleep_time=sleep_time)
+    # 排行榜点赞与上门点赞
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    daily_click_rank            (device=device, sleep_time=sleep_time)
+    # 城郊游历
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    daily_cheng_jiao_you_li     (device=device, sleep_time=sleep_time)
+    # 庄园与鱼竿领取
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    daily_ling_qu_yu_gan        (device=device, sleep_time=1)
+    # 乔迁点赞
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    daily_qiao_qian             (device=device, sleep_time=sleep_time*0.8)
+    # 财神庙点赞
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    daily_cai_shen_miao_like    (device=device, sleep_time=sleep_time*0.8)
+    # back home
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    enter_home                  (device=device, sleep_time=sleep_time)
+def daily_in_shang_pu (device = local_device, sleep_time = 1):
+    # 商铺签到
+    daily_do_shang_pu_qian_dao  (device= device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    # 商铺-医馆
+    daily_do_yi_guan            (device= device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    # 商铺-酒肆
+    daily_do_jiu_si             (device= device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    # 商铺-药铺
+    daily_do_yao_pu             (device= device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    # 商铺-钱庄20
+    daily_qian_zhuang_20        (device= device, sleep_time=0.1)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    # 日常钱庄委任更换
+    daily_click_qian_zhuang_wei_ren(device=device, sleep_time=1)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     
+    # back home
+    enter_home(device=device, sleep_time=sleep_time)
+
+
 def ri_chang_ren_wu_zhen_shou_five():
     # 珍兽技能五次
     pass
@@ -915,7 +974,7 @@ def ri_chang_ren_wu_zhi_you_five():
 def ri_chang_ren_wu_zhi_you_two():
     # 挚友赠送两次
     pass
-def ri_chang_ren_wu_qian_zhuang_20(device = local_device, sleep_time = 0.1):
+def daily_qian_zhuang_20(device = local_device, sleep_time = 0.1):
     click_qian_zhuang_from_home(times=20*2, sleep_time=sleep_time)
 def ri_chang_ren_wu_zhi_you_tan_xin_five():
     # 挚友谈心五次

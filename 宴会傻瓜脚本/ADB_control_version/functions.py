@@ -153,50 +153,51 @@ def click_union_basic_constrcut(device = local_device, sleep_time = 1):
 def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_home_shang_cheng_ling_qu 商城领取 begin")
+    from resources_1080_1920.home.home_data import home_bar, home_right_low_list, home_Shang_cheng
     # 进入主页
-    x, y = resources_1080_1920.home.home_data.home_bar["home_home"]
+    x, y = home_bar["home_home"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     
     # 从主页点击商城
-    x, y = resources_1080_1920.home.home_data.home_right_low_list["home_shang-cheng"]
+    x, y = home_right_low_list["home_shang-cheng"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     # 点击道具
-    x, y = resources_1080_1920.home.home_data.home_Shang_cheng["dao-ju"]
+    x, y = home_Shang_cheng["dao-ju"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     
     # 点击精力丹两次
-    x, y = resources_1080_1920.home.home_data.home_Shang_cheng["dao-ju_jing-li-dan"]
+    x, y = home_Shang_cheng["dao-ju_jing-li-dan"]
     for _ in range(2):
         click_once(x, y, device=device, sleep_time=sleep_time)
     # 点击礼包
-    x, y = resources_1080_1920.home.home_data.home_Shang_cheng["li-bao"]
+    x, y = home_Shang_cheng["li-bao"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     cancel = (365, 1050)
     click_once(cancel[0], cancel[1], device=device, sleep_time=sleep_time) # 点击过的情况 会进入购买，需要取消退出
     # 点击免费的
-    x, y = resources_1080_1920.home.home_data.home_Shang_cheng["li-bao_free"]
+    x, y = home_Shang_cheng["li-bao_free"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     
     # click painless
     for _ in range(2):
         click_painless(device=device, sleep_time=sleep_time)
     # 点击观影有礼
-    x, y = resources_1080_1920.home.home_data.home_Shang_cheng["guan-ying-you-li"]
+    x, y = home_Shang_cheng["guan-ying-you-li"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     
     # 点击几次领取
-    x, y = resources_1080_1920.home.home_data.home_Shang_cheng["guan-ying-you-li_ling-qu"]
+    x, y = home_Shang_cheng["guan-ying-you-li_ling-qu"]
     for _ in range(6):
         click_once(x, y, device=device, sleep_time=0.2)
         for _ in range(2):
             click_painless(device=device, sleep_time=sleep_time)
     # 点击领取资质丹
-    x, y = resources_1080_1920.home.home_data.home_Shang_cheng["guan-ying-you-li_zi-zhi"]
+    x, y = home_Shang_cheng["guan-ying-you-li_zi-zhi"]
     for _ in range(4):
         click_once(x, y, device=device, sleep_time=0.2)
     
     # 回到主页
-    x, y = resources_1080_1920.home.home_data.home_bar["home_home"]
+    x, y = home_bar["home_home"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     
     if debugging:
@@ -206,11 +207,12 @@ def daily_click_xian_shi_chong_zhi(device= local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_xian_shi_chong_zhi begin")
     # 主页
-    x, y = resources_1080_1920.home.home_data.home_bar["home_home"]
+    from resources_1080_1920.home.home_data import home_bar, home_upper_list
+    x, y = home_bar["home_home"]
     click_once(x, y, device=device, sleep_time=sleep_time)
 
     # 点击限时充值
-    x, y = resources_1080_1920.home.home_data.home_upper_list["home_xian-shi-chong-zhi"]
+    x, y = home_upper_list["home_xian-shi-chong-zhi"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     
     # 不管顺序了，两个都点一次
@@ -262,20 +264,21 @@ def test_move_screenshot(img_name = "test.png", device = local_device):
 def daily_click_qian_dao(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_qian_dao: begin")
-    
+    from resources_1080_1920.home.home_data import home_bar
+    from resources_1080_1920.shang_pu.shang_pu_data import qian_dao
     # eneter shang pu
-    x, y = resources_1080_1920.home.home_data.home_bar["home_shang-pu"]
+    x, y = home_bar["home_shang-pu"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     # click 签到
-    x, y = resources_1080_1920.shang_pu.shang_pu_data.qian_dao["entry"]   
+    x, y = qian_dao["entry"]   
     click_once(x, y, device=device, sleep_time=sleep_time*2)
-    x, y = resources_1080_1920.shang_pu.shang_pu_data.qian_dao["qian-dao"]
+    x, y = qian_dao["qian-dao"]
     # click 退出签到
     click_once(x, y, device=device, sleep_time=sleep_time)
-    x, y = resources_1080_1920.shang_pu.shang_pu_data.qian_dao["exit"]
+    x, y = qian_dao["exit"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     # 回到 home
-    x, y = resources_1080_1920.home.home_data.home_bar["home_home"]
+    x, y = home_bar["home_home"]
     click_once(x, y, device=device, sleep_time=sleep_time)
 
     if debugging:
@@ -284,35 +287,37 @@ def daily_click_qian_dao(device = local_device, sleep_time = 1):
 def daily_click_qian_zhuang_wei_ren(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_qian_zhuang_wei_ren begin")
+    from resources_1080_1920.home.home_data import home_bar
+    from resources_1080_1920.shang_pu.shang_pu_data import qian_zhuang
     # eneter shang pu
-    x, y = resources_1080_1920.home.home_data.home_bar["home_shang-pu"]
+    x, y = home_bar["home_shang-pu"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     drag_and_move(move_x=500*10, move_y=0, start_x=500, start_y=1000, device=device, duration_ms=sleep_time*1000)
     time.sleep(sleep_time)
     # enter qian zhuang
-    x, y = resources_1080_1920.shang_pu.shang_pu_data.qian_zhuang["entry"]   
+    x, y = qian_zhuang["entry"]   
     click_once(x, y, device=device, sleep_time=sleep_time*3)
     
-    x, y = resources_1080_1920.shang_pu.shang_pu_data.qian_zhuang["wan-cheng"]
+    x, y = qian_zhuang["wan-cheng"]
     click_once(x, y, device=device, sleep_time=sleep_time*2)
     click_painless(device=device, sleep_time=sleep_time, times=5)
     
-    x, y = resources_1080_1920.shang_pu.shang_pu_data.qian_zhuang["yi-jian-wei-ren"]
+    x, y = qian_zhuang["yi-jian-wei-ren"]
     click_once(x, y, device=device, sleep_time=sleep_time*2)
 
 
-    x, y = resources_1080_1920.shang_pu.shang_pu_data.qian_zhuang["wei-ren"]
+    x, y = qian_zhuang["wei-ren"]
     click_once(x, y, device=device, sleep_time=sleep_time*2)
     # 退出 wei-ren pagd
     click_painless(device=device, sleep_time=sleep_time)
     
     # click center
-    x, y = resources_1080_1920.shang_pu.shang_pu_data.qian_zhuang["middle"]
+    x, y = qian_zhuang["middle"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     
     # 迎财 5 次
     for _ in range(5):
-        x, y = resources_1080_1920.shang_pu.shang_pu_data.qian_zhuang["ying-cai"]
+        x, y = qian_zhuang["ying-cai"]
         click_once(x, y, device=device, sleep_time=sleep_time/2)
     click_painless(device=device, sleep_time=sleep_time, times=2)
     
@@ -321,7 +326,7 @@ def daily_click_qian_zhuang_wei_ren(device = local_device, sleep_time = 1):
     click_once(x, y, device=device, sleep_time=sleep_time)
 
     # 回到 home
-    x, y = resources_1080_1920.home.home_data.home_bar["home_home"]
+    x, y = home_bar["home_home"]
     click_once(x, y, device=device, sleep_time=sleep_time)
 
     if debugging:
@@ -457,41 +462,42 @@ def daily_click_rank(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_rank 排行榜点赞 begin")
     ex, ey = resources_1080_1920.general.general_pos["exit"]
+    from resources_1080_1920.cheng_jiao.cheng_jiao_data import rank
     enter_cheng_jiao(device=    device, sleep_time=sleep_time)
     
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.rank["entry"]
+    x, y = rank["entry"]
     click_once(x,y, device=device, sleep_time=sleep_time)
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.rank["ben_fu"]
+    x, y = rank["ben_fu"]
     click_once(x,y, device=device, sleep_time=sleep_time)
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.rank["enter_dian_zan"]
+    x, y = rank["enter_dian_zan"]
     click_once(x,y, device=device, sleep_time=sleep_time*2)
     
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.rank["yi_jian_dian_zan"]
+    x, y = rank["yi_jian_dian_zan"]
     click_once(x,y, device=device, sleep_time=sleep_time*2)
     click_painless(device=device, sleep_time=sleep_time, times=8)
     
     # 点赞
     for _ in range(3):
         drag_and_move(move_x= 0, move_y=-3000, start_x= 500, start_y=1200, device=device, duration_ms=200)
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.rank["person_pos"]
+    x, y = rank["person_pos"]
     click_once(x,y,device=device,sleep_time=sleep_time)
     click_once(x,y+100,device=device,sleep_time=sleep_time)
     click_once(x,y+200,device=device,sleep_time=sleep_time)
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.rank["person_bai_fang"]
+    x, y = rank["person_bai_fang"]
     click_once(x,y,device=device,sleep_time=sleep_time*3)
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.rank["bai_fang_like"]
+    x, y = rank["bai_fang_like"]
     click_once(x,y,device=device,sleep_time=sleep_time)
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.rank["bai_fang_back"]
+    x, y = rank["bai_fang_back"]
     click_once(x,y,device=device,sleep_time=sleep_time)
     
     #进入跨服    
     click_once(ex,ey, device=device, sleep_time=sleep_time)
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.rank["kua_fu"]
+    x, y = rank["kua_fu"]
     click_once(x,y, device=device, sleep_time=sleep_time)
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.rank["enter_dian_zan"]
+    x, y = rank["enter_dian_zan"]
     click_once(x,y, device=device, sleep_time=sleep_time*2)
     
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.rank["yi_jian_dian_zan"]
+    x, y = rank["yi_jian_dian_zan"]
     click_once(x,y, device=device, sleep_time=sleep_time*2)
     
     click_painless(device=device, sleep_time=sleep_time, times=8)
@@ -594,22 +600,23 @@ def daily_mail_process(device = local_device, sleep_time  = 1):
 def shang_zhan(device= local_device,sleep_time = 1):
     if debugging:
         print(f"shang_zhan 商战")
+    from resources_1080_1920.cheng_jiao.cheng_jiao_data import shang_zhan
     enter_home(device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time)
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shang_zhan["entry"]
+    x, y = shang_zhan["entry"]
     click_once(x = x, y = y, device= device, sleep_time=sleep_time*3)
     # 领取 money
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shang_zhan["money"]
+    x, y = shang_zhan["money"]
     click_once(x = x, y = y, device= device, sleep_time=sleep_time)
     
     # 不检查是否点击了一键，做两次
     # 点击fight check
     for _ in range(2):
-        x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shang_zhan["fight_check"]
+        x, y = shang_zhan["fight_check"]
         click_once(x = x, y = y, device= device, sleep_time=sleep_time)
-        x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shang_zhan["fight"]
+        x, y = shang_zhan["fight"]
         click_once(x = x, y = y, device= device, sleep_time=sleep_time*3)
-        x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shang_zhan["confirm_fight"]
+        x, y = shang_zhan["confirm_fight"]
         click_once(x = x, y = y, device= device, sleep_time=sleep_time)
         
         click_painless(device=device, sleep_time=sleep_time, times=4)
@@ -655,25 +662,25 @@ def daily_cheng_jiao_you_li(device = local_device, sleep_time = 1):
         print(f"daily_cheng_jiao_you_li 城郊游历")
     enter_home(device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time*2)
-
+    from resources_1080_1920.cheng_jiao.cheng_jiao_data import you_li
     # 进入游历
-    move_x, move_y = resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["drag_move"]
+    move_x, move_y = you_li["drag_move"]
     drag_and_move(move_x=move_x, move_y=move_y, start_x=1000, start_y=500, device=device, duration_ms=500)
-    x, y =resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["entry"]
+    x, y =you_li["entry"]
     click_once(x, y , device=device, sleep_time=sleep_time*3) # easily blocked
     # 赠礼
-    gift_entry =resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["shi_jiao_gift"] 
-    donate =resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["shi_jiao_give"] 
-    obtain =resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["shi_jiao_obtain"] 
+    gift_entry =you_li["shi_jiao_gift"] 
+    donate =you_li["shi_jiao_give"] 
+    obtain =you_li["shi_jiao_obtain"] 
     click_once(gift_entry[0], gift_entry[1], device=device, sleep_time=sleep_time*3)
     click_once(donate[0], donate[1], device=device, sleep_time=sleep_time)
     click_once(obtain[0], obtain[1], device=device, sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time, times =  2)
     
-    cx, cy = resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["ya_jiu"] # center position
-    mx, my = resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["men_ke_xuan_ze"] # men position
-    dx, dy = resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["drink"] # drink wine
-    x, y =resources_1080_1920.cheng_jiao.cheng_jiao_data.you_li["you_li_5"]
+    cx, cy = you_li["ya_jiu"] # center position
+    mx, my = you_li["men_ke_xuan_ze"] # men position
+    dx, dy = you_li["drink"] # drink wine
+    x, y =you_li["you_li_5"]
     for _ in range(2):
         click_once(x, y , device=device, sleep_time=sleep_time)
         click_painless(device=device, sleep_time=sleep_time, times=3)
@@ -762,25 +769,26 @@ def daily_ling_qu_yu_gan(device = local_device, sleep_time = 1):
 def daily_xing_shan(device = local_device, sleep_time = 1):
     if debugging:
         print("daily_xing_shan begin")
+    from resources_1080_1920.cheng_jiao.cheng_jiao_data import xing_shan
     enter_home  (device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time*2)
-    mv_x, mv_y = resources_1080_1920.cheng_jiao.cheng_jiao_data.xing_shan["drag"]
+    mv_x, mv_y = xing_shan["drag"]
     drag_and_move(mv_x, mv_y, start_x=1000, start_y=500, device=device, duration_ms=500)
-    entry_x, entry_y = resources_1080_1920.cheng_jiao.cheng_jiao_data.xing_shan["entry"]
+    entry_x, entry_y = xing_shan["entry"]
     click_once(entry_x, entry_y, device=device, sleep_time=sleep_time*3)
     
-    do = resources_1080_1920.cheng_jiao.cheng_jiao_data.xing_shan["do"]
-    one_click = resources_1080_1920.cheng_jiao.cheng_jiao_data.xing_shan["one_click"]
+    do = xing_shan["do"]
+    one_click = xing_shan["one_click"]
+    # 预期行善次数 max tiems + 15 + 10
     for _ in range(2):
-        click_painless(device=device, sleep_time=sleep_time, times=2)
+        click_painless(device=device, sleep_time=sleep_time, times=3)
         click_once(one_click[0], one_click[1], device=device, sleep_time=sleep_time/3)
-        for _ in range(19):
+        for _ in range(25):
             click_once(do[0], do[1], device=device, sleep_time=sleep_time)
-            click_once(do[0], do[1], device=device, sleep_time=sleep_time)
-            click_painless(device=device, sleep_time=sleep_time, times=2)
-        
-    confirm = resources_1080_1920.cheng_jiao.cheng_jiao_data.xing_shan["confirm"]
-    for _ in range(4):
+            click_painless(device=device, sleep_time=sleep_time/4, times=4)
+    
+    confirm = xing_shan["confirm"]
+    for _ in range(2):
         click_once(do[0], do[1], device=device, sleep_time=sleep_time)
         click_once(confirm[0], confirm[1], device=device, sleep_time=sleep_time)
         click_painless(device=device, sleep_time=sleep_time, times=2)
@@ -790,42 +798,35 @@ def daily_xing_shan(device = local_device, sleep_time = 1):
     enter_home(device=device, sleep_time=sleep_time)   
     if debugging:
         print("daily_xing_shan end")
-xing_shan = {
-    "entry" : (950, 670),
-    "do" : (920, 1520),
-    "click_times": 20,
-    "period": 2,
-    "confirm": (720, 1050),
-    "drag": (-1000, 0),
-}
 
 def shou_lie(device = local_device, sleep_time = 1):
     if debugging:
         print(f"shou_lie begin")
+    from resources_1080_1920.cheng_jiao.cheng_jiao_data import shou_lie
     enter_home(device=device, sleep_time=sleep_time)
     ex, ey = resources_1080_1920.general.general_pos["exit"]
     enter_cheng_jiao(device=device, sleep_time=sleep_time)
     # move to shou_lie
-    move_x, move_y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["drag_to_shou_lie"]
+    move_x, move_y = shou_lie["drag_to_shou_lie"]
     drag_and_move(move_x=move_x, move_y=move_y, start_x=1000, start_y=500, device=device, duration_ms=500)
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["entry"]
+    x, y = shou_lie["entry"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     # 进入 狩猎 page
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["enter"]
+    x, y = shou_lie["enter"]
     click_once(x, y, device=device, sleep_time=sleep_time)
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["auto"]
+    x, y = shou_lie["auto"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     # 点击自动
-    period = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["period"]
+    period = shou_lie["period"]
     for _ in range(50):
         click_painless(device=device, sleep_time=period)
     
-    x_help, y_help = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["shang_hui_help"]
-    x2_help, y2_help = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["shang_hui_help_page"]
-    x0, y0 = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["help_00"]
-    dx, dy = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["help_delta"]
+    x_help, y_help = shou_lie["shang_hui_help"]
+    x2_help, y2_help = shou_lie["shang_hui_help_page"]
+    x0, y0 = shou_lie["help_00"]
+    dx, dy = shou_lie["help_delta"]
     
-    x_con, y_con = resources_1080_1920.cheng_jiao.cheng_jiao_data.shou_lie["confirm"]
+    x_con, y_con = shou_lie["confirm"]
     
     for index in range(4, -1, -1): # 0 -> 4
         y_t = index // 3

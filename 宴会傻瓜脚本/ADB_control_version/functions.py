@@ -818,28 +818,23 @@ def shou_lie(device = local_device, sleep_time = 1):
 def ri_chang_chuang_dang(device = local_device, sleep_time = 1):
     if debugging:
         print(f"ri_chang_chuang_dang begin")
+    from resources_1080_1920.chuang_dang.chuang_dang_data import guan_ka
+    from resources_1080_1920.general import general_pos
+    ex, ey = general_pos["exit"]
     # 日常闯荡
     enter_chuang_dang(device=device, sleep_time=sleep_time)
     # 进入关卡
-    x, y = resources_1080_1920.chuang_dang.chuang_dang_data.guan_ka["entry"]
-    click_once(x, y, device, sleep_time=sleep_time*3)
-    x, y = resources_1080_1920.chuang_dang.chuang_dang_data.guan_ka["chuang_dang"]
-    click_once(x, y, device, sleep_time=sleep_time*3)
-    xc, yc = resources_1080_1920.chuang_dang.chuang_dang_data.guan_ka["chuang_dang"]
-    xcf, ycf = resources_1080_1920.chuang_dang.chuang_dang_data.guan_ka["chuang_dang"]
-    click_once(xc, yc, device, sleep_time=sleep_time)
-    click_once(xcf, ycf, device, sleep_time=sleep_time)
-    ex, ey = resources_1080_1920.chuang_dang.chuang_dang_data.guan_ka["event"]
-    click_once(ex, ey, device, sleep_time=sleep_time)
-    x, y = resources_1080_1920.chuang_dang.chuang_dang_data.guan_ka["process_event"]
-    click_once(x, y, device, sleep_time=sleep_time)
-    cx, cy = resources_1080_1920.chuang_dang.chuang_dang_data.guan_ka["argue"]
-    click_once(cx, cy, device, sleep_time=sleep_time)
-    click_painless(device=device, sleep_time=sleep_time, times = 3)
-    ex, ey = resources_1080_1920.general.general_pos["exit"]
-    click_once(ex, ey, device, sleep_time=sleep_time)
-    
-    click_painless(device=device, sleep_time=sleep_time, times = 3)
+    entry = guan_ka["entry"]
+    do = guan_ka["do"]
+    argue = guan_ka["argue"]
+    later = guan_ka["later"]
+    click_once(entry[0], entry[1], device, sleep_time=sleep_time*3)
+    click_once(do[0], do[1], device=device, sleep_time=sleep_time*3)
+    for _ in range(4):
+        click_once(later[0], later[1], device=device, sleep_time=sleep_time)
+        click_once(argue[0], argue[1], device=device, sleep_time=sleep_time)
+        click_painless(device=device, sleep_time=sleep_time/2, times = 2)
+    # 不考虑 满的情况
     enter_home(device=device, sleep_time=sleep_time)
     if debugging:
         print(f"    ri_chang_chuang_dang end")

@@ -575,6 +575,22 @@ def daily_qiao_qian(device = local_device, sleep_time = 1):
     enter_home(device= device, sleep_time=sleep_time)
     print("daily_qiao_qian ends")
 
+def daily_mail_process(device = local_device, sleep_time  = 1):
+    enter_home(device, sleep_time)
+    from resources_1080_1920.home.home_data import mail_list
+    mail = mail_list["mail"]
+    del_read = mail_list["del_read"]
+    one_click = mail_list["one_click"]
+    toggle_hide = mail_list["toggle_hide"]
+    toggle_open = mail_list["toggle_open"]
+    click_once(toggle_hide[0], toggle_hide[1], device=device, sleep_time=sleep_time)
+    click_once(toggle_open[0], toggle_open[1], device=device, sleep_time=sleep_time)
+    click_once(mail[0], mail[1], device=device, sleep_time=sleep_time)
+    click_once(one_click[0], one_click[1], device=device, sleep_time=sleep_time)
+    clicks(del_read[0], del_read[1], device=device, sleep_time=sleep_time, times = 3)
+    click_painless(device=device, sleep_time=sleep_time/5, times=3)
+    
+    
 def shang_zhan(device= local_device,sleep_time = 1):
     if debugging:
         print(f"shang_zhan 商战")
@@ -675,6 +691,7 @@ def daily_cheng_jiao_you_li(device = local_device, sleep_time = 1):
         print(f"daily_cheng_jiao_you_li 城郊游历 end")
 
 def daily_cai_shen_miao_like(device = local_device, sleep_time = 1):
+    # usual sleep_time 0.6 +
     from resources_1080_1920.cheng_jiao.cheng_jiao_data import cai_shen_miao
     print("daily_cai_shen_miao_like begin")
     enter_home(device=device, sleep_time=sleep_time)
@@ -714,19 +731,28 @@ def daily_ling_qu_yu_gan(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_ling_qu_yu_gan 领取鱼竿")
     # 领取鱼竿
+    # 经常领取不到，多做几次
+    from resources_1080_1920.cheng_jiao.cheng_jiao_data import zhuang_yuan
+    
     enter_home(device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time)
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.zhuang_yuan["entry"]
+    x, y = zhuang_yuan["entry"]
     click_once(x, y, device=device, sleep_time=sleep_time)
-    move_x, move_y = resources_1080_1920.cheng_jiao.cheng_jiao_data.zhuang_yuan["drag_to_yu_gan"]
-    drag_and_move(move_x=move_x, move_y=move_y, start_x=1000, start_y=500, device=device, duration_ms=500)
+    move_to_end(left=1, sleep_time=sleep_time)
+    move_x, move_y = zhuang_yuan["drag_to_yu_gan"]
+    drag_and_move(move_x=move_x/3, move_y=move_y, start_x=500, start_y=500, device=device, duration_ms=500)
+    drag_and_move(move_x=move_x/3, move_y=move_y, start_x=500, start_y=500, device=device, duration_ms=500)
+    drag_and_move(move_x=move_x/3, move_y=move_y, start_x=500, start_y=500, device=device, duration_ms=500)
     
-    yu_x, yu_y = resources_1080_1920.cheng_jiao.cheng_jiao_data.zhuang_yuan["yu_gan"]
-    clicks(yu_x, yu_y, device=device, sleep_time=sleep_time, times=3)
-    click_painless(device=device, sleep_time=sleep_time, times=2)
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.zhuang_yuan["shou_huo"]
+    yu_x, yu_y = zhuang_yuan["yu_gan"]
+    for _ in range(2):
+        for i in range(-5, 5, 1):
+            # often has x axis random bias
+            clicks(yu_x + i * 20, yu_y, device=device, sleep_time=sleep_time*0.1, times=4)
+        click_painless(device=device, sleep_time=sleep_time, times=2)
+    x, y = zhuang_yuan["shou_huo"]
     click_once(x, y, device=device, sleep_time=sleep_time)
-    x, y = resources_1080_1920.cheng_jiao.cheng_jiao_data.zhuang_yuan["shou_huo_confirm"]
+    x, y = zhuang_yuan["shou_huo_confirm"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time, times=2)
     enter_home(device=device, sleep_time=sleep_time)

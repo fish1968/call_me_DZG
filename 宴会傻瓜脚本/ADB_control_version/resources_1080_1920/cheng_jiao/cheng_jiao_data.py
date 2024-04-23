@@ -35,9 +35,12 @@ you_li = {
 
 zhuang_yuan = {
     "entry" : (520, 380),
-    
-    "drag_to_yu_gan": (-900, 0),
-    "yu_gan": (815, 1360),
+    # move to the left first
+    "drag_to_yu_gan": (-2000, 0),
+    # "yu_gan": (850, 1360),
+    # "yu_gan": (420, 1370),
+    # "yu_gan": (510, 1370),
+    "yu_gan": (400, 1360),
     "shou_huo": (950, 1630),
     "shou_huo_confirm": (550, 1730)
 }

@@ -61,3 +61,11 @@ xing_yun_duo_bao = {
     "duo_bao_five": (100, 1500),
     "tiao_guo": (600, 1450)
 }
+
+mail_list = {
+    "mail": (70, 920),
+    "del_read": (280, 1440),
+    "one_click": (800, 1440),
+    "toggle_hide": (180, 1045),
+    "toggle_open": (45, 1045)
+}

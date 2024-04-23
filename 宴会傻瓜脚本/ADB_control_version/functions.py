@@ -10,7 +10,7 @@ import resources_1080_1920.cheng_jiao.cheng_jiao_data
 import resources_1080_1920.home.home_data
 import resources_1080_1920.shang_pu
 import resources_1080_1920.shang_pu.shang_pu_data
-from local_data import local_device, debugging
+from local_data import local_device, debugging, apk_start_path
 
 def click_once(x = 0, y = 0, device = local_device, sleep_time = None):
     if device == None:
@@ -54,6 +54,64 @@ def move_to_end(left =0, right = 0, top = 0, bottom = 0, sleep_time = .5, device
     drag_and_move(move_x=move_x, move_y=move_y, device=device, duration_ms=int(sleep_time*1000))
     time.sleep(sleep_time)
     print("    move ends")
+
+def start_apk_game(game_path = apk_start_path, start_up_time = 120, device = local_device):
+    res = subprocess.run('START /b %s' %game_path, shell=True)
+    if res.returncode == 0:
+        print("Enter game sucess")
+    else:
+        print("Failed to enter Game!!!!")
+        exit()
+    print("等待 虚拟机启动")
+    time.sleep(30)
+    print("ADB 尝试连接")
+    cmd = ["adb", "connect" , device]
+    res = subprocess.run(cmd, shell=True)
+    res = subprocess.run(cmd, shell=True)
+    if res.returncode == 0:
+        print("adb 连接成功")
+    else:
+        print("adb 连接失败，尝试 locahost:5556")
+        cmd[-1] = "localhost:5556"
+        device = "localhost:5556"
+        res = subprocess.run(cmd, shell=True)
+        if res.returncode == 0:
+            print('adb 连接成功')
+        else:
+            print("adb 再次连接失败")
+            exit()
+    print("android 开启等待")
+    time.sleep(start_up_time) # android start time
+    print("游戏 开启等待")
+    
+    time.sleep(60) # game wait time
+    # do with first page
+    print("\t点击开始界面")
+    click_painless(device=device, sleep_time=1, times = 10)
+    
+    # click enter 
+    from resources_1080_1920.general import game, general_pos
+    print("\t点击开始")
+    start = game["start"]
+    clicks(start[0], start[1], device=device, sleep_time=0.5, times = 10)
+    time.sleep(10)
+    ex = general_pos["exit"]
+    # do with init home page 
+    for _ in range(4):
+        print("\t\t点击离线收益")
+        clicks(700, 1380, device=device, sleep_time=1, times = 2) # 离线收益
+        
+        print("\t\t点击进入活动")
+        clicks(950, 1540, device=device, sleep_time=1, times = 2) # 离线收益
+        clicks(300, 1540, device=device, sleep_time=1, times = 2) # 离线收益
+        clicks(1020, 220, device=device, sleep_time=1, times = 2) # 首充礼包
+        print("\t\t无痛点击")
+        click_painless(device=device, sleep_time=0.5, times = 5)
+        print("\t\t点击退出")
+        clicks(ex[0], ex[1], device=device, sleep_time=1, times = 3) 
+    click_painless(device=device, sleep_time=0.5, times = 5)
+    print("start_apk_game  启动游戏结束")
+
 def click_qian_zhuang_from_home(times = 100, sleep_time = 0.1, device = local_device):
     if debugging: 
         print(f"click_qian_zhuang_from_home: times = {times}, sleep_time: {sleep_time}, device: {device}")

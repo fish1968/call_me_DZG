@@ -1,5 +1,5 @@
 
-qian_dao = {
+qian_dao_pos = {
     "entry": (60, 980),
     "qian-dao" : (1080/2, 1440),
     "exit": (1030, 250)
@@ -23,7 +23,12 @@ yi_guan = {
     "painless":  (540, 1880),
     "money_page": (1026, 635),
 }
-
+qian_dao = {
+    "toggle_open" : (50, 1050),
+    "toggle_close" : (180, 1050),
+    "qian_dao" : (75, 980),
+    "do" : (540, 1450)
+}
 jiu_si = {
     "drag_move": (-800, 0),
     "entry" : (812, 530),

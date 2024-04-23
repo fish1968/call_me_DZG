@@ -12,7 +12,7 @@ import resources_1080_1920.shang_pu
 import resources_1080_1920.shang_pu.shang_pu_data
 from local_data import local_device, debugging, apk_start_path
 
-def click_once(x = 0, y = 0, device = local_device, sleep_time = None):
+def click_once(x:int = 0, y:int = 0, device:str = local_device, sleep_time = None):
     if device == None:
         adb_command = ["adb", "shell", "input", "tap", str(x), str(y)]
     else:
@@ -145,6 +145,10 @@ def click_union_basic_constrcut(device = local_device, sleep_time = 1):
     click_once(x, y, device=device, sleep_time=sleep_time)
     # finish constrcut notice
     click_painless(device=device, sleep_time=sleep_time)
+    x , y= 370, 230
+    for i in range(0, 20):
+        click_once(x,y, device=device, sleep_time=sleep_time/10)
+        x += int((1080-370)/20)
     # back home
     enter_home(device=device, sleep_time=sleep_time)
     if debugging:
@@ -265,17 +269,17 @@ def daily_click_qian_dao(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_qian_dao: begin")
     from resources_1080_1920.home.home_data import home_bar
-    from resources_1080_1920.shang_pu.shang_pu_data import qian_dao
+    from resources_1080_1920.shang_pu.shang_pu_data import qian_dao_pos
     # eneter shang pu
     x, y = home_bar["home_shang-pu"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     # click 签到
-    x, y = qian_dao["entry"]   
+    x, y = qian_dao_pos["entry"]   
     click_once(x, y, device=device, sleep_time=sleep_time*2)
-    x, y = qian_dao["qian-dao"]
+    x, y = qian_dao_pos["qian-dao"]
     # click 退出签到
     click_once(x, y, device=device, sleep_time=sleep_time)
-    x, y = qian_dao["exit"]
+    x, y = qian_dao_pos["exit"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     # 回到 home
     x, y = home_bar["home_home"]
@@ -367,20 +371,41 @@ def enter_cheng_jiao(device = local_device, sleep_time = 1):
 
 def enter_chuang_dang(device = local_device, sleep_time = 1):
     if debugging:
-        print(f"    ente_chuang_dang 城郊 begin")
+        print(f"    enter_chuang_dang 城郊 begin")
     x, y = resources_1080_1920.home.home_data.home_bar["home_chuang-dang"]
     click_once(x = x, y = y, device= device, sleep_time=sleep_time*3)
     if debugging:
-        print(f"    ente_chuang_dang 闯荡 end")
+        print(f"    enter_chuang_dang 闯荡 end")
 
 def enter_shang_pu(device = local_device, sleep_time = 1, wait_ratio = 5):
     if debugging:
-        print(f"    ente_shang_pu 商铺 begin")
+        print(f"    enter_shang_pu 商铺 begin")
     x, y = resources_1080_1920.home.home_data.home_bar["home_shang-pu"]
     click_once(x = x, y = y, device= device, sleep_time=sleep_time*wait_ratio)
     if debugging:
-        print(f"    ente_shang_pu 商铺 end")
+        print(f"    enter_shang_pu 商铺 end")
 
+def daily_do_shang_pu_qian_dao(device = local_device, sleep_time = 1):
+    if debugging:
+        print("daily_do_shang_pu_qian_dao 商铺签到 begin")
+    from resources_1080_1920.shang_pu.shang_pu_data import qian_dao
+    toggle_open = qian_dao["toggle_open"]
+    toggle_close = qian_dao["toggle_close"]
+    do = qian_dao["do"]
+    qian_dao_pos = qian_dao["qian_dao"]
+    click_painless(device=device, sleep_time=sleep_time/3, times = 3)
+    enter_shang_pu(device , sleep_time=sleep_time*3)
+    move_to_end(left = 1, sleep_time=sleep_time, device= device)
+    
+    click_once(toggle_close[0], toggle_close[1], device=device, sleep_time=sleep_time)
+    click_once(toggle_open[0], toggle_open[1], device=device, sleep_time=sleep_time)
+    click_once(qian_dao_pos[0], qian_dao_pos[1], device=device, sleep_time=sleep_time*3)
+    clicks(do[0], do[1], device=device, sleep_time=sleep_time/2, times = 4)
+    click_painless(device=device, sleep_time=sleep_time/2, times = 4)
+    enter_home(device=device, sleep_time=sleep_time)
+    if debugging:
+        print("daily_do_shang_pu_qian_dao 商铺签到 ends")
+    
 def daily_do_yi_guan(device = local_device, sleep_time = 1):
     from resources_1080_1920.shang_pu.shang_pu_data import yi_guan
     from resources_1080_1920.general import general_pos
@@ -429,6 +454,7 @@ def daily_do_jiu_si (device = local_device, sleep_time = 1):
     enter_home(device=device,sleep_time=sleep_time)
     if debugging:
         print(f"    daily_do_jiu_si 酒肆 ends")
+
 def daily_do_yao_pu (device = local_device, sleep_time = 1):
     if debugging:
         print(f"    daily_do_yao_pu 药铺 begin")
@@ -457,6 +483,16 @@ def daily_do_yao_pu (device = local_device, sleep_time = 1):
     enter_home(device=device,sleep_time=sleep_time)
     if debugging:
         print(f"    daily_do_yao_pu 药铺 ends")
+
+def daily_in_shang_pu (device = local_device, sleep_time = 1):
+    daily_do_shang_pu_qian_dao  (device= device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    daily_do_yi_guan            (device= device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    daily_do_jiu_si             (device= device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    daily_do_yao_pu             (device= device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
 
 def daily_click_rank(device = local_device, sleep_time = 1):
     if debugging:

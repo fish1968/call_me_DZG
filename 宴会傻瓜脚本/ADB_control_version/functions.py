@@ -104,7 +104,7 @@ def start_apk_game(game_path = apk_start_path, start_up_time = 120, device = loc
         print("\t\t点击进入活动")
         clicks(950, 1540, device=device, sleep_time=1, times = 2) # 离线收益
         clicks(300, 1540, device=device, sleep_time=1, times = 2) # 离线收益
-        clicks(1020, 220, device=device, sleep_time=1, times = 2) # 首充礼包
+        clicks(1020, 220, device=device, sleep_time=1, times = 2) # 首充礼包 容易点到特权 卡死
         print("\t\t无痛点击")
         click_painless(device=device, sleep_time=0.5, times = 5)
         print("\t\t点击退出")

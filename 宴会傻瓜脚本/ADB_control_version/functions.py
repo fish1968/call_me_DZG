@@ -115,9 +115,7 @@ def start_apk_game(game_path = apk_start_path, start_up_time = 120, device = loc
 def click_qian_zhuang_from_home(times = 100, sleep_time = 0.1, device = local_device):
     if debugging: 
         print(f"click_qian_zhuang_from_home: times = {times}, sleep_time: {sleep_time}, device: {device}")
-    x, y = resources_1080_1920.home.home_data.home_bar["home_shang-pu"]
-    subprocess.Popen(["adb", "-s", device, "shell", "input", "tap", str(x), str(y)])
-    time.sleep(5)
+    enter_shang_pu(device=device, sleep_time=sleep_time)
     for _ in range(10):
         drag_and_move(move_x=800, move_y=0, start_x=100, start_y=1000, device=device, duration_ms=100)
         time.sleep(0.2)
@@ -369,7 +367,92 @@ def enter_chuang_dang(device = local_device, sleep_time = 1):
     click_once(x = x, y = y, device= device, sleep_time=sleep_time*3)
     if debugging:
         print(f"    ente_chuang_dang 闯荡 end")
-    
+
+def enter_shang_pu(device = local_device, sleep_time = 1, wait_ratio = 5):
+    if debugging:
+        print(f"    ente_shang_pu 商铺 begin")
+    x, y = resources_1080_1920.home.home_data.home_bar["home_shang-pu"]
+    click_once(x = x, y = y, device= device, sleep_time=sleep_time*wait_ratio)
+    if debugging:
+        print(f"    ente_shang_pu 商铺 end")
+
+def daily_do_yi_guan(device = local_device, sleep_time = 1):
+    from resources_1080_1920.shang_pu.shang_pu_data import yi_guan
+    from resources_1080_1920.general import general_pos
+    if debugging:
+        print(f"    daily_do_yi_guan 医馆 starts")
+    ex = general_pos["exit"]
+    click_painless(device=device, sleep_time=sleep_time)
+    enter_home(device=device,sleep_time=sleep_time)
+    enter_shang_pu(device=device, sleep_time=sleep_time)
+    move_to_end(left = 1, sleep_time=sleep_time, device=device)
+    one_click = yi_guan["one_click"]
+    entry = yi_guan["entry"]
+    do = yi_guan["do"]
+    painless = yi_guan["painless"]
+    click_once(entry[0], entry[1], device = device, sleep_time=sleep_time*10)
+    for _ in range(2):
+        click_once(one_click[0], one_click[1], device = device, sleep_time=sleep_time)
+        click_once(do[0], do[1], device = device, sleep_time=sleep_time)
+        clicks(painless[0], painless[1], device=device, sleep_time=sleep_time, times = 3)
+    click_once(ex[0], ex[1], device = device, sleep_time=sleep_time)
+    enter_home(device=device,sleep_time=sleep_time)
+    if debugging:
+        print(f"    daily_do_yi_guan 医馆 ens")
+
+def daily_do_jiu_si (device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"    daily_do_jiu_si 酒肆 begin")
+    click_painless(device=device, sleep_time=sleep_time)
+    enter_home(device=device,sleep_time=sleep_time)
+    enter_shang_pu(device=device, sleep_time=sleep_time)
+    move_to_end(left = 1, sleep_time=sleep_time, device=device)
+    from resources_1080_1920.shang_pu.shang_pu_data import jiu_si
+    from resources_1080_1920.general import general_pos
+    move = jiu_si["drag_move"]
+    ex = general_pos["exit"]
+    drag_and_move(move[0], move[1], device=device, duration_ms=500)
+    one_click = jiu_si["one_click"]
+    entry = jiu_si["entry"]
+    do = jiu_si["do"]
+    click_once(entry[0], entry[1], device = device, sleep_time=sleep_time*10)
+    for _ in range(2):
+        click_once(one_click[0], one_click[1], device = device, sleep_time=sleep_time)
+        click_once(do[0], do[1], device = device, sleep_time=sleep_time)
+        click_painless(device=device, sleep_time=sleep_time, times = 3)
+    click_once(ex[0], ex[1], device = device, sleep_time=sleep_time)
+    enter_home(device=device,sleep_time=sleep_time)
+    if debugging:
+        print(f"    daily_do_jiu_si 酒肆 ends")
+def daily_do_yao_pu (device = local_device, sleep_time = 1):
+    if debugging:
+        print(f"    daily_do_yao_pu 药铺 begin")
+    click_painless(device=device, sleep_time=sleep_time)
+    enter_home(device=device,sleep_time=sleep_time)
+    enter_shang_pu(device=device, sleep_time=sleep_time)
+    move_to_end(left = 1, sleep_time=sleep_time, device=device)
+    from resources_1080_1920.shang_pu.shang_pu_data import yao_pu
+    from resources_1080_1920.general import general_pos
+    move = yao_pu["drag_move"]
+    ex = general_pos["exit"]
+    drag_and_move(move[0], move[1], device=device, duration_ms=500)
+    one_click = yao_pu["one_click"]
+    entry = yao_pu["entry"]
+    do = yao_pu["do"]
+    click_once(ex[0], ex[1], device = device, sleep_time=sleep_time)
+    one_click = yao_pu["one_click"]
+    entry = yao_pu["entry"]
+    do = yao_pu["do"]
+    click_once(entry[0], entry[1], device = device, sleep_time=sleep_time*10)
+    for _ in range(2):
+        click_once(one_click[0], one_click[1], device = device, sleep_time=sleep_time)
+        click_once(do[0], do[1], device = device, sleep_time=sleep_time)
+        click_painless(device=device, sleep_time=sleep_time, times = 3)
+    click_once(ex[0], ex[1], device = device, sleep_time=sleep_time)
+    enter_home(device=device,sleep_time=sleep_time)
+    if debugging:
+        print(f"    daily_do_yao_pu 药铺 ends")
+
 def daily_click_rank(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_rank 排行榜点赞 begin")

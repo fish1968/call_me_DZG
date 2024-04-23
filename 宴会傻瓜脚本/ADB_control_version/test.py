@@ -36,7 +36,7 @@ def passed_test():
 def daily_once(device = local_device):
     # 启动
     start_apk_game()
-    # 身分元宝
+    # 身份元宝
     daily_profile_yuan_bao(device=device,sleep_time=1)
     # 幸运夺宝
     daily_xing_yun_duo_bao_2(device=device) # 貌似点不到？
@@ -58,6 +58,10 @@ def daily_once(device = local_device):
     daily_cheng_jiao_you_li(device=device)
     # 庄园与鱼竿领取
     daily_ling_qu_yu_gan(device = device, sleep_time = 1)
+    # 商铺的三个 医馆 酒肆 药铺
+    daily_do_yi_guan()
+    daily_do_jiu_si()
+    daily_do_yao_pu()
     # 商会建设
     click_union_basic_constrcut(device=device)
     # 商战
@@ -92,7 +96,10 @@ start = time.time()
 # daily_qiao_qian()
 # time.sleep(3)
 # daily_profile_yuan_bao()
-start_apk_game()
+# start_apk_game()
+# daily_do_yi_guan()
+# daily_do_jiu_si()
+# daily_do_yao_pu()
 end = time.time()
 print(end-start)
 

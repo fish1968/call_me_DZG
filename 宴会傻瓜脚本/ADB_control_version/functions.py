@@ -766,9 +766,9 @@ def daily_ling_qu_yu_gan(device = local_device, sleep_time = 1):
     from resources_1080_1920.cheng_jiao.cheng_jiao_data import zhuang_yuan
     
     enter_home(device=device, sleep_time=sleep_time)
-    enter_cheng_jiao(device=device, sleep_time=sleep_time)
-    x, y = zhuang_yuan["entry"]
-    click_once(x, y, device=device, sleep_time=sleep_time)
+    enter_cheng_jiao(device=device, sleep_time=sleep_time*3)
+    entry = zhuang_yuan["entry"]
+    click_once(entry[0], entry[1], device=device, sleep_time=sleep_time*4)
     move_to_end(left=1, sleep_time=sleep_time)
     move_x, move_y = zhuang_yuan["drag_to_yu_gan"]
     drag_and_move(move_x=move_x/3, move_y=move_y, start_x=500, start_y=500, device=device, duration_ms=500)

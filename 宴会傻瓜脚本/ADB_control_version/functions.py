@@ -255,7 +255,6 @@ def obtain_screenshot(img_name = "test.png", device = local_device):
     if debugging:
         print(f"obtain_screenshot: img_name = {img_name} end")
 
-
 def test_move_screenshot(img_name = "test.png", device = local_device):
     if debugging:
         print(f"test_move_screenshot: img_name = {img_name} begin")
@@ -621,8 +620,7 @@ def daily_mail_process(device = local_device, sleep_time  = 1):
     click_once(one_click[0], one_click[1], device=device, sleep_time=sleep_time)
     clicks(del_read[0], del_read[1], device=device, sleep_time=sleep_time, times = 3)
     click_painless(device=device, sleep_time=sleep_time/5, times=3)
-    
-    
+
 def shang_zhan(device= local_device,sleep_time = 1):
     if debugging:
         print(f"shang_zhan 商战")
@@ -976,11 +974,38 @@ def daily_in_shang_pu (device = local_device, sleep_time = 1):
     if debugging:
         print("daily_in_shang_pu 执行商铺日常任务 ends")
 
+def daily_ri_chang_edge_tasks(device = local_device, sleep_time = 1):
+    # 商铺招募
+    # enter home -> bag -> 道具 -> 一定是右下角？ 点击加号 10次 -> 点击使用
+    # enter home
+    
+    # 珍兽培养
+    # enter home -> click men_ke -> click 商(x)类 -> drag to bottom -> 点击右边
+    # 进入门客培养后 -> 点击珍兽 -> 点击培养 -> 点击其中一个技能 (random choices)
+    # 点击培养 五次 -> 点击exit 三次 + (2*n)次数
+    
+    # 挚友谈心
+    # enter home -> drag to right -> drag 1000 pixel left
+    # -> 点击挚友 -> {one_click -> 谈心} x 2 
+    # 挚友赠送 两次
+    # 点击一个只有-> item -> 点击 赠送两次
+    # 挚友技能
+    # 点击一个挚友 -> 点击技能 -> 点击一个技能 -> 点击提升 五次
+    # 点击 exit 3 + (2*n) 次数 -> enter home
+    
+    # 关中贸易
+    # 钱庄点击
+    pass
+
+def 项目招商():
+    # 进入城郊 -> 进入 招商 -> 进入项目招商 -> 点击项目榜单 
+    # -> 点击尽显示空位 -> 滑动 3000 pixels -> 点击前往 -> 
+    # 4 * (点击位置 i -> 点击 painless)
+    # 点击 exit 4 次 -> enter home
+    pass
+
 def ri_chang_ren_wu_zhen_shou_five():
     # 珍兽技能五次
-    pass
-def guan_zhong_mao_yi():
-    # 关中贸易
     pass
 def ri_chang_ren_wu_zhi_you_five():
     # 挚友技能提升五次
@@ -988,11 +1013,14 @@ def ri_chang_ren_wu_zhi_you_five():
 def ri_chang_ren_wu_zhi_you_two():
     # 挚友赠送两次
     pass
-def daily_qian_zhuang_20(device = local_device, sleep_time = 0.1):
-    click_qian_zhuang_from_home(times=20*2, sleep_time=sleep_time)
 def ri_chang_ren_wu_zhi_you_tan_xin_five():
     # 挚友谈心五次
     pass
 def ri_chang_ren_wu_tu_di_100():
     # 徒弟培养100次
     pass
+
+def daily_qian_zhuang_20(device = local_device, sleep_time = 0.1):
+    click_painless(device=device,sleep_time=sleep_time/3, times = 5)
+    click_qian_zhuang_from_home(times=20*2, sleep_time=sleep_time)
+

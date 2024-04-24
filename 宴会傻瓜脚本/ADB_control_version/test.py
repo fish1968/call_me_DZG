@@ -40,21 +40,22 @@ def test_yu_gan():
         daily_ling_qu_yu_gan(sleep_time = st)
         st -= 0.1
 
-def daily_once(device = local_device, do_xing_shan = do_xing_shan):
+def daily_once(device = local_device, do_xing_shan = do_xing_shan,
+                sleep_time = 1):
     # 启动
     # start_apk_game() # 容易卡住
-    enter_chuang_dang(device=device, sleep_time=6)
-    enter_cheng_jiao(device=device, sleep_time=6)
-    enter_shang_pu(device=device, sleep_time=6)
-    enter_home(device=device, sleep_time=6)
+    enter_chuang_dang(device=device, sleep_time=sleep_time * 6)
+    enter_cheng_jiao(device=device, sleep_time=sleep_time * 6)
+    enter_shang_pu(device=device, sleep_time=sleep_time * 6)
+    enter_home(device=device, sleep_time=sleep_time * 6)
     # home
-    daily_in_home       (device=device, sleep_time=1)
+    daily_in_home       (device=device, sleep_time=sleep_time )
     # 城郊
-    daily_in_cheng_jiao (device=device, sleep_time=1, do_xing_shan = do_xing_shan)
+    daily_in_cheng_jiao (device=device, sleep_time=sleep_time , do_xing_shan = do_xing_shan)
     # 商铺
-    daily_in_shang_pu   (device=device, sleep_time=1)
+    daily_in_shang_pu   (device=device, sleep_time=sleep_time )
     # 日常闯荡一次
-    ri_chang_chuang_dang(device=device, sleep_time=1)
+    ri_chang_chuang_dang(device=device, sleep_time=sleep_time )
     
     for _ in range(3):
         for _ in range(10):

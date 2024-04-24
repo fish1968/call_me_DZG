@@ -21,3 +21,7 @@ quick fox:  com.zx.a2_quickfox/com.zx.a2_quickfox.ui.main.activity.MainActivity
 # 启动 quick fox
 adb shell am start  com.zx.a2_quickfox/com.zx.a2_quickfox.ui.main.activity.MainActivity
 ~~~
+
+# reference
+https://blog.csdn.net/ezconn/article/details/99885715 
+

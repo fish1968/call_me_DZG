@@ -2,7 +2,7 @@ import os
 import subprocess
 import time
 from functions import *
-from local_data import local_device
+from local_data import local_device, do_xing_shan
 
 
 def need_test():
@@ -40,7 +40,7 @@ def test_yu_gan():
         daily_ling_qu_yu_gan(sleep_time = st)
         st -= 0.1
 
-def daily_once(device = local_device):
+def daily_once(device = local_device, do_xing_shan = do_xing_shan):
     # 启动
     # start_apk_game() # 容易卡住
     enter_chuang_dang(device=device, sleep_time=6)
@@ -50,7 +50,7 @@ def daily_once(device = local_device):
     # home
     daily_in_home       (device=device, sleep_time=1)
     # 城郊
-    daily_in_cheng_jiao (device=device, sleep_time=1)
+    daily_in_cheng_jiao (device=device, sleep_time=1, do_xing_shan = do_xing_shan)
     # 商铺
     daily_in_shang_pu   (device=device, sleep_time=1)
     # 日常闯荡一次
@@ -70,7 +70,7 @@ def daily_once(device = local_device):
 
 
 start = time.time()
-daily_once(device=local_device)
+daily_once(device=local_device, do_xing_shan=do_xing_shan)
 # daily_do_shang_pu_qian_dao()
 # click_union_basic_constrcut()
 # daily_mail_process()

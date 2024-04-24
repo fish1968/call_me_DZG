@@ -894,6 +894,8 @@ def ri_chang_chuang_dang(device = local_device, sleep_time = 1):
         print(f"    ri_chang_chuang_dang end")
 
 def daily_in_home(device = local_device, sleep_time = 1):
+    if debugging:
+       print("daily_in_home 执行home日常任务")
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     enter_home(device=device, sleep_time=sleep_time)
     # 身份元宝领取
@@ -908,12 +910,18 @@ def daily_in_home(device = local_device, sleep_time = 1):
     # 日常邮件
     daily_mail_process(device=device, sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
-def daily_in_cheng_jiao         (device= local_device, sleep_time=1):
+    if debugging:
+       print("daily_in_home 执行home日常任务 ends")
+
+def daily_in_cheng_jiao         (device= local_device, sleep_time=1, do_xing_shan = False):
+    if debugging:
+       print("daily_in_cheng_jiao 执行城郊日常任务")
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     enter_cheng_jiao            (device=device, sleep_time=sleep_time)
     # 行善
-    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
-    daily_xing_shan             (device=device, sleep_time=sleep_time)
+    if do_xing_shan == True:
+        click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+        daily_xing_shan             (device=device, sleep_time=sleep_time)
     # 商会建设
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     click_union_basic_constrcut (device=device, sleep_time=sleep_time)
@@ -938,7 +946,12 @@ def daily_in_cheng_jiao         (device= local_device, sleep_time=1):
     # back home
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     enter_home                  (device=device, sleep_time=sleep_time)
+    if debugging:
+       print("daily_in_cheng_jiao 执行城郊日常任务 ends")
+
 def daily_in_shang_pu (device = local_device, sleep_time = 1):
+    if debugging:
+        print("daily_in_shang_pu 执行商铺日常任务")
     # 商铺签到
     daily_do_shang_pu_qian_dao  (device= device, sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
@@ -960,7 +973,8 @@ def daily_in_shang_pu (device = local_device, sleep_time = 1):
     
     # back home
     enter_home(device=device, sleep_time=sleep_time)
-
+    if debugging:
+        print("daily_in_shang_pu 执行商铺日常任务 ends")
 
 def ri_chang_ren_wu_zhen_shou_five():
     # 珍兽技能五次

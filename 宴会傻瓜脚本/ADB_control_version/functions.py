@@ -131,24 +131,40 @@ def click_qian_zhuang_from_home(times = 100, sleep_time = 0.1, device = local_de
 def click_union_basic_constrcut(device = local_device, sleep_time = 1):
     if debugging:
         print(f"click_union_basic_constrcut begin")
+    from resources_1080_1920.cheng_jiao.cheng_jiao_data import union
     # at home click cheng-jiao
     enter_home(device=device, sleep_time=sleep_time*3)
     enter_cheng_jiao(device=device, sleep_time=sleep_time*3)
     # go to union
-    x, y = 970, 650
-    click_once(x, y, device=device, sleep_time=sleep_time)
+    entry = union["entry"]
+    construct_entry = union["construct_entry"]
+    basic_construct = union["basic_construct"]
+    construct_box = union["construct_box"]
+    click_once(entry[0], entry[1], device=device, sleep_time=sleep_time)
     # click into construct page
-    x, y = 950, 1550
-    click_once(x, y, device=device, sleep_time=sleep_time)
+    construct_entry
+    click_once(construct_entry[0], construct_entry[1], device=device, sleep_time=sleep_time)
     # basic construct
-    x, y = 300, 950
-    click_once(x, y, device=device, sleep_time=sleep_time)
+    click_once(basic_construct[0], basic_construct[1], device=device, sleep_time=sleep_time)
     # finish constrcut notice
     click_painless(device=device, sleep_time=sleep_time)
-    x , y= 370, 230
-    for i in range(0, 20):
+    x , y= construct_box
+    loop_num = 20
+    for i in range(0, loop_num):
         click_once(x,y, device=device, sleep_time=sleep_time/10)
-        x += int((1080-370)/20)
+        x += int((1080-construct_box[0])/loop_num) # x[0] = 370
+    # 商会副业 建设
+    fu_ye = union["fu_ye"]
+    one_click = union["one_click"]
+    do = union["do_fu_ye"]
+    ex = resources_1080_1920.general.general_pos["exit"]
+    click_once(ex[0], ex[1], device=device, sleep_time=sleep_time)
+    click_once(fu_ye[0], fu_ye[1], device=device, sleep_time=sleep_time)
+    for _ in range(2):
+        click_once(one_click[0], one_click[1], device=device, sleep_time=sleep_time)
+        click_once(do[0], do[1], device=device, sleep_time=sleep_time)
+    clicks(ex[0], ex[1], device=device, sleep_time=sleep_time, times = 2)
+
     # back home
     enter_home(device=device, sleep_time=sleep_time)
     if debugging:

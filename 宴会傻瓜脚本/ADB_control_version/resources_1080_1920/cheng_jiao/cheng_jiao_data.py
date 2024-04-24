@@ -111,3 +111,14 @@ qiao_qian = {
     "bei_shan_entry": (450, 1430),
     "bei_shan_move_y": -1000
 }
+
+union = {
+    "entry": (970, 650),
+    "fu_ye": (170, 1400),
+    "one_click": (870, 1650),
+    "do_fu_ye": (540, 1620),
+    "construct_entry": (950, 1550),
+    "basic_construct" : (300, 950),
+    "construct_box": (370, 230), # range click 0..20 * (1080-370)/20
+    "ya_biao" : (870, 1400),
+}

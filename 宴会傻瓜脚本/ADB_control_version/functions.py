@@ -121,8 +121,7 @@ def click_qian_zhuang_from_home(times = 100, sleep_time = 0.1, device = local_de
         time.sleep(0.2)
     x,y = 300, 666
     for _ in range(times):
-        subprocess.Popen(["adb", "shell", "input", "tap", str(x), str(y)])
-        time.sleep(sleep_time)
+        click_once(x, y, device = device, sleep_time = sleep_time)
     if debugging: 
         print(f"click_qian_zhuang_from_home: end")
     
@@ -1038,5 +1037,5 @@ def ri_chang_ren_wu_tu_di_100():
 
 def daily_qian_zhuang_20(device = local_device, sleep_time = 0.1):
     click_painless(device=device,sleep_time=sleep_time/3, times = 5)
-    click_qian_zhuang_from_home(times=20*2, sleep_time=sleep_time)
+    click_qian_zhuang_from_home(times=20*2, sleep_time=sleep_time, device = device)
 

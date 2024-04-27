@@ -69,3 +69,23 @@ mail_list = {
     "toggle_hide": (180, 1045),
     "toggle_open": (45, 1045)
 }
+
+zhi_you = {
+    "move_to_left": True,
+    "move_x": -1000,
+    "entry" : (500, 1300),
+    "tan_xin": (1000, 1620),
+    "one_click": (560, 1680),
+    "duration_ms": 500
+}
+
+tu_di = {
+    "move_left": True,
+    "move_x": -1700,
+    "duration_ms": 1000,
+    "one_click": (850, 1460),
+    "do" : (540, 1380),
+    "entry" : (540, 1380),
+    "info" : (1034, 1445),
+    "toggle": (766, 1186),
+}

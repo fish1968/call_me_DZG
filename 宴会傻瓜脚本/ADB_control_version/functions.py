@@ -58,6 +58,18 @@ def move_to_end(left =0, right = 0, top = 0, bottom = 0, sleep_time = .5, device
     time.sleep(sleep_time)
     print("    move ends")
 
+def move_to_left(device = local_device, sleep_time = 0.5):
+    move_to_end(left = 1, sleep_time=0.5,device = device)
+
+def move_to_right(device = local_device, sleep_time = 0.5):
+    move_to_end(right= 1, sleep_time=0.5,device = device)
+
+def move_to_top(device = local_device, sleep_time = 0.5):
+    move_to_end( top = 1,sleep_time=0.5,device = device)
+
+def move_to_bottom(device = local_device, sleep_time = 0.5):
+    move_to_end(bottom= 1, sleep_time=0.5,device = device)
+
 def start_apk_game(game_path = apk_start_path, start_up_time = 120, device = local_device):
     res = subprocess.run('START /b %s' %game_path, shell=True)
     if res.returncode == 0:
@@ -421,7 +433,7 @@ def daily_do_shang_pu_qian_dao(device = local_device, sleep_time = 1):
     qian_dao_pos = qian_dao["qian_dao"]
     click_painless(device=device, sleep_time=sleep_time/3, times = 3)
     enter_shang_pu(device , sleep_time=sleep_time*3)
-    move_to_end(left = 1, sleep_time=sleep_time, device= device)
+    move_to_left(sleep_time=sleep_time, device= device)
     
     click_once(toggle_close[0], toggle_close[1], device=device, sleep_time=sleep_time)
     click_once(toggle_open[0], toggle_open[1], device=device, sleep_time=sleep_time)
@@ -441,7 +453,7 @@ def daily_do_yi_guan(device = local_device, sleep_time = 1):
     click_painless(device=device, sleep_time=sleep_time)
     enter_home(device=device,sleep_time=sleep_time)
     enter_shang_pu(device=device, sleep_time=sleep_time)
-    move_to_end(left = 1, sleep_time=sleep_time, device=device)
+    move_to_left(sleep_time=sleep_time, device=device)
     one_click = yi_guan["one_click"]
     entry = yi_guan["entry"]
     do = yi_guan["do"]
@@ -462,7 +474,7 @@ def daily_do_jiu_si (device = local_device, sleep_time = 1):
     click_painless(device=device, sleep_time=sleep_time)
     enter_home(device=device,sleep_time=sleep_time)
     enter_shang_pu(device=device, sleep_time=sleep_time)
-    move_to_end(left = 1, sleep_time=sleep_time, device=device)
+    move_to_left(sleep_time=sleep_time, device=device)
     from resources_1080_1920.shang_pu.shang_pu_data import jiu_si
     from resources_1080_1920.general import general_pos
     move = jiu_si["drag_move"]
@@ -487,7 +499,7 @@ def daily_do_yao_pu (device = local_device, sleep_time = 1):
     click_painless(device=device, sleep_time=sleep_time)
     enter_home(device=device,sleep_time=sleep_time)
     enter_shang_pu(device=device, sleep_time=sleep_time)
-    move_to_end(left = 1, sleep_time=sleep_time, device=device)
+    move_to_left(sleep_time=sleep_time, device=device)
     from resources_1080_1920.shang_pu.shang_pu_data import yao_pu
     from resources_1080_1920.general import general_pos
     move = yao_pu["drag_move"]
@@ -774,7 +786,7 @@ def daily_cai_shen_miao_like(device = local_device, sleep_time = 1):
         click_once(ex[0], ex[1], device=device, sleep_time=sleep_time*2)
     
     # 点赞下方的庙宇
-    move_to_end(bottom=1, sleep_time=0.5)
+    move_to_bottom(device = device, sleep_time = 0.5)
     for pos in cai_shen_miao["lows"]:
         click_once(pos[0], pos[1], device=device, sleep_time=sleep_time*2)
         click_once(cai_shen_pu[0], cai_shen_pu[1], device=device, sleep_time=sleep_time*2)
@@ -800,7 +812,7 @@ def daily_ling_qu_yu_gan(device = local_device, sleep_time = 1):
     enter_cheng_jiao(device=device, sleep_time=sleep_time*3)
     entry = zhuang_yuan["entry"]
     click_once(entry[0], entry[1], device=device, sleep_time=sleep_time*4)
-    move_to_end(left=1, sleep_time=sleep_time)
+    move_to_left(sleep_time=sleep_time)
     move_x, move_y = zhuang_yuan["drag_to_yu_gan"]
     drag_and_move(move_x=move_x/3, move_y=move_y, start_x=500, start_y=500, device=device, duration_ms=500)
     drag_and_move(move_x=move_x/3, move_y=move_y, start_x=500, start_y=500, device=device, duration_ms=500)
@@ -1039,7 +1051,7 @@ def zhi_you_tan_xin(device = local_device, sleep_time = 1):
     from resources_1080_1920.home.home_data import zhi_you
     enter_home(device=device, sleep_time=sleep_time)
     if zhi_you["move_to_left"] == True:
-        move_to_end(left = 1, sleep_time=0.5, device = device)
+        move_to_left(sleep_time=0.5, device = device)
     drag_and_move(move_x=zhi_you["move_x"], move_y=0,device=device, duration_ms=zhi_you["duration_ms"])
     entry = zhi_you["entry"]
     click_once(entry[0], entry[1], device=device, sleep_time=sleep_time)
@@ -1061,7 +1073,7 @@ def tu_di_raise_up(device = local_device, sleep_time = 1):
     # enter home
     enter_home(device = device, sleep_time = sleep_time)
     if tu_di["move_left"] == True:
-        move_to_end(left = 1, device = device)
+        move_to_left(device = device)
     drag_and_move(move_x=tu_di["move_x"], device=device, duration_ms=tu_di["duration_ms"])
     entry = tu_di["entry"]
     click_once(entry[0], entry[1], device = device, sleep_time = sleep_time)

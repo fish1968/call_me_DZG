@@ -3,7 +3,8 @@ import subprocess
 import time
 from functions import *
 from local_data import local_device, do_xing_shan
-
+from obtain_port_number import *
+from connect_check import *
 
 def need_test():
     obtain_screenshot()
@@ -75,7 +76,16 @@ def daily_once(device = local_device, do_xing_shan = do_xing_shan,
 
 
 start = time.time()
+# check connect tivity
+while is_adb_connected() == False:
+    subprocess.run(["adb", "start-server"])
+
+if not is_device_connected(device=local_device):
+    local_device = "localhost:"+str(find_available_port(5555, 5560))
+
+
 daily_once(device=local_device, do_xing_shan=do_xing_shan)
+
 # daily_do_shang_pu_qian_dao()
 # click_union_basic_constrcut()
 # daily_mail_process()

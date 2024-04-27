@@ -13,5 +13,7 @@ def find_available_port(start_port, end_port):
 # Usage
 start_port = 5555
 end_port = 5560
-selected_port = find_available_port(start_port, end_port)
-print(f"Selected port: {selected_port}")
+if __name__ == "__main__":
+    selected_port = find_available_port(start_port, end_port)
+    print(f"Selected port: {selected_port}")
+

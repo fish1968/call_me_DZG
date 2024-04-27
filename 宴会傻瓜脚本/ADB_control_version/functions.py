@@ -12,6 +12,13 @@ import resources_1080_1920.shang_pu
 import resources_1080_1920.shang_pu.shang_pu_data
 from local_data import local_device, debugging, apk_start_path
 
+def future_care(func):
+    def wrapper(*args, **kwargs):
+        print("This function needs future attention!")
+        return func(*args, **kwargs)
+    return wrapper
+
+
 def click_once(x:int = 0, y:int = 0, device:str = local_device, sleep_time = None):
     if device == None:
         adb_command = ["adb", "shell", "input", "tap", str(x), str(y)]
@@ -415,6 +422,15 @@ def enter_men_ke(device = local_device, sleep_time = 1):
     click_once(x, y, device = device, sleep_time=sleep_time)
     if debugging:
         print(f"    enter_men_ke 进入门客界面 ends")
+
+def enter_bei_bao(device = local_device, sleep_time = 1):
+    from resources_1080_1920.home.home_data import home_bar
+    if debugging:
+        print(f"    enter_men_ke 进入背包界面 begin")
+    x, y = home_bar["home_bei-bao"]
+    click_once(x, y, device = device, sleep_time=sleep_time)
+    if debugging:
+        print(f"    enter_men_ke 进入背包界面 ends")
 
 def enter_chuang_dang(device = local_device, sleep_time = 1):
     if debugging:
@@ -1115,21 +1131,34 @@ def activate_cache(device = local_device, sleep_time = 1):
     enter_shang_pu(device=device, sleep_time=sleep_time * 6)
     enter_home(device=device, sleep_time=sleep_time * 6)
 
-@FutureWarning
+@future_care
+def daily_recruit_10(device = local_device, sleep_time = 1):
+    enter_bei_bao(device, sleep_time=sleep_time)
+    x, y = 197, 197
+    click_once(x, y, device = local_device, sleep_time=sleep_time)
+    x, y = 941, 1586
+    click_once(x, y, device = local_device, sleep_time=sleep_time)
+    x, y = 882, 1138
+    clicks(x, y, device = local_device, sleep_time=sleep_time/4, times = 10)
+    x, y = 541, 1282
+    click_once(x, y, device = local_device, sleep_time=sleep_time)
+    enter_home(device, sleep_time=sleep_time)
+
+@future_care
 def ri_chang_ren_wu_zhen_shou_five():
     # 珍兽技能五次
     pass
 
-@FutureWarning
+@future_care
 def ri_chang_ren_wu_zhi_you_five():
     # 挚友技能提升五次
     pass
 
-@FutureWarning
+@future_care
 def ri_chang_ren_wu_zhi_you_two():
     # 挚友赠送两次
     pass
-@FutureWarning
+@future_care
 def ri_chang_ren_wu_zhi_you_tan_xin_five():
     # 挚友谈心五次
     pass

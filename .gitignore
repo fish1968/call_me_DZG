@@ -25,4 +25,5 @@ trial/*
 
 # ignore pyc
 *.pyc
-
+# ignore vim temp file
+*~

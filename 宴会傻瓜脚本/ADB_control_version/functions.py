@@ -611,7 +611,7 @@ def daily_qiao_qian(device = local_device, sleep_time = 1):
     click_painless(device=device, sleep_time=sleep_time, times = 2)
     click_once(ex[0], ex[1], device=device,sleep_time=sleep_time)
 
-    drag_and_move(move_y=move_y, device=device,duration_ms=sleep_time*1000)
+    drag_and_move(move_x = 0, move_y=move_y, device=device,duration_ms=sleep_time*500)
     time.sleep(sleep_time)
     click_once(bei_shan_entry[0], bei_shan_entry[1], device=device,sleep_time=sleep_time*2)
     click_once(low_like[0], low_like[1], device=device,sleep_time=sleep_time)

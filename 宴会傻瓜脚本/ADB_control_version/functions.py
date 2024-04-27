@@ -33,6 +33,8 @@ def click_painless(device = local_device, sleep_time = None, times = 1):
 def drag_and_move(move_x=0, move_y=0, start_x=500, start_y=1000, device = local_device, duration_ms = 100):
     adb_command = ['adb',"-s", device, 'shell', 'input', 'swipe', str(start_x), str(start_y), str(start_x+move_x), str(start_y+move_y), str(duration_ms)]
     subprocess.run(adb_command)
+    if debugging:
+        print(adb_command)
 
 def move_to_end(left =0, right = 0, top = 0, bottom = 0, sleep_time = .5, device = local_device):
     move_x = 0

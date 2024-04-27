@@ -774,6 +774,7 @@ def daily_cai_shen_miao_like(device = local_device, sleep_time = 1):
     cai_shen_like = cai_shen_miao["cai_shen_like"]
     big_like = cai_shen_miao["like"]
     # 点大赞
+    time.sleep(sleep_time * 5) # waits
     click_once(big_like[0], big_like[1], device=device, sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time/2, times = 3)
     

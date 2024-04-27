@@ -246,12 +246,12 @@ def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
 
 def click_wait(total_time = 1000, sleep_time = 10, deivce = local_device):
     if debugging:
-        print(f"click_sleep with total time: {total_time}, sleep_time: {sleep_time}")
+        print(f"click_wait with total time: {total_time}, sleep_time: {sleep_time}")
     while total_time > 0:
         click_painless(device=deivce, sleep_time=sleep_time, times = 3)
         total_time -= sleep_time
     if debugging:
-        print("click_sleep ends")
+        print("click_wait ends")
 
 def daily_click_xian_shi_chong_zhi(device= local_device, sleep_time = 1):
     if debugging:
@@ -390,14 +390,6 @@ def remove_local_file(img_file_path="test.png"):
     if debugging:
         print(f"remove_local_file img_path = {img_file_path} end")
 
-def enter_cheng_jiao(device = local_device, sleep_time = 1):
-    if debugging:
-        print(f"    enter_cheng_jiao 进入城郊界面 begin")
-    x, y = resources_1080_1920.home.home_data.home_bar["home_cheng-jiao"]
-    click_once(x,y, device=device, sleep_time=sleep_time)
-    if debugging:
-        print(f"    enter_cheng_jiao 进入城郊界面 end")
-
 def enter_home(device = local_device, sleep_time = 1):
     if debugging:
         print(f"    enter_home 进入首页界面 begin")
@@ -423,14 +415,13 @@ def enter_men_ke(device = local_device, sleep_time = 1):
     if debugging:
         print(f"    enter_men_ke 进入门客界面 ends")
 
-def enter_bei_bao(device = local_device, sleep_time = 1):
-    from resources_1080_1920.home.home_data import home_bar
+def enter_shang_pu(device = local_device, sleep_time = 1, wait_ratio = 5):
     if debugging:
-        print(f"    enter_men_ke 进入背包界面 begin")
-    x, y = home_bar["home_bei-bao"]
-    click_once(x, y, device = device, sleep_time=sleep_time)
+        print(f"    enter_shang_pu 商铺 begin")
+    x, y = resources_1080_1920.home.home_data.home_bar["home_shang-pu"]
+    click_once(x = x, y = y, device= device, sleep_time=sleep_time*wait_ratio)
     if debugging:
-        print(f"    enter_men_ke 进入背包界面 ends")
+        print(f"    enter_shang_pu 商铺 end")
 
 def enter_chuang_dang(device = local_device, sleep_time = 1):
     if debugging:
@@ -440,13 +431,38 @@ def enter_chuang_dang(device = local_device, sleep_time = 1):
     if debugging:
         print(f"    enter_chuang_dang 闯荡 end")
 
-def enter_shang_pu(device = local_device, sleep_time = 1, wait_ratio = 5):
+def enter_cheng_jiao(device = local_device, sleep_time = 1):
     if debugging:
-        print(f"    enter_shang_pu 商铺 begin")
-    x, y = resources_1080_1920.home.home_data.home_bar["home_shang-pu"]
-    click_once(x = x, y = y, device= device, sleep_time=sleep_time*wait_ratio)
+        print(f"    enter_cheng_jiao 进入城郊界面 begin")
+    x, y = resources_1080_1920.home.home_data.home_bar["home_cheng-jiao"]
+    click_once(x,y, device=device, sleep_time=sleep_time)
     if debugging:
-        print(f"    enter_shang_pu 商铺 end")
+        print(f"    enter_cheng_jiao 进入城郊界面 end")
+
+def enter_bei_bao(device = local_device, sleep_time = 1):
+    from resources_1080_1920.home.home_data import home_bar
+    if debugging:
+        print(f"    enter_bei_bao 进入背包界面 begin")
+    x, y = home_bar["home_bei-bao"]
+    click_once(x, y, device = device, sleep_time=sleep_time)
+    if debugging:
+        print(f"    enter_bei_bao 进入背包界面 ends")
+
+def enter_zhi_you(device = local_device, sleep_time = 1):
+    if debugging: 
+        print(f"\tenter_zhi_you 进入挚友界面 begin")
+    from resources_1080_1920.home.home_data import zhi_you
+    # enter home
+    enter_home(device=device, sleep_time=sleep_time)
+    # 进入挚友界面
+    if zhi_you["move_to_left"] == True:
+        move_to_left(sleep_time=0.5, device = device)
+    drag_and_move(move_x=zhi_you["move_x"], move_y=0,device=device, duration_ms=zhi_you["duration_ms"])
+    entry = zhi_you["entry"]
+    click_once(entry[0], entry[1], device=device, sleep_time=sleep_time)
+    if debugging: 
+        print(f"\tenter_zhi_you 进入挚友界面 ends")
+    
 
 def daily_do_shang_pu_qian_dao(device = local_device, sleep_time = 1):
     if debugging:
@@ -980,6 +996,22 @@ def daily_in_home(device = local_device, sleep_time = 1):
     # 日常邮件
     daily_mail_process(device=device, sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    # 招聘10人
+    daily_recruit_10(device = device, sleep_time = sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    # 徒弟培养
+    tu_di_raise_up(device = device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    # 挚友谈心
+    zhi_you_tan_xin(device=device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    # 珍兽
+    zhen_shou_raise(device = device, sleep_time = sleep_time, times = 5)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    # 挚友赠送
+    zhi_you_gift(device=device, sleep_time = sleep_time, times = 2)
+    # 挚友技能
+    
     if debugging:
        print("daily_in_home 执行home日常任务 ends")
 
@@ -1145,25 +1177,84 @@ def daily_recruit_10(device = local_device, sleep_time = 1):
     enter_home(device, sleep_time=sleep_time)
 
 @future_care
-def ri_chang_ren_wu_zhen_shou_five():
+def zhen_shou_raise(device = local_device, sleep_time = 1, times = 5):
     # 珍兽技能五次
+    if debugging:
+        print("zhen_shou_raise begins")
+    enter_men_ke(device=device, sleep_time=sleep_time)
+    x, y = 682, 1664
+    click_once(x, y, device = device, sleep_time=sleep_time)
+    move_to_bottom(local_device)
+    x, y = 562, 768
+    click_once(x, y, device = device, sleep_time=sleep_time)
+    x, y = 120, 1200 
+    click_once(x, y, device = device, sleep_time=sleep_time)
+    x, y = 552, 1250
+    click_once(x, y, device = device, sleep_time=sleep_time)
+    x, y = 661, 1386
+    click_once(x, y, device = device, sleep_time=sleep_time)
+    x, y = 896, 1674
+    clicks(x, y, device = device, sleep_time=sleep_time, times = times+1)
+    click_exit(device = device, sleep_time=sleep_time, times = 4)
+    if debugging:
+        print("zhen_shou_raise ends")
+
+@future_care
+def zhi_you_skills(device = local_device, sleep_time = 1, times = 5):
+    # 挚友技能提升 5 次
+    if debugging: 
+        print(f"zhi_you_gift 挚友赠送 {times}次 begin")
+    from resources_1080_1920.home.home_data import zhi_you
+    # 进入挚友界面
+    enter_zhi_you(device=device, sleep_time=sleep_time)
+    
+    one_zhi_you = 800, 480
+    click_once(one_zhi_you[0], one_zhi_you[1], device=device, sleep_time=sleep_time)
+    ji_neng = 98, 1042
+    one_skill = 424, 933
+    do_skill = 856, 1240
+    # 点击技能页面
+    click_once(ji_neng[0], ji_neng[1], device=device, sleep_time=sleep_time)
+    # 点击一个技能槽
+    click_once(one_skill[0], one_skill[1], device=device, sleep_time=sleep_time)
+    # 点击提升skill
+    clicks(do_skill[0], do_skill[1], device=device, sleep_time=sleep_time, times = times)
+    click_exit(device = device, sleep_time = sleep_time, times = 3)
+    # back home
+    enter_home(device=device, sleep_time=sleep_time)
+    if debugging: 
+        print(f"zhi_you_gift 挚友赠送 {times}次 ends")
+
+
+@future_care
+def zhi_you_gift(device = local_device, sleep_time = 1, times = 2):
+    # 挚友赠送 >= times 次
+    if debugging: 
+        print(f"zhi_you_gift 挚友赠送 {times}次 begin")
+    from resources_1080_1920.home.home_data import zhi_you
+    # enter home
+    enter_home(device=device, sleep_time=sleep_time)
+    # 进入挚友界面
+    enter_zhi_you(device = device, sleep_time = sleep_time)
+    one_zhi_you = 800, 480
+    click_once(one_zhi_you[0], one_zhi_you[1], device=device, sleep_time=sleep_time)
+    mu_shu = 184, 1794
+    one_click = 329, 646
+    do = 920, 1781
+    do_times = int(times/5) + int(times/2) + 1
+    for _ in range(do_times):
+        click_once(mu_shu[0], mu_shu[1], device=device, sleep_time=sleep_time)
+        click_once(one_click[0], one_click[1], device=device, sleep_time=sleep_time)
+        click_once(do[0], do[1], device=device, sleep_time=sleep_time)
+    click_exit(device = device, sleep_time = sleep_time, times = 3)
+    # back home
+    enter_home(device=device, sleep_time=sleep_time)
+    if debugging: 
+        print(f"zhi_you_gift 挚友赠送 {times}次 ends")
+        
     pass
 
 @future_care
-def ri_chang_ren_wu_zhi_you_five():
-    # 挚友技能提升五次
-    pass
-
-@future_care
-def ri_chang_ren_wu_zhi_you_two():
-    # 挚友赠送两次
-    pass
-@future_care
-def ri_chang_ren_wu_zhi_you_tan_xin_five():
-    # 挚友谈心五次
-    pass
-
-@DeprecationWarning
 def ri_chang_ren_wu_tu_di_100():
     # 徒弟培养100次
     pass

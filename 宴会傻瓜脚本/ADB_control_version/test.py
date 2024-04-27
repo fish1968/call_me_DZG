@@ -82,7 +82,7 @@ while is_adb_connected() == False:
 
 if not is_device_connected(device=local_device):
     local_device = "localhost:"+str(find_available_port(5555, 5560))
-
+    is_device_connected(device=local_device)
 
 daily_once(device=local_device, do_xing_shan=do_xing_shan)
 

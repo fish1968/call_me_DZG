@@ -38,10 +38,7 @@ def daily_do_once(device = local_device, do_xing_shan = do_xing_shan,
     # 启动
     print("daily_do_once 启动")
     # start_apk_game() # 容易卡住
-    enter_chuang_dang(device=device, sleep_time=sleep_time * 6)
-    enter_cheng_jiao(device=device, sleep_time=sleep_time * 6)
-    enter_shang_pu(device=device, sleep_time=sleep_time * 6)
-    enter_home(device=device, sleep_time=sleep_time * 6)
+    activate_cache(device = device, sleep_time = sleep_time)
     # home
     print("- "*10)
     daily_in_home       (device=device, sleep_time=sleep_time )

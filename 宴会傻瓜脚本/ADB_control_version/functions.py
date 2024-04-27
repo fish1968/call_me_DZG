@@ -776,10 +776,11 @@ def daily_cai_shen_miao_like(device = local_device, sleep_time = 1):
     # 点大赞
     time.sleep(sleep_time * 5) # waits
     click_once(big_like[0], big_like[1], device=device, sleep_time=sleep_time)
-    click_painless(device=device, sleep_time=sleep_time/2, times = 3)
+    click_painless(device=device, sleep_time=sleep_time, times = 5)
     
     # 点赞上方的庙宇
     for pos in cai_shen_miao["ups"]:
+        time.sleep(sleep_time)
         click_once(pos[0], pos[1], device=device, sleep_time=sleep_time*2)
         click_once(cai_shen_pu[0], cai_shen_pu[1], device=device, sleep_time=sleep_time*2)
         click_once(cai_shen_like[0], cai_shen_like[1], device=device, sleep_time=sleep_time*2)
@@ -1096,6 +1097,12 @@ def 项目招商():
     # 点击 exit 4 次 -> enter home
     pass
 
+def activate_cache(device = local_device, sleep_time = 1):
+    # build up cache in the game to avoid long loading time caused error
+    enter_chuang_dang(device=device, sleep_time=sleep_time * 6)
+    enter_cheng_jiao(device=device, sleep_time=sleep_time * 6)
+    enter_shang_pu(device=device, sleep_time=sleep_time * 6)
+    enter_home(device=device, sleep_time=sleep_time * 6)
 def ri_chang_ren_wu_zhen_shou_five():
     # 珍兽技能五次
     pass

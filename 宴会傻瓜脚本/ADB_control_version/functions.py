@@ -795,11 +795,13 @@ def daily_cai_shen_miao_like(device = local_device, sleep_time = 1):
         click_once(cai_shen_like[0], cai_shen_like[1], device=device, sleep_time=sleep_time*2)
         click_painless(device=device, sleep_time=sleep_time/2, times = 3)
         click_once(ex[0], ex[1], device=device, sleep_time=sleep_time*2)
+    
     # 第二次点大赞，有时候第一次点不到
-    click_painless(device=device, sleep_time=sleep_time/5, times = 5)
-    click_once(big_like[0], big_like[1], device=device, sleep_time=sleep_time)
+    time.sleep(sleep_time)
+    clicks(big_like[0], big_like[1], device=device, sleep_time=sleep_time, times = 3)
     click_painless(device=device, sleep_time=sleep_time/3, times = 5)
     
+    # back home
     enter_home(device=device, sleep_time=sleep_time)
     print("daily_cai_shen_miao_like ends")
 

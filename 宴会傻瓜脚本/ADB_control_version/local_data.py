@@ -3,9 +3,10 @@ local_device = "localhost:5555"
 # package name 
 game_package_name = r"com.sqwh5.ys.jwdzg.jwdzgh5_ptzy_ysf37/com.gamesdk.h5.GameActivity"
 
-
 # 是否进行行善
-do_xing_shan = False 
+json_file_path = "data.json"
+# do_xing_shan = False 
+do_xing_shan = True
 
 # my debug part end
 debugging = True

@@ -33,6 +33,7 @@ def click_painless(device = local_device, sleep_time = None, times = 1):
 def drag_and_move(move_x=0, move_y=0, start_x=500, start_y=1000, device = local_device, duration_ms = 100):
     adb_command = ['adb',"-s", device, 'shell', 'input', 'swipe', str(start_x), str(start_y), str(start_x+move_x), str(start_y+move_y), str(duration_ms)]
     subprocess.run(adb_command)
+    time.sleep(int(duration_ms/500))
     if debugging:
         print(adb_command)
 
@@ -223,6 +224,15 @@ def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
     
     if debugging:
         print(f"daily_click_home_shang_cheng_ling_qu 商城领取 end")
+
+def click_wait(total_time = 1000, sleep_time = 10, deivce = local_device):
+    if debugging:
+        print(f"click_sleep with total time: {total_time}, sleep_time: {sleep_time}")
+    while total_time > 0:
+        click_painless(device=deivce, sleep_time=sleep_time, times = 3)
+        total_time -= sleep_time
+    if debugging:
+        print("click_sleep ends")
 
 def daily_click_xian_shi_chong_zhi(device= local_device, sleep_time = 1):
     if debugging:
@@ -1018,6 +1028,54 @@ def daily_ri_chang_edge_tasks(device = local_device, sleep_time = 1):
     # 钱庄点击
     pass
 
+def click_exit(device = local_device, sleep_time = 1, times = 1):
+    from resources_1080_1920.general import general_pos
+    ex = general_pos["exit"]
+    clicks(ex[0], ex[1], device = device, sleep_time=sleep_time, times = times)
+
+def zhi_you_tan_xin(device = local_device, sleep_time = 1):
+    if debugging:
+        print("zhi_you_tan_xin 挚友谈心 begin")
+    from resources_1080_1920.home.home_data import zhi_you
+    enter_home(device=device, sleep_time=sleep_time)
+    if zhi_you["move_to_left"] == True:
+        move_to_end(left = 1, sleep_time=0.5, device = device)
+    drag_and_move(move_x=zhi_you["move_x"], move_y=0,device=device, duration_ms=zhi_you["duration_ms"])
+    entry = zhi_you["entry"]
+    click_once(entry[0], entry[1], device=device, sleep_time=sleep_time)
+    # 点击谈心
+    tan_xin = zhi_you["tan_xin"]
+    one_click = zhi_you["one_click"]
+    for _ in range(4):
+        click_once(x=tan_xin[0], y = tan_xin[1], device = device, sleep_time = sleep_time)
+        click_painless(device=device, sleep_time = sleep_time, times = 10)
+        # 一键谈心 按钮
+        click_once(x = one_click[0], y = one_click[1], device = device, sleep_time = sleep_time)
+    click_exit(device = device, sleep_time = sleep_time, times = 3)
+    enter_home(device = device, sleep_time=sleep_time)
+    if debugging:
+        print("zhi_you_tan_xin 挚友谈心 ends")
+
+def tu_di_raise_up(device = local_device, sleep_time = 1):
+    from resources_1080_1920.home.home_data import tu_di
+    # enter home
+    enter_home(device = device, sleep_time = sleep_time)
+    if tu_di["move_left"] == True:
+        move_to_end(left = 1, device = device)
+    drag_and_move(move_x=tu_di["move_x"], device=device, duration_ms=tu_di["duration_ms"])
+    entry = tu_di["entry"]
+    click_once(entry[0], entry[1], device = device, sleep_time = sleep_time)
+    for _ in range(2):
+        click_once(tu_di["info"][0], tu_di["info"][1], device = device, sleep_time = sleep_time)
+        click_once(tu_di["toggle"][0], tu_di["toggle"][1], device = device, sleep_time = sleep_time)
+        click_painless(device, sleep_time, times = 3)
+        for _ in range(2):
+            click_once(tu_di["one_click"][0], tu_di["one_click"][1], device = device, sleep_time = sleep_time)
+            clicks(tu_di["do"][0], tu_di["do"][1], device = device, sleep_time = sleep_time/3, times = 3)
+            click_painless(device, sleep_time=sleep_time/2, times = 3)
+            time.sleep(sleep_time*4)
+    click_exit(device, sleep_time = sleep_time , times = 3)
+    enter_home(device = device, sleep_time=sleep_time)
 def 项目招商():
     # 进入城郊 -> 进入 招商 -> 进入项目招商 -> 点击项目榜单 
     # -> 点击尽显示空位 -> 滑动 3000 pixels -> 点击前往 -> 

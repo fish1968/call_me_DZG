@@ -407,6 +407,15 @@ def enter_cheng_jiao(device = local_device, sleep_time = 1):
     if debugging:
         print(f"    enter_cheng_jiao 进入城郊界面 end")
 
+def enter_men_ke(device = local_device, sleep_time = 1):
+    from resources_1080_1920.home.home_data import home_bar
+    if debugging:
+        print(f"    enter_men_ke 进入门客界面 begin")
+    x, y = home_bar["home_men-ke"]
+    click_once(x, y, device = device, sleep_time=sleep_time)
+    if debugging:
+        print(f"    enter_men_ke 进入门客界面 ends")
+
 def enter_chuang_dang(device = local_device, sleep_time = 1):
     if debugging:
         print(f"    enter_chuang_dang 城郊 begin")
@@ -1105,18 +1114,27 @@ def activate_cache(device = local_device, sleep_time = 1):
     enter_cheng_jiao(device=device, sleep_time=sleep_time * 6)
     enter_shang_pu(device=device, sleep_time=sleep_time * 6)
     enter_home(device=device, sleep_time=sleep_time * 6)
+
+@FutureWarning
 def ri_chang_ren_wu_zhen_shou_five():
     # 珍兽技能五次
     pass
+
+@FutureWarning
 def ri_chang_ren_wu_zhi_you_five():
     # 挚友技能提升五次
     pass
+
+@FutureWarning
 def ri_chang_ren_wu_zhi_you_two():
     # 挚友赠送两次
     pass
+@FutureWarning
 def ri_chang_ren_wu_zhi_you_tan_xin_five():
     # 挚友谈心五次
     pass
+
+@DeprecationWarning
 def ri_chang_ren_wu_tu_di_100():
     # 徒弟培养100次
     pass

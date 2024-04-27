@@ -50,16 +50,16 @@ def daily_once(device = local_device, do_xing_shan = do_xing_shan,
     enter_shang_pu(device=device, sleep_time=sleep_time * 6)
     enter_home(device=device, sleep_time=sleep_time * 6)
     # home
-    print("-"*10)
+    print("- "*10)
     daily_in_home       (device=device, sleep_time=sleep_time )
     # 城郊
-    print("-"*10)
+    print("- "*10)
     daily_in_cheng_jiao (device=device, sleep_time=sleep_time , do_xing_shan = do_xing_shan)
     # 商铺
-    print("-"*10)
+    print("- "*10)
     daily_in_shang_pu   (device=device, sleep_time=sleep_time )
     # 日常闯荡一次
-    print("-"*10)
+    print("- "*10)
     ri_chang_chuang_dang(device=device, sleep_time=sleep_time )
     
     for _ in range(3):

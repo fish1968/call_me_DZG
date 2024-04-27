@@ -64,48 +64,48 @@ def daily_do_once(device = local_device, do_xing_shan = do_xing_shan,
     print("daily_do_once ends")
     print("- " * 20)
 
+if __name__ == "__main__":
+    start = time.time()
+    # check connectivity
+    while is_adb_connected() == False:
+        subprocess.run(["adb", "start-server"])
 
-start = time.time()
-# check connectivity
-while is_adb_connected() == False:
-    subprocess.run(["adb", "start-server"])
+    if not is_device_connected(device=local_device):
+        local_device = "localhost:"+str(find_available_port(5555, 5560))
+        is_device_connected(device=local_device)
 
-if not is_device_connected(device=local_device):
-    local_device = "localhost:"+str(find_available_port(5555, 5560))
-    is_device_connected(device=local_device)
+    # check whether do xing_shan
+    do_xing_shan = check_need_and_update_time(file_path=json_file_path)
 
-# check whether do xing_shan
-do_xing_shan = check_need_and_update_time(file_path=json_file_path)
+    daily_do_once(device=local_device, do_xing_shan=do_xing_shan)
 
-daily_do_once(device=local_device, do_xing_shan=do_xing_shan)
+    if False:
+        # daily_do_shang_pu_qian_dao()
+        # click_union_basic_constrcut()
+        # daily_mail_process()
+        # daily_cai_shen_miao_like(sleep_time=0.6)
+        # daily_cheng_jiao_you_li()
+        # click_qian_zhuang_from_home(30)
+        # daily_click_rank()
+        # tu_di_raise_up(device=local_device)
+        # daily_ling_qu_yu_gan(device = local_device, sleep_time = 1)
+        # shou_lie(device=local_device, sleep_time=1)
+        # ri_chang_chuang_dang()
+        # daily_xing_shan()
+        # shang_zhan()
+        # move_to_end(bottom=1)
+        # daily_cai_shen_miao_like()
+        # daily_qiao_qian()
+        # time.sleep(3)
+        # daily_profile_yuan_bao()
+        # start_apk_game()
+        # daily_do_yi_guan()
+        # daily_do_jiu_si()
+        # daily_do_yao_pu()
+        pass
+    end = time.time()
 
-if False:
-    # daily_do_shang_pu_qian_dao()
-    # click_union_basic_constrcut()
-    # daily_mail_process()
-    # daily_cai_shen_miao_like(sleep_time=0.6)
-    # daily_cheng_jiao_you_li()
-    # click_qian_zhuang_from_home(30)
-    # daily_click_rank()
-    # tu_di_raise_up(device=local_device)
-    # daily_ling_qu_yu_gan(device = local_device, sleep_time = 1)
-    # shou_lie(device=local_device, sleep_time=1)
-    # ri_chang_chuang_dang()
-    # daily_xing_shan()
-    # shang_zhan()
-    # move_to_end(bottom=1)
-    # daily_cai_shen_miao_like()
-    # daily_qiao_qian()
-    # time.sleep(3)
-    # daily_profile_yuan_bao()
-    # start_apk_game()
-    # daily_do_yi_guan()
-    # daily_do_jiu_si()
-    # daily_do_yao_pu()
-    pass
-end = time.time()
+    print(end-start)
 
-print(end-start)
-
-while True:
-    click_painless(device=local_device, sleep_time=10,times=1000)
+    while True:
+        click_wait(total_time = 100, sleep_time = 10, device = local_device)

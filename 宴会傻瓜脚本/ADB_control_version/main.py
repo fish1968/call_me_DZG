@@ -36,17 +36,17 @@ def daily_do_once(device = local_device, do_xing_shan = False,
     # wait 10 minutes
     print("- "*10)
     for _ in range(3):
-        click_wait(total_time=60*10, sleep_time=50, deivce=device)
+        click_wait(total_time=60*10, sleep_time=50, device=device)
         click_union_basic_constrcut(device=device)
     for _ in range(4):
-        click_wait(total_time=1800, sleep_time=50, deivce=device)
+        click_wait(total_time=1800, sleep_time=50, device=device)
         shang_zhan(device=device)
     print("daily_do_once ends")
     print("- " * 20)
 
 if __name__ == "__main__":
     # check connectivity
-    while is_adb_connected() == False:
+    while is_adb_server_on() == False:
         subprocess.run(["adb", "start-server"])
 
     if not is_device_connected(device=local_device):

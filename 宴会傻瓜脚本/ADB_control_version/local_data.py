@@ -12,3 +12,4 @@ debugging = True
 basic_path = r"C:\Users\YabinLabtop\Desktop" 
 app_name = r"\叫我大掌柜H5.lnk"
 apk_start_path = basic_path + app_name
+emulator_path = r"D:\LDPlayer\LDPlayer9\dnplayer.exe"

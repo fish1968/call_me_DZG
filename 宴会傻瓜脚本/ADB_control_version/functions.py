@@ -10,7 +10,8 @@ import resources_1080_1920.cheng_jiao.cheng_jiao_data
 import resources_1080_1920.home.home_data
 import resources_1080_1920.shang_pu
 import resources_1080_1920.shang_pu.shang_pu_data
-from local_data import local_device, debugging, apk_start_path
+from local_data import local_device, debugging, apk_start_path, game_package_name
+from connect_check import is_adb_server_on, is_device_connected, start_adb_server, find_available_port
 
 def future_care(func):
     def wrapper(*args, **kwargs):
@@ -179,11 +180,11 @@ def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_home_shang_cheng_ling_qu 商城领取 end")
 
-def click_wait(total_time = 1000, sleep_time = 10, deivce = local_device):
+def click_wait(total_time = 1000, sleep_time = 10, device = local_device):
     if debugging:
         print(f"click_wait with total time: {total_time}, sleep_time: {sleep_time}")
     while total_time > 0:
-        click_painless(device=deivce, sleep_time=sleep_time, times = 3)
+        click_painless(device=device, sleep_time=sleep_time, times = 3)
         total_time -= sleep_time
     if debugging:
         print("click_wait ends")
@@ -1242,59 +1243,79 @@ def daily_qian_zhuang_20(device = local_device, sleep_time = 0.1):
     click_qian_zhuang_from_home(times=20*2, sleep_time=sleep_time, device = device)
 
 @future_care
-def start_apk_game(game_path = apk_start_path, start_up_time = 120, device = local_device):
-    res = subprocess.run('START /b %s' %game_path, shell=True)
+def cmd_start_emulator(emulator_path = r"D:\LDPlayer\LDPlayer9\dnplayer.exe"):
+    res = subprocess.run('START /b %s' %emulator_path, shell=True)
     if res.returncode == 0:
-        print("Enter game sucess")
+        print("Enter emulator successfully")
+        return True
+    else:
+        print("Failed to enter emulator!!!!")
+        return False
+
+@future_care
+def cmd_start_game_activity(device = local_device, game_package = game_package_name):
+    res = subprocess.run(["adb", "-s", device,"shell", "am", "start", game_package])
+    if res.returncode == 0:
+        print(f"Enter game {game_package} successfully")
+        return True
     else:
         print("Failed to enter Game!!!!")
-        exit()
-    print("等待 虚拟机启动")
-    time.sleep(30)
+        return False
+
+
+@future_care
+def start_apk_game(game_package = game_package_name, start_up_time = 60, device = local_device):
+    # waits until start emulator command has been executed sucessfully
+    while (cmd_start_emulator()== False):
+        print("EMulator do")
+        time.sleep(10)
+        
     print("ADB 尝试连接")
-    cmd = ["adb", "connect" , device]
-    res = subprocess.run(cmd, shell=True)
-    res = subprocess.run(cmd, shell=True)
-    if res.returncode == 0:
-        print("adb 连接成功")
-    else:
-        print("adb 连接失败，尝试 locahost:5556")
-        cmd[-1] = "localhost:5556"
-        device = "localhost:5556"
-        res = subprocess.run(cmd, shell=True)
-        if res.returncode == 0:
-            print('adb 连接成功')
-        else:
-            print("adb 再次连接失败")
-            exit()
-    print("android 开启等待")
-    time.sleep(start_up_time) # android start time
-    print("游戏 开启等待")
+    while not is_adb_server_on():
+        start_adb_server()
     
-    time.sleep(60) # game wait time
+    if not is_device_connected(device = device):
+        device = "localhost:"+str(find_available_port(5555, 5560))
+    # check connectivity of the device found
+    if not is_device_connected(device=device):
+        exit()
+    
+    while (False == cmd_start_game_activity(device= device, game_package=game_package)):
+        print("ADB game package start failed")
+        time.sleep(10)
+    # waits the game start
+    time.sleep(start_up_time)
+    
     # do with first page
     print("\t点击开始界面")
     click_painless(device=device, sleep_time=1, times = 10)
     
-    # click enter 
-    from resources_1080_1920.general import game, general_pos
+    # click Enter
+    from resources_1080_1920.general import game 
     print("\t点击开始")
     start = game["start"]
-    clicks(start[0], start[1], device=device, sleep_time=0.5, times = 10)
-    time.sleep(10)
-    ex = general_pos["exit"]
+    click_painless(device = device, sleep_time = 0.5, times = 10)
+    clicks(start[0], start[1], device=device, sleep_time=0.5, times =4)
+    click_wait(total_time=10, sleep_time = 1, device = device)
+    
+    print("等待进入home界面, 离线收益...")
+    
+    time.sleep(20)
     # do with init home page 
-    for _ in range(4):
-        print("\t\t点击离线收益")
-        clicks(700, 1380, device=device, sleep_time=1, times = 2) # 离线收益
-        
-        print("\t\t点击进入活动")
-        clicks(950, 1540, device=device, sleep_time=1, times = 2) # 离线收益
-        clicks(300, 1540, device=device, sleep_time=1, times = 2) # 离线收益
-        clicks(1020, 220, device=device, sleep_time=1, times = 2) # 首充礼包 容易点到特权 卡死
-        print("\t\t无痛点击")
-        click_painless(device=device, sleep_time=0.5, times = 5)
-        print("\t\t点击退出")
-        clicks(ex[0], ex[1], device=device, sleep_time=1, times = 3) 
+    print("\t\t点击离线收益")
+    clicks(700, 1380, device=device, sleep_time=1, times = 1) # 离线收益
+    enter_men_ke(device = device, sleep_time=1)
+    print("\t\t点击进入活动")
+    clicks(950, 1540, device=device, sleep_time=1, times = 1) # 离线收益
+    click_exit(device = device, sleep_time = 1, times = 1)
+    enter_men_ke(device = device, sleep_time=1)
+    clicks(300, 1540, device=device, sleep_time=1, times = 1) # 离线收益
+    click_exit(device = device, sleep_time = 1, times = 1)
+    enter_men_ke(device = device, sleep_time=1)
+    clicks(1020, 220, device=device, sleep_time=1, times = 1) # 首充礼包 容易点到特权 卡死
+    click_exit(device = device, sleep_time = 1, times = 1)
+    enter_men_ke(device = device, sleep_time=1)
+    enter_home(device = device, sleep_time = 1)
     click_painless(device=device, sleep_time=0.5, times = 5)
     print("start_apk_game  启动游戏结束")
+    return device

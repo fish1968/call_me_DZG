@@ -2,12 +2,12 @@ import os
 import subprocess
 import time
 from functions import *
-from local_data import local_device, do_xing_shan, json_file_path
+from local_data import local_device, json_file_path
 from obtain_port_number import *
 from connect_check import *
 from json_function import * 
 
-def daily_do_once(device = local_device, do_xing_shan = do_xing_shan,
+def daily_do_once(device = local_device, do_xing_shan = False,
                 sleep_time = 1, json_file_path = json_file_path):
     # 启动
     print("daily_do_once 启动 begins")

@@ -5,8 +5,6 @@ game_package_name = r"com.sqwh5.ys.jwdzg.jwdzgh5_ptzy_ysf37/com.gamesdk.h5.GameA
 
 # 是否进行行善
 json_file_path = "data.json"
-# do_xing_shan = False 
-do_xing_shan = True
 
 # my debug part end
 debugging = True

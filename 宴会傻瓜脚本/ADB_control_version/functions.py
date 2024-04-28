@@ -615,6 +615,8 @@ def daily_qiao_qian(device = local_device, sleep_time = 1):
     print("daily_qiao_qian ends")
 
 def daily_mail_process(device = local_device, sleep_time  = 1):
+    if debugging:
+        print(f"daily_mail_process begins")
     enter_home(device, sleep_time)
     from resources_1080_1920.home.home_data import mail_list
     mail = mail_list["mail"]
@@ -628,6 +630,8 @@ def daily_mail_process(device = local_device, sleep_time  = 1):
     click_once(one_click[0], one_click[1], device=device, sleep_time=sleep_time)
     clicks(del_read[0], del_read[1], device=device, sleep_time=sleep_time, times = 3)
     click_painless(device=device, sleep_time=sleep_time/5, times=3)
+    if debugging:
+        print(f"daily_mail_process ends")
 
 def shang_zhan(device= local_device,sleep_time = 1):
     if debugging:
@@ -923,7 +927,7 @@ def da_long(device = local_device, sleep_time = 1):
         print(f"da_long 打龙结束 ends")
 
 
-def ri_chang_chuang_dang(device = local_device, sleep_time = 1):
+def daily_in_chuang_dang(device = local_device, sleep_time = 1):
     if debugging:
         print(f"ri_chang_chuang_dang begin")
     from resources_1080_1920.chuang_dang.chuang_dang_data import guan_ka
@@ -973,12 +977,15 @@ def daily_in_home(device = local_device, sleep_time = 1):
     # 挚友谈心
     zhi_you_tan_xin(device=device, sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    # 挚友技能
+    zhi_you_skills(device = device, sleep_time = sleep_time, times = 5)
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     # 珍兽
     zhen_shou_raise(device = device, sleep_time = sleep_time, times = 5)
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     # 挚友赠送
     zhi_you_gift(device=device, sleep_time = sleep_time, times = 2)
-    # 挚友技能
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     
     if debugging:
        print("daily_in_home 执行home日常任务 ends")
@@ -1187,7 +1194,7 @@ def zhen_shou_raise(device = local_device, sleep_time = 1, times = 5):
 def zhi_you_skills(device = local_device, sleep_time = 1, times = 5):
     # 挚友技能提升 5 次
     if debugging: 
-        print(f"zhi_you_gift 挚友赠送 {times}次 begin")
+        print(f"zhi_you_skills 挚友技能 {times}次 begin")
     from resources_1080_1920.home.home_data import zhi_you
     # 进入挚友界面
     enter_zhi_you(device=device, sleep_time=sleep_time)
@@ -1207,7 +1214,7 @@ def zhi_you_skills(device = local_device, sleep_time = 1, times = 5):
     # back home
     enter_home(device=device, sleep_time=sleep_time)
     if debugging: 
-        print(f"zhi_you_gift 挚友赠送 {times}次 ends")
+        print(f"zhi_you_skills 挚友技能 {times}次 ends")
 
 
 @future_care

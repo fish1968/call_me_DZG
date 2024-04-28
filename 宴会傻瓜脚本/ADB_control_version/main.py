@@ -31,7 +31,7 @@ def daily_do_once(device = local_device, do_xing_shan = False,
 
     # 日常闯荡一次
     print("- "*10)
-    ri_chang_chuang_dang(device=device, sleep_time=sleep_time )
+    daily_in_chuang_dang(device=device, sleep_time=sleep_time )
     
     # wait 10 minutes
     print("- "*10)

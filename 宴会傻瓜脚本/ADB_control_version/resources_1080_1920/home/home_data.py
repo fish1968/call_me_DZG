@@ -15,15 +15,6 @@ zhen_shou = {
     "entry" : (360, 1050),
     "page"  :-1, # 最左边
 }
-
-tu_di = {
-    "entry" : (400 , 1200),
-    "check": (935, 1450),
-    "child0": (135, 1615),
-    "delta": 200,
-    "ci_ming_confirm": (550, 1270),
-    "raised_up_confirm": (300, 1620),
-}
 home_upper_list = {
     "delta": (175, 160),
     "home_xian-shi-jiang-li": (100, 300),
@@ -48,7 +39,7 @@ home_Shang_cheng = {
     "dao-ju": (180, 200),
     "li-bao": (500, 200),
     "guan-ying-you-li": (820, 200),
-    
+    "cancel_buy": (371, 1050),
     "dao-ju_jing-li-dan": (560, 700),
     "li-bao_free": (850, 620),
     "guan-ying-you-li_ling-qu": (860, 860), # four times 
@@ -73,7 +64,7 @@ mail_list = {
 zhi_you = {
     "move_to_left": True,
     "move_x": -1000,
-    "entry" : (500, 1300),
+    "entry" : (500, 1200),
     "tan_xin": (1000, 1620),
     "one_click": (560, 1680),
     "duration_ms": 500
@@ -85,7 +76,16 @@ tu_di = {
     "duration_ms": 1000,
     "one_click": (850, 1460),
     "do" : (540, 1380),
-    "entry" : (540, 1380),
+    "entry" : (540, 1180),
     "info" : (1034, 1445),
     "toggle": (766, 1186),
 }
+
+# tu_di = {
+#     "entry" : (400 , 1200),
+#     "check": (935, 1450),
+#     "child0": (135, 1615),
+#     "delta": 200,
+#     "ci_ming_confirm": (550, 1270),
+#     "raised_up_confirm": (300, 1620),
+# }

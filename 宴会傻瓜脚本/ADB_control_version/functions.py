@@ -79,16 +79,15 @@ def move_to_bottom(device = local_device, sleep_time = 0.5):
     move_to_end(bottom= 1, sleep_time=0.5,device = device)
 
 
-def click_qian_zhuang_from_home(times = 100, sleep_time = 0.1, device = local_device):
+def click_qian_zhuang_from_home(times = 100, sleep_time = None, device = local_device):
     if debugging: 
-        print(f"click_qian_zhuang_from_home: times = {times}, sleep_time: {sleep_time}, device: {device}")
-    enter_shang_pu(device=device, sleep_time=sleep_time)
-    for _ in range(10):
-        drag_and_move(move_x=800, move_y=0, start_x=100, start_y=1000, device=device, duration_ms=100)
-        time.sleep(0.2)
+        print(f"click_qian_zhuang_from_home: times = {times}, device: {device}")
+    sleep_time = 0.1
+    enter_shang_pu(device=device, sleep_time=1)
+    for _ in range(2):
+        move_to_left(device = device, sleep_time = 0.5)
     x,y = 300, 666
-    for _ in range(times):
-        click_once(x, y, device = device, sleep_time = sleep_time)
+    clicks(x, y, device = device, sleep_time = sleep_time, times = times)
     if debugging: 
         print(f"click_qian_zhuang_from_home: end")
     
@@ -158,7 +157,8 @@ def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
     # 点击免费的
     x, y = home_Shang_cheng["li-bao_free"]
     click_once(x, y, device=device, sleep_time=sleep_time)
-    
+    x, y = home_Shang_cheng["cancel_buy"]
+    click_once(x, y, device=device, sleep_time=sleep_time)
     # click painless
     click_painless(device=device, sleep_time=sleep_time, times = 2)
     # 点击观影有礼
@@ -280,14 +280,13 @@ def daily_click_qian_zhuang_wei_ren(device = local_device, sleep_time = 1):
     x, y = qian_zhuang["wan-cheng"]
     click_once(x, y, device=device, sleep_time=sleep_time*2)
     click_painless(device=device, sleep_time=sleep_time, times=5)
-    
     x, y = qian_zhuang["yi-jian-wei-ren"]
     click_once(x, y, device=device, sleep_time=sleep_time*2)
 
 
     x, y = qian_zhuang["wei-ren"]
     click_once(x, y, device=device, sleep_time=sleep_time*2)
-    # 退出 wei-ren pagd
+    # 退出 wei-ren page
     click_painless(device=device, sleep_time=sleep_time)
     
     # click center
@@ -638,7 +637,7 @@ def shang_zhan(device= local_device,sleep_time = 1):
     enter_home(device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time)
     x, y = shang_zhan["entry"]
-    click_once(x = x, y = y, device= device, sleep_time=sleep_time*3)
+    click_once(x = x, y = y, device= device, sleep_time=sleep_time*10)
     # 领取 money
     x, y = shang_zhan["money"]
     click_once(x = x, y = y, device= device, sleep_time=sleep_time)

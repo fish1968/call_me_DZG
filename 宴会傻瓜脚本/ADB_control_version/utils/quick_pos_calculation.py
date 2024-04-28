@@ -2,8 +2,8 @@ import sys
 
 X = 1080
 Y = 1920
-screen_X = 405
-screen_Y = 720
+screen_X = 553
+screen_Y = 984
 
 if len(sys.argv) < 3:
     print("Insufficient arguments provided.")

@@ -32,6 +32,6 @@ def check_need_and_update_time(file_path = file_path):
     if data["today"] == current_date:
         return (False or data["do_xing_shan"]) # not need to update
     else:
-        with open(file_path) as file:
+        with open(file_path, "w") as file:
             json.dump(data, file, indent=4)
         return True

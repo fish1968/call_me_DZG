@@ -425,7 +425,7 @@ def enter_shang_pu(device = local_device, sleep_time = 1, wait_ratio = 5):
 
 def enter_chuang_dang(device = local_device, sleep_time = 1):
     if debugging:
-        print(f"    enter_chuang_dang 城郊 begin")
+        print(f"    enter_chuang_dang 闯荡 begin")
     x, y = resources_1080_1920.home.home_data.home_bar["home_chuang-dang"]
     click_once(x = x, y = y, device= device, sleep_time=sleep_time*3)
     if debugging:

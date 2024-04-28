@@ -2,7 +2,7 @@
 local_device = "localhost:5555"
 # package name 
 game_package_name = r"com.sqwh5.ys.jwdzg.jwdzgh5_ptzy_ysf37/com.gamesdk.h5.GameActivity"
-
+quick_fox_package_name = r"com.zx.a2_quickfox"
 # 是否进行行善
 json_file_path = "data.json"
 

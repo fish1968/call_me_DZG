@@ -26,7 +26,7 @@ def click_once(x:int = 0, y:int = 0, device:str = local_device, sleep_time = Non
     else:
         adb_command = ["adb", "-s" , device, "shell", "input", "tap", str(x), str(y)]
         
-    subprocess.Popen(adb_command, stdout=subprocess.PIPE)
+    subprocess.run(adb_command)
     if sleep_time != None:
         time.sleep(sleep_time)
 
@@ -123,10 +123,13 @@ def click_union_basic_constrcut(device = local_device, sleep_time = 1):
     one_click = union["one_click"]
     do = union["do_fu_ye"]
     click_exit(device=device, sleep_time = sleep_time, times = 1)
+    time.sleep(sleep_time)
+    print(f"click {fu_ye}")
     click_once(fu_ye[0], fu_ye[1], device=device, sleep_time=sleep_time)
-    clicks(one_click[0], one_click[1], device=device, sleep_time=sleep_time, times = 2)
-    clicks(do[0], do[1], device=device, sleep_time=sleep_time, times = 2)
-
+    for _ in range(2):
+        clicks(one_click[0], one_click[1], device=device, sleep_time=sleep_time, times = 1)
+        clicks(do[0], do[1], device=device, sleep_time=sleep_time, times = 1)
+        time.sleep(10)
     click_exit(device=device, sleep_time = sleep_time, times = 2)
     # back home
     enter_home(device=device, sleep_time=sleep_time)
@@ -219,29 +222,25 @@ def daily_click_xian_shi_chong_zhi(device= local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_xian_shi_chong_zhi end")
     
-# 需要修改，貌似如果程序过早退出，照片会搬运不完整，如何保证搬移完整后再退出程序？
-def obtain_screenshot(img_name = "test.png", device = local_device):
+def obtain_screenshot(img_name = "test.png", local_dir="./imgs",device = local_device, sleep_time = None):
     if debugging:
         print(f"obtain_screenshot: img_name = {img_name}")
-    # yet implemented
     # ref: https://blog.csdn.net/fxdaniel/article/details/45846333
     # ref2: https://www.cnblogs.com/shaosks/p/14043177.html
-    # bug 截图下半部分加载不完整
-    adb_command = ["adb", "-s", device, "shell", "screencap -p", "/sdcard/" + img_name]
-    subprocess.Popen(adb_command, stdout=subprocess.PIPE)
-    time.sleep(1)
-    adb_command = ["adb", "-s", device, "pull", "/sdcard/"+img_name, "./"+img_name]
-    subprocess.Popen(adb_command, stdout=subprocess.PIPE)
-    time.sleep(1)
+    sleep_time = 1
+    adb_screenshot = ["adb", "-s", device, "shell", "screencap -p", "/sdcard/" + img_name]
+    subprocess.run(adb_screenshot)
+    adb_pass_image = ["adb", "-s", device, "pull", "/sdcard/"+img_name, local_dir+img_name]
+    subprocess.run(adb_pass_image)
     if debugging:
         print(f"obtain_screenshot: img_name = {img_name} end")
 
-def test_move_screenshot(img_name = "test.png", device = local_device):
+def test_move_screenshot(img_name = "test.png", device = local_device, sleep_time = None):
     if debugging:
         print(f"test_move_screenshot: img_name = {img_name} begin")
     adb_command = ["adb", "-s", device, "pull", "/sdcard/"+img_name, "./"+img_name]
-    subprocess.Popen(adb_command, stdout=subprocess.PIPE)
-    time.sleep(1)
+    subprocess.run(adb_command)
+    # time.sleep(1)
     if debugging:
         print(f"test_move_screenshot: img_name = {img_name} end")
     

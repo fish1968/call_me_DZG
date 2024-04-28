@@ -28,7 +28,7 @@ funs = [
     # click_union_basic_constrcut
     # obtain_screenshot
     # test_move_screenshot
-    
+    start_apk_game
 ]
 st = 0.5
 for fun in funs:

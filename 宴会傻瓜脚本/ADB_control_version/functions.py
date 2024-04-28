@@ -1269,7 +1269,7 @@ def cmd_start_game_activity(device = local_device, game_package = game_package_n
 
 
 @future_care
-def start_apk_game(game_package = game_package_name, start_up_time = 60, device = local_device):
+def start_apk_game(game_package = game_package_name, start_up_time = 60, device = local_device, sleep_time = None):
     # waits until start emulator command has been executed sucessfully
     while (cmd_start_emulator()== False):
         print("EMulator do")

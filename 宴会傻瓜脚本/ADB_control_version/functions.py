@@ -885,7 +885,44 @@ def shou_lie(device = local_device, sleep_time = 1):
     
     enter_home(device=device, sleep_time=sleep_time)
     if debugging:
-        print(f"shou_lie end")
+        print(f"shou_lie 中午狩猎结束 ends")
+
+def da_long(device = local_device, sleep_time = 1):
+    # 晚上八点钟打龙
+    from resources_1080_1920.cheng_jiao.cheng_jiao_data import da_long
+    if debugging:
+        print(f"da_long begin")
+    entry = da_long["entry"]
+    enter = da_long["enter"]
+    auto = da_long["auto"]
+    wait_click = da_long["wait_click"]
+    exit_num = da_long["exit_num"]
+    
+    enter_home(device=device, sleep_time=sleep_time)
+    enter_cheng_jiao(device=device, sleep_time=sleep_time)
+    
+    # move to shou_lie
+    move_x, move_y = da_long["drag_to_shou_lie"]
+    drag_and_move(move_x=move_x, move_y=move_y, start_x=1000, start_y=500, device=device, duration_ms=500)
+    
+    # 进入 狩猎 page
+    click_once(entry[0], entry[1], device=device, sleep_time=sleep_time)
+    clicks(enter[0], enter[1], device=device, sleep_time=sleep_time, times = 2)
+    click_painless(device=device, sleep_time=sleep_time, times = 4)
+    # 点击自动出兵
+    click_once(auto[0], auto[1], device=device, sleep_time=sleep_time)
+    clicks(enter[0], enter[1], device=device, sleep_time=sleep_time, times = 2)
+    
+    # wait for some times till it ends
+    click_wait(total_time = sleep_time * wait_click, sleep_time = sleep_time/2, device = device)
+    
+    # back home
+    click_exit(device=device, sleep_time=sleep_time, times=exit_num)
+    enter_home(device = device, sleep_time=sleep_time)
+    
+    if debugging:
+        print(f"da_long 打龙结束 ends")
+
 
 def ri_chang_chuang_dang(device = local_device, sleep_time = 1):
     if debugging:

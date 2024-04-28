@@ -1,4 +1,6 @@
 # 1080 * 1980
+
+# 排行榜点赞
 rank = {
     "entry": (250, 1250),
     "enter_dian_zan": (500, 450),
@@ -11,28 +13,22 @@ rank = {
     "bai_fang_back": (940, 1650),
 }
 
-shang_zhan = {
-    "entry": (950, 1050),
-    "money": (240, 650),
-    "fight": (950, 1450),
-    "fight_check": (975, 1550),
-    "confirm_fight": (540, 1510)
-    
+# 招商
+zhao_shang = {
+    "entry" : (579, 1350),
+    "move_left": True, # not needed, always at the beginning, when entered from another page
+    "proj_entry": (930, 859),
+    "proj_bang": (121,1756),
+    "move_y" : -1000,
+    "empty_toggle": (134, 384),
+    "top_entry": (864, 474),
+    "y_scan_step_range": (10, 200),
+    "xy00": (283, 1038),
+    "d_xy":(500, 600),
+    "exit_times": 4,
 }
 
-you_li = {
-    "drag_move": (-800, 0),
-    "entry": (730, 440),
-    "men_ke_xuan_ze": (850, 650), # also 挚友选择 （first）
-    "ya_jiu": (550, 1600), # 呀九，also 游历按钮
-    "you_li_5": (970, 1620),
-    "you_li_buy_cancel":(1020, 640),
-    "shi_jiao_gift": (100, 1620),
-    "shi_jiao_give": (300, 1480),
-    "shi_jiao_obtain": (780, 1480),
-    "drink": (900, 1680)
-}
-
+# 庄园
 zhuang_yuan = {
     "entry" : (520, 380),
     # move to the left first
@@ -45,31 +41,19 @@ zhuang_yuan = {
     "shou_huo_confirm": (550, 1730)
 }
 
-shou_lie = {
-    "drag_to_shou_lie": (-10000, 0),
-    "entry": (730, 300),
-    "enter": (550, 850),
-    "shou_lie_button": (550, 960),
-    "auto": (980, 1620),
-    "shang_hui_help": (980, 1750),
-    "shang_hui_help_page": (522, 330),
-    "period": 1.5,
-    "help_00":(300, 620),
-    "help_delta": (304, 456),
-    "confirm": (557, 1533),
-    "do" : (545, 944)
+# 乔迁
+qiao_qian = {
+    "entry": (180, 380),
+    "low_like":(540, 1860),
+    "huang_like": (960, 1750),
+    "bottom":(440 , 1400),
+    "huang_entry": (730, 400),
+    "qin_entry": (650, 1530),
+    "bei_shan_entry": (450, 1430),
+    "bei_shan_move_y": -1000
 }
 
-xing_shan = {
-    "entry" : (950, 670),
-    "do" : (920, 1520),
-    "click_times": 20,
-    "period": 2,
-    "confirm": (720, 1050),
-    "drag": (-1000, 0),
-    "one_click": (950, 1680)
-}
-
+# 财神庙点赞
 cai_shen_miao = {
     "like": (935, 1635),
     "pos": (505, 800),
@@ -101,18 +85,18 @@ cai_shen_miao = {
     "cai_shen_pu": (120, 1650),
     "cai_shen_like": (540, 1570),
 }
+
+# 商战
+shang_zhan = {
+    "entry": (950, 1050),
+    "money": (240, 650),
+    "fight": (950, 1450),
+    "fight_check": (975, 1550),
+    "confirm_fight": (540, 1510)
     
-qiao_qian = {
-    "entry": (180, 380),
-    "low_like":(540, 1860),
-    "huang_like": (960, 1750),
-    "bottom":(440 , 1400),
-    "huang_entry": (730, 400),
-    "qin_entry": (650, 1530),
-    "bei_shan_entry": (450, 1430),
-    "bei_shan_move_y": -1000
 }
 
+# 商会信息
 union = {
     "entry": (970, 650),
     "fu_ye": (170, 1400),
@@ -124,16 +108,53 @@ union = {
     "ya_biao" : (870, 1400),
 }
 
-zhao_shang = {
-    "entry" : (579, 1350),
-    "move_left": True, # not needed, always at the beginning, when entered from another page
-    "proj_entry": (930, 859),
-    "proj_bang": (121,1756),
-    "move_y" : -1000,
-    "empty_toggle": (134, 384),
-    "top_entry": (864, 474),
-    "y_scan_step_range": (10, 200),
-    "xy00": (283, 1038),
-    "d_xy":(500, 600),
-    "exit_times": 4,
+# 城郊行善
+xing_shan = {
+    "entry" : (950, 670),
+    "do" : (920, 1520),
+    "click_times": 20,
+    "period": 2,
+    "confirm": (720, 1050),
+    "drag": (-1000, 0),
+    "one_click": (950, 1680)
+}
+
+# 城郊游历
+you_li = {
+    "drag_move": (-800, 0),
+    "entry": (730, 440),
+    "men_ke_xuan_ze": (850, 650), # also 挚友选择 （first）
+    "ya_jiu": (550, 1600), # 呀九，also 游历按钮
+    "you_li_5": (970, 1620),
+    "you_li_buy_cancel":(1020, 640),
+    "shi_jiao_gift": (100, 1620),
+    "shi_jiao_give": (300, 1480),
+    "shi_jiao_obtain": (780, 1480),
+    "drink": (900, 1680)
+}
+
+# 打龙
+da_long = {
+    "drag_to_shou_lie": (-10000, 0),
+    "entry": (730, 300),
+    "enter": (540, 864),
+    "auto": (980, 1761),
+    "wait_click": 60*2,
+    "exit_num" : 3,
+}
+
+# 中午狩猎
+shou_lie = {
+    "drag_to_shou_lie": (-10000, 0),
+    "entry": (730, 300),
+    "enter": (550, 850),
+    "shou_lie_button": (550, 960),
+    "auto": (980, 1620),
+    "shang_hui_help": (980, 1750),
+    "shang_hui_help_page": (522, 330),
+    "period": 1.5,
+    "help_00":(300, 620),
+    "help_delta": (304, 456),
+    "confirm": (557, 1533),
+    "do" : (545, 944)
 }

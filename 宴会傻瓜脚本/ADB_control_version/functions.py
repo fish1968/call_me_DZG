@@ -1144,10 +1144,10 @@ def 项目招商(device = local_device, sleep_time = 1):
 
 def activate_cache(device = local_device, sleep_time = 1):
     # build up cache in the game to avoid long loading time caused error
-    enter_chuang_dang(device=device, sleep_time=sleep_time * 6)
-    enter_cheng_jiao(device=device, sleep_time=sleep_time * 6)
-    enter_shang_pu(device=device, sleep_time=sleep_time * 6)
-    enter_home(device=device, sleep_time=sleep_time * 6)
+    funcs = [enter_chuang_dang, enter_cheng_jiao, enter_shang_pu, enter_home]
+    for fun in funcs:
+        fun(device = device, sleep_time = sleep_time)
+        click_wait(total_time = 5, sleep_time = 1, device = device)
 
 @future_care
 def daily_recruit_10(device = local_device, sleep_time = 1):

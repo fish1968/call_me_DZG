@@ -41,13 +41,3 @@ def passed_test():
     daily_click_rank(local_device, 1)
     daily_qian_zhuang_20()
     daily_xing_yun_duo_bao_2()
-
-def test_yu_gan():
-    # 鱼竿测试，发现有偏移现象
-    st = 1.3
-    for _ in range(10):
-        print(f"st = {st}")
-        daily_ling_qu_yu_gan(sleep_time = st)
-        st -= 0.1
-
-

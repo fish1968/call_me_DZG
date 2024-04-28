@@ -77,62 +77,6 @@ def move_to_top(device = local_device, sleep_time = 0.5):
 def move_to_bottom(device = local_device, sleep_time = 0.5):
     move_to_end(bottom= 1, sleep_time=0.5,device = device)
 
-def start_apk_game(game_path = apk_start_path, start_up_time = 120, device = local_device):
-    res = subprocess.run('START /b %s' %game_path, shell=True)
-    if res.returncode == 0:
-        print("Enter game sucess")
-    else:
-        print("Failed to enter Game!!!!")
-        exit()
-    print("等待 虚拟机启动")
-    time.sleep(30)
-    print("ADB 尝试连接")
-    cmd = ["adb", "connect" , device]
-    res = subprocess.run(cmd, shell=True)
-    res = subprocess.run(cmd, shell=True)
-    if res.returncode == 0:
-        print("adb 连接成功")
-    else:
-        print("adb 连接失败，尝试 locahost:5556")
-        cmd[-1] = "localhost:5556"
-        device = "localhost:5556"
-        res = subprocess.run(cmd, shell=True)
-        if res.returncode == 0:
-            print('adb 连接成功')
-        else:
-            print("adb 再次连接失败")
-            exit()
-    print("android 开启等待")
-    time.sleep(start_up_time) # android start time
-    print("游戏 开启等待")
-    
-    time.sleep(60) # game wait time
-    # do with first page
-    print("\t点击开始界面")
-    click_painless(device=device, sleep_time=1, times = 10)
-    
-    # click enter 
-    from resources_1080_1920.general import game, general_pos
-    print("\t点击开始")
-    start = game["start"]
-    clicks(start[0], start[1], device=device, sleep_time=0.5, times = 10)
-    time.sleep(10)
-    ex = general_pos["exit"]
-    # do with init home page 
-    for _ in range(4):
-        print("\t\t点击离线收益")
-        clicks(700, 1380, device=device, sleep_time=1, times = 2) # 离线收益
-        
-        print("\t\t点击进入活动")
-        clicks(950, 1540, device=device, sleep_time=1, times = 2) # 离线收益
-        clicks(300, 1540, device=device, sleep_time=1, times = 2) # 离线收益
-        clicks(1020, 220, device=device, sleep_time=1, times = 2) # 首充礼包 容易点到特权 卡死
-        print("\t\t无痛点击")
-        click_painless(device=device, sleep_time=0.5, times = 5)
-        print("\t\t点击退出")
-        clicks(ex[0], ex[1], device=device, sleep_time=1, times = 3) 
-    click_painless(device=device, sleep_time=0.5, times = 5)
-    print("start_apk_game  启动游戏结束")
 
 def click_qian_zhuang_from_home(times = 100, sleep_time = 0.1, device = local_device):
     if debugging: 
@@ -171,21 +115,19 @@ def click_union_basic_constrcut(device = local_device, sleep_time = 1):
     click_painless(device=device, sleep_time=sleep_time)
     x , y= construct_box
     loop_num = 20
-    for i in range(0, loop_num):
+    for _ in range(0, loop_num):
         click_once(x,y, device=device, sleep_time=sleep_time/10)
         x += int((1080-construct_box[0])/loop_num) # x[0] = 370
     # 商会副业 建设
     fu_ye = union["fu_ye"]
     one_click = union["one_click"]
     do = union["do_fu_ye"]
-    ex = resources_1080_1920.general.general_pos["exit"]
-    click_once(ex[0], ex[1], device=device, sleep_time=sleep_time)
+    click_exit(device=device, sleep_time = sleep_time, times = 1)
     click_once(fu_ye[0], fu_ye[1], device=device, sleep_time=sleep_time)
-    for _ in range(2):
-        click_once(one_click[0], one_click[1], device=device, sleep_time=sleep_time)
-        click_once(do[0], do[1], device=device, sleep_time=sleep_time)
-    clicks(ex[0], ex[1], device=device, sleep_time=sleep_time, times = 2)
+    clicks(one_click[0], one_click[1], device=device, sleep_time=sleep_time, times = 2)
+    clicks(do[0], do[1], device=device, sleep_time=sleep_time, times = 2)
 
+    click_exit(device=device, sleep_time = sleep_time, times = 2)
     # back home
     enter_home(device=device, sleep_time=sleep_time)
     if debugging:
@@ -194,22 +136,19 @@ def click_union_basic_constrcut(device = local_device, sleep_time = 1):
 def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_home_shang_cheng_ling_qu 商城领取 begin")
-    from resources_1080_1920.home.home_data import home_bar, home_right_low_list, home_Shang_cheng
+    from resources_1080_1920.home.home_data import home_right_low_list, home_Shang_cheng
     # 进入主页
-    x, y = home_bar["home_home"]
-    click_once(x, y, device=device, sleep_time=sleep_time)
-    
+    enter_home(device = device, sleep_time = sleep_time)
     # 从主页点击商城
-    x, y = home_right_low_list["home_shang-cheng"]
-    click_once(x, y, device=device, sleep_time=sleep_time)
+    shang_cheng = home_right_low_list["home_shang-cheng"]
+    click_once(shang_cheng[0], shang_cheng[1], device=device, sleep_time=sleep_time)
     # 点击道具
-    x, y = home_Shang_cheng["dao-ju"]
-    click_once(x, y, device=device, sleep_time=sleep_time)
+    dao_ju = home_Shang_cheng["dao-ju"]
+    click_once(dao_ju[0], dao_ju[1], device=device, sleep_time=sleep_time)
     
     # 点击精力丹两次
     x, y = home_Shang_cheng["dao-ju_jing-li-dan"]
-    for _ in range(2):
-        click_once(x, y, device=device, sleep_time=sleep_time)
+    clicks(x, y, device=device, sleep_time=sleep_time, times = 2)
     # 点击礼包
     x, y = home_Shang_cheng["li-bao"]
     click_once(x, y, device=device, sleep_time=sleep_time)
@@ -220,8 +159,7 @@ def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
     click_once(x, y, device=device, sleep_time=sleep_time)
     
     # click painless
-    for _ in range(2):
-        click_painless(device=device, sleep_time=sleep_time)
+    click_painless(device=device, sleep_time=sleep_time, times = 2)
     # 点击观影有礼
     x, y = home_Shang_cheng["guan-ying-you-li"]
     click_once(x, y, device=device, sleep_time=sleep_time)
@@ -230,16 +168,13 @@ def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
     x, y = home_Shang_cheng["guan-ying-you-li_ling-qu"]
     for _ in range(6):
         click_once(x, y, device=device, sleep_time=0.2)
-        for _ in range(2):
-            click_painless(device=device, sleep_time=sleep_time)
+        click_painless(device=device, sleep_time=sleep_time, times = 2)
     # 点击领取资质丹
     x, y = home_Shang_cheng["guan-ying-you-li_zi-zhi"]
-    for _ in range(4):
-        click_once(x, y, device=device, sleep_time=0.2)
+    clicks(x, y, device=device, sleep_time=0.2, times = 4)
     
     # 回到主页
-    x, y = home_bar["home_home"]
-    click_once(x, y, device=device, sleep_time=sleep_time)
+    enter_home(device=device, sleep_time=sleep_time)
     
     if debugging:
         print(f"daily_click_home_shang_cheng_ling_qu 商城领取 end")
@@ -257,9 +192,8 @@ def daily_click_xian_shi_chong_zhi(device= local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_xian_shi_chong_zhi begin")
     # 主页
-    from resources_1080_1920.home.home_data import home_bar, home_upper_list
-    x, y = home_bar["home_home"]
-    click_once(x, y, device=device, sleep_time=sleep_time)
+    from resources_1080_1920.home.home_data import home_upper_list
+    enter_home(device=device, sleep_time=sleep_time)
 
     # 点击限时充值
     x, y = home_upper_list["home_xian-shi-chong-zhi"]
@@ -313,11 +247,9 @@ def test_move_screenshot(img_name = "test.png", device = local_device):
 def daily_click_qian_dao(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_qian_dao: begin")
-    from resources_1080_1920.home.home_data import home_bar
     from resources_1080_1920.shang_pu.shang_pu_data import qian_dao_pos
     # eneter shang pu
-    x, y = home_bar["home_shang-pu"]
-    click_once(x, y, device=device, sleep_time=sleep_time)
+    enter_shang_pu(device=device, sleep_time=sleep_time)
     # click 签到
     x, y = qian_dao_pos["entry"]   
     click_once(x, y, device=device, sleep_time=sleep_time*2)
@@ -327,9 +259,7 @@ def daily_click_qian_dao(device = local_device, sleep_time = 1):
     x, y = qian_dao_pos["exit"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     # 回到 home
-    x, y = home_bar["home_home"]
-    click_once(x, y, device=device, sleep_time=sleep_time)
-
+    enter_home(device=device, sleep_time=sleep_time)
     if debugging:
         print(f"daily_click_qian_dao: end")
 
@@ -339,8 +269,7 @@ def daily_click_qian_zhuang_wei_ren(device = local_device, sleep_time = 1):
     from resources_1080_1920.home.home_data import home_bar
     from resources_1080_1920.shang_pu.shang_pu_data import qian_zhuang
     # eneter shang pu
-    x, y = home_bar["home_shang-pu"]
-    click_once(x, y, device=device, sleep_time=sleep_time)
+    enter_shang_pu(device = device, sleep_time = sleep_time)
     drag_and_move(move_x=500*10, move_y=0, start_x=500, start_y=1000, device=device, duration_ms=sleep_time*1000)
     time.sleep(sleep_time)
     # enter qian zhuang
@@ -1081,29 +1010,6 @@ def daily_in_shang_pu (device = local_device, sleep_time = 1):
     if debugging:
         print("daily_in_shang_pu 执行商铺日常任务 ends")
 
-def daily_ri_chang_edge_tasks(device = local_device, sleep_time = 1):
-    # 商铺招募
-    # enter home -> bag -> 道具 -> 一定是右下角？ 点击加号 10次 -> 点击使用
-    # enter home
-    
-    # 珍兽培养
-    # enter home -> click men_ke -> click 商(x)类 -> drag to bottom -> 点击右边
-    # 进入门客培养后 -> 点击珍兽 -> 点击培养 -> 点击其中一个技能 (random choices)
-    # 点击培养 五次 -> 点击exit 三次 + (2*n)次数
-    
-    # 挚友谈心
-    # enter home -> drag to right -> drag 1000 pixel left
-    # -> 点击挚友 -> {one_click -> 谈心} x 2 
-    # 挚友赠送 两次
-    # 点击一个只有-> item -> 点击 赠送两次
-    # 挚友技能
-    # 点击一个挚友 -> 点击技能 -> 点击一个技能 -> 点击提升 五次
-    # 点击 exit 3 + (2*n) 次数 -> enter home
-    
-    # 关中贸易
-    # 钱庄点击
-    pass
-
 def click_exit(device = local_device, sleep_time = 1, times = 1):
     from resources_1080_1920.general import general_pos
     ex = general_pos["exit"]
@@ -1152,12 +1058,51 @@ def tu_di_raise_up(device = local_device, sleep_time = 1):
             time.sleep(sleep_time*4)
     click_exit(device, sleep_time = sleep_time , times = 3)
     enter_home(device = device, sleep_time=sleep_time)
-def 项目招商():
+def 项目招商(device = local_device, sleep_time = 1):
+    if debugging:
+        print("xiang_mu_zhao_shang begins")
     # 进入城郊 -> 进入 招商 -> 进入项目招商 -> 点击项目榜单 
-    # -> 点击尽显示空位 -> 滑动 3000 pixels -> 点击前往 -> 
-    # 4 * (点击位置 i -> 点击 painless)
-    # 点击 exit 4 次 -> enter home
-    pass
+    from resources_1080_1920.cheng_jiao.cheng_jiao_data import zhao_shang
+    enter_home(device = device, sleep_time = sleep_time)
+    enter_cheng_jiao(device = device, sleep_time = sleep_time)
+    entry = zhao_shang["entry"]
+    proj_entry = zhao_shang["proj_entry"]
+    proj_bang = zhao_shang["proj_bang"]
+    empty_toggle = zhao_shang["empty_toggle"]
+    click_once(entry[0], entry[1], device = device, sleep_time = sleep_time)
+    click_once(proj_entry[0], proj_entry[1], device = device, sleep_time = sleep_time)
+    click_once(proj_bang[0], proj_bang[1], device = device, sleep_time = sleep_time)
+    click_once(empty_toggle[0], empty_toggle[1], device = device, sleep_time = sleep_time)
+    move_y = zhao_shang["move_y"]
+    drag_and_move(0, move_y, device = device, duration_ms = 500)
+    
+    # 进入一个项目
+    dy, DeltaY = zhao_shang["y_scan_step_range"]
+    
+    top_entry = zhao_shang["top_entry"]
+    x, tmp_y = top_entry
+    for i in range(int(DeltaY/dy)):
+        click_once(x, tmp_y,device = device, sleep_time = sleep_time/2)
+        tmp_y += dy
+    
+    xy00 = zhao_shang["xy00"]
+    d_xy = zhao_shang["d_xy"]
+    x, y = xy00
+    for i in range(2):
+        y = xy00[1] + i * d_xy[1]
+        for j in range(2):
+            x = xy00[0] + j * d_xy[0]
+            print(f"x,y: {x,y}")
+            clicks(x,y, device = device, sleep_time = sleep_time, times = 1)
+            click_painless(device=device, sleep_time = sleep_time)
+    exit_times = zhao_shang["exit_times"]
+    click_exit(device = device, sleep_time = sleep_time, times = exit_times)
+    
+    # back home
+    enter_home(device=device, sleep_time=sleep_time)
+    
+    if debugging:
+        print("xiang_mu_zhao_shang ends")
 
 def activate_cache(device = local_device, sleep_time = 1):
     # build up cache in the game to avoid long loading time caused error
@@ -1254,15 +1199,65 @@ def zhi_you_gift(device = local_device, sleep_time = 1, times = 2):
     enter_home(device=device, sleep_time=sleep_time)
     if debugging: 
         print(f"zhi_you_gift 挚友赠送 {times}次 ends")
-        
-    pass
-
-@future_care
-def ri_chang_ren_wu_tu_di_100():
-    # 徒弟培养100次
-    pass
 
 def daily_qian_zhuang_20(device = local_device, sleep_time = 0.1):
     click_painless(device=device,sleep_time=sleep_time/3, times = 5)
     click_qian_zhuang_from_home(times=20*2, sleep_time=sleep_time, device = device)
 
+@future_care
+def start_apk_game(game_path = apk_start_path, start_up_time = 120, device = local_device):
+    res = subprocess.run('START /b %s' %game_path, shell=True)
+    if res.returncode == 0:
+        print("Enter game sucess")
+    else:
+        print("Failed to enter Game!!!!")
+        exit()
+    print("等待 虚拟机启动")
+    time.sleep(30)
+    print("ADB 尝试连接")
+    cmd = ["adb", "connect" , device]
+    res = subprocess.run(cmd, shell=True)
+    res = subprocess.run(cmd, shell=True)
+    if res.returncode == 0:
+        print("adb 连接成功")
+    else:
+        print("adb 连接失败，尝试 locahost:5556")
+        cmd[-1] = "localhost:5556"
+        device = "localhost:5556"
+        res = subprocess.run(cmd, shell=True)
+        if res.returncode == 0:
+            print('adb 连接成功')
+        else:
+            print("adb 再次连接失败")
+            exit()
+    print("android 开启等待")
+    time.sleep(start_up_time) # android start time
+    print("游戏 开启等待")
+    
+    time.sleep(60) # game wait time
+    # do with first page
+    print("\t点击开始界面")
+    click_painless(device=device, sleep_time=1, times = 10)
+    
+    # click enter 
+    from resources_1080_1920.general import game, general_pos
+    print("\t点击开始")
+    start = game["start"]
+    clicks(start[0], start[1], device=device, sleep_time=0.5, times = 10)
+    time.sleep(10)
+    ex = general_pos["exit"]
+    # do with init home page 
+    for _ in range(4):
+        print("\t\t点击离线收益")
+        clicks(700, 1380, device=device, sleep_time=1, times = 2) # 离线收益
+        
+        print("\t\t点击进入活动")
+        clicks(950, 1540, device=device, sleep_time=1, times = 2) # 离线收益
+        clicks(300, 1540, device=device, sleep_time=1, times = 2) # 离线收益
+        clicks(1020, 220, device=device, sleep_time=1, times = 2) # 首充礼包 容易点到特权 卡死
+        print("\t\t无痛点击")
+        click_painless(device=device, sleep_time=0.5, times = 5)
+        print("\t\t点击退出")
+        clicks(ex[0], ex[1], device=device, sleep_time=1, times = 3) 
+    click_painless(device=device, sleep_time=0.5, times = 5)
+    print("start_apk_game  启动游戏结束")

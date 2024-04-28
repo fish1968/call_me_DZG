@@ -123,3 +123,17 @@ union = {
     "construct_box": (370, 230), # range click 0..20 * (1080-370)/20
     "ya_biao" : (870, 1400),
 }
+
+zhao_shang = {
+    "entry" : (579, 1350),
+    "move_left": True, # not needed, always at the beginning, when entered from another page
+    "proj_entry": (930, 859),
+    "proj_bang": (121,1756),
+    "move_y" : -1000,
+    "empty_toggle": (134, 384),
+    "top_entry": (864, 474),
+    "y_scan_step_range": (10, 200),
+    "xy00": (283, 1038),
+    "d_xy":(500, 600),
+    "exit_times": 4,
+}

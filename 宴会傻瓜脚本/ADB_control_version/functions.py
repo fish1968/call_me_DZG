@@ -392,61 +392,61 @@ def remove_local_file(img_file_path="test.png"):
 
 def enter_home(device = local_device, sleep_time = 1):
     if debugging:
-        print(f"    enter_home 进入首页界面 begin")
+        print(f"\tenter_home 进入首页界面 begin")
     x, y = resources_1080_1920.home.home_data.home_bar["home_home"]
     click_once(x,y, device=device, sleep_time=sleep_time)
     if debugging:
-        print(f"    enter_home 进入首页界面 end")
+        print(f"\tenter_home 进入首页界面 end")
 
 def enter_cheng_jiao(device = local_device, sleep_time = 1):
     if debugging:
-        print(f"    enter_cheng_jiao 进入城郊界面 begin")
+        print(f"\tenter_cheng_jiao 进入城郊界面 begin")
     x, y = resources_1080_1920.home.home_data.home_bar["home_cheng-jiao"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     if debugging:
-        print(f"    enter_cheng_jiao 进入城郊界面 end")
+        print(f"\tenter_cheng_jiao 进入城郊界面 end")
 
 def enter_men_ke(device = local_device, sleep_time = 1):
     from resources_1080_1920.home.home_data import home_bar
     if debugging:
-        print(f"    enter_men_ke 进入门客界面 begin")
+        print(f"\tenter_men_ke 进入门客界面 begin")
     x, y = home_bar["home_men-ke"]
     click_once(x, y, device = device, sleep_time=sleep_time)
     if debugging:
-        print(f"    enter_men_ke 进入门客界面 ends")
+        print(f"\tenter_men_ke 进入门客界面 ends")
 
 def enter_shang_pu(device = local_device, sleep_time = 1, wait_ratio = 5):
     if debugging:
-        print(f"    enter_shang_pu 商铺 begin")
+        print(f"\tenter_shang_pu 商铺 begin")
     x, y = resources_1080_1920.home.home_data.home_bar["home_shang-pu"]
     click_once(x = x, y = y, device= device, sleep_time=sleep_time*wait_ratio)
     if debugging:
-        print(f"    enter_shang_pu 商铺 end")
+        print(f"\tenter_shang_pu 商铺 end")
 
 def enter_chuang_dang(device = local_device, sleep_time = 1):
     if debugging:
-        print(f"    enter_chuang_dang 闯荡 begin")
+        print(f"\tenter_chuang_dang 闯荡 begin")
     x, y = resources_1080_1920.home.home_data.home_bar["home_chuang-dang"]
     click_once(x = x, y = y, device= device, sleep_time=sleep_time*3)
     if debugging:
-        print(f"    enter_chuang_dang 闯荡 end")
+        print(f"\tenter_chuang_dang 闯荡 end")
 
 def enter_cheng_jiao(device = local_device, sleep_time = 1):
     if debugging:
-        print(f"    enter_cheng_jiao 进入城郊界面 begin")
+        print(f"\tenter_cheng_jiao 进入城郊界面 begin")
     x, y = resources_1080_1920.home.home_data.home_bar["home_cheng-jiao"]
     click_once(x,y, device=device, sleep_time=sleep_time)
     if debugging:
-        print(f"    enter_cheng_jiao 进入城郊界面 end")
+        print(f"\tenter_cheng_jiao 进入城郊界面 end")
 
 def enter_bei_bao(device = local_device, sleep_time = 1):
     from resources_1080_1920.home.home_data import home_bar
     if debugging:
-        print(f"    enter_bei_bao 进入背包界面 begin")
+        print(f"\tenter_bei_bao 进入背包界面 begin")
     x, y = home_bar["home_bei-bao"]
     click_once(x, y, device = device, sleep_time=sleep_time)
     if debugging:
-        print(f"    enter_bei_bao 进入背包界面 ends")
+        print(f"\tenter_bei_bao 进入背包界面 ends")
 
 def enter_zhi_you(device = local_device, sleep_time = 1):
     if debugging: 

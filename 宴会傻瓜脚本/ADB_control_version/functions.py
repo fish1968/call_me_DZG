@@ -916,18 +916,19 @@ def shou_lie(device = local_device, sleep_time = 1):
         print(f"shou_lie begin")
     from resources_1080_1920.cheng_jiao.cheng_jiao_data import shou_lie
     enter_home(device=device, sleep_time=sleep_time)
-    ex, ey = resources_1080_1920.general.general_pos["exit"]
     enter_cheng_jiao(device=device, sleep_time=sleep_time)
     # move to shou_lie
     move_x, move_y = shou_lie["drag_to_shou_lie"]
     drag_and_move(move_x=move_x, move_y=move_y, start_x=1000, start_y=500, device=device, duration_ms=500)
-    x, y = shou_lie["entry"]
-    click_once(x, y, device=device, sleep_time=sleep_time)
+    entry = shou_lie["entry"]
+    enter = shou_lie["enter"]
+    auto = shou_lie["auto"]
+    
+    click_once(entry[0], entry[1], device=device, sleep_time=sleep_time)
     # 进入 狩猎 page
-    x, y = shou_lie["enter"]
-    click_once(x, y, device=device, sleep_time=sleep_time)
-    x, y = shou_lie["auto"]
-    click_once(x, y, device=device, sleep_time=sleep_time)
+    click_once(enter[0], enter[1], device=device, sleep_time=sleep_time)
+    click_once(auto[0], auto[1], device=device, sleep_time=sleep_time)
+    
     # 点击自动
     period = shou_lie["period"]
     for _ in range(50):
@@ -937,8 +938,8 @@ def shou_lie(device = local_device, sleep_time = 1):
     x2_help, y2_help = shou_lie["shang_hui_help_page"]
     x0, y0 = shou_lie["help_00"]
     dx, dy = shou_lie["help_delta"]
-    
     x_con, y_con = shou_lie["confirm"]
+    do = shou_lie["do"]
     
     for index in range(4, -1, -1): # 0 -> 4
         y_t = index // 3
@@ -946,11 +947,13 @@ def shou_lie(device = local_device, sleep_time = 1):
         x, y = x_t * dx * x_t + x0, dy * y_t + y0
         click_once(x_help, y_help, device=device, sleep_time=sleep_time)
         click_once(x2_help, y2_help, device=device, sleep_time=sleep_time)
+        click_once(x, y, device=device, sleep_time=sleep_time)
         click_once(x_con, y_con, device=device, sleep_time=sleep_time)
-        click_once(x_t, y_t, device=device, sleep_time=sleep_time)
-        click_painless(device=device, sleep_time=period, times = 2)
+        click_once(do[0], do[1], device = device, sleep_time = sleep_time)
+        click_painless(device=device, sleep_time=period/3, times = 4)
     
-    click_once(ex, ey, device=device, sleep_time=sleep_time, times = 2)
+    click_exit(device = device, sleep_time = sleep_time, times = 3)
+    
     enter_home(device=device, sleep_time=sleep_time)
     if debugging:
         print(f"shou_lie end")

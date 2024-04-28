@@ -12,7 +12,7 @@ from json_function import *
 def test_function(function_head, device = local_device, sleep_time = 1):
     start = time.time()
     # check connectivity
-    while is_adb_connected() == False:
+    while is_adb_server_on() == False:
         subprocess.run(["adb", "start-server"])
 
     if not is_device_connected(device=local_device):
@@ -23,6 +23,8 @@ def test_function(function_head, device = local_device, sleep_time = 1):
     print(end-start)
 
 test_function(function_head=daily_cai_shen_miao_like, device=local_device, sleep_time=0.3)
+
+# start_apk_game(device= local_device)
 
 def need_test():
     obtain_screenshot()

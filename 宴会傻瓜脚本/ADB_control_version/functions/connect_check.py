@@ -1,4 +1,4 @@
-from local_data import local_device
+from functions.local_data import local_device
 import subprocess
 import socket
 

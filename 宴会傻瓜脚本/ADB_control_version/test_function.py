@@ -2,7 +2,7 @@
 import subprocess
 import time
 from functions.functions import *
-from local_data import local_device, json_file_path
+from functions.local_data import local_device, json_file_path
 from functions.obtain_port_number import *
 from functions.connect_check import *
 from functions.json_function import * 

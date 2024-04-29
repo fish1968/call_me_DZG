@@ -10,7 +10,7 @@ import resources_1080_1920.cheng_jiao.cheng_jiao_data
 import resources_1080_1920.home.home_data
 import resources_1080_1920.shang_pu
 import resources_1080_1920.shang_pu.shang_pu_data
-from local_data import local_device, debugging, apk_start_path, game_package_name
+from functions.local_data import local_device, debugging, apk_start_path, game_package_name
 from functions.connect_check import is_adb_server_on, is_device_connected, start_adb_server, find_available_port
 
 def future_care(func):

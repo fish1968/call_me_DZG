@@ -1,4 +1,4 @@
-from functions.local_data import local_device
+from ADB_project.functions.local_data import local_device
 import subprocess
 import socket
 

@@ -1,11 +1,11 @@
 # testing functions
 import subprocess
 import time
-from functions.functions import *
-from functions.local_data import local_device, json_file_path
-from functions.obtain_port_number import *
-from functions.connect_check import *
-from functions.json_function import * 
+from ADB_project.functions.functions import *
+from ADB_project.functions.local_data import local_device, json_file_path
+from ADB_project.functions.obtain_port_number import *
+from ADB_project.functions.connect_check import *
+from ADB_project.functions.json_function import * 
 
 def test_function(function_head, device = local_device, sleep_time = 1):
     start = time.time()

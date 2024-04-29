@@ -1,17 +1,17 @@
 import os
 import subprocess
 import time
-import resources_1080_1920
-import resources_1080_1920.chuang_dang
-import resources_1080_1920.chuang_dang.chuang_dang_data
-import resources_1080_1920.general
-import resources_1080_1920.cheng_jiao
-import resources_1080_1920.cheng_jiao.cheng_jiao_data
-import resources_1080_1920.home.home_data
-import resources_1080_1920.shang_pu
-import resources_1080_1920.shang_pu.shang_pu_data
-from functions.local_data import local_device, debugging, adb_debugging, apk_start_path, game_package_name
-from functions.connect_check import is_adb_server_on, is_device_connected, start_adb_server, find_available_port
+import ADB_project.resources_1080_1920
+import ADB_project.resources_1080_1920.chuang_dang
+import ADB_project.resources_1080_1920.chuang_dang.chuang_dang_data
+import ADB_project.resources_1080_1920.general
+import ADB_project.resources_1080_1920.cheng_jiao
+import ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data
+import ADB_project.resources_1080_1920.home.home_data
+import ADB_project.resources_1080_1920.shang_pu
+import ADB_project.resources_1080_1920.shang_pu.shang_pu_data
+from ADB_project.functions.local_data import local_device, debugging, adb_debugging, apk_start_path, game_package_name
+from ADB_project.functions.connect_check import is_adb_server_on, is_device_connected, start_adb_server, find_available_port
 
 def future_care(func):
     def wrapper(*args, **kwargs):
@@ -48,7 +48,7 @@ def click_wait(total_time = 1000, sleep_time = 10, device = local_device):
         print("click_wait ends")
 
 def click_exit(device = local_device, sleep_time = 1, times = 1):
-    from resources_1080_1920.general import general_pos
+    from ADB_project.resources_1080_1920.general import general_pos
     ex = general_pos["exit"]
     clicks(ex[0], ex[1], device = device, sleep_time=sleep_time, times = times)
 
@@ -141,7 +141,7 @@ def remove_local_file(img_file_path="test.png"):
 def enter_home(device = local_device, sleep_time = 1):
     if debugging:
         print(f"\tenter_home 进入首页界面 begin")
-    x, y = resources_1080_1920.home.home_data.home_bar["home_home"]
+    x, y = ADB_project.resources_1080_1920.home.home_data.home_bar["home_home"]
     click_once(x,y, device=device, sleep_time=sleep_time)
     if debugging:
         print(f"\tenter_home 进入首页界面 end")
@@ -149,13 +149,13 @@ def enter_home(device = local_device, sleep_time = 1):
 def enter_cheng_jiao(device = local_device, sleep_time = 1):
     if debugging:
         print(f"\tenter_cheng_jiao 进入城郊界面 begin")
-    x, y = resources_1080_1920.home.home_data.home_bar["home_cheng-jiao"]
+    x, y = ADB_project.resources_1080_1920.home.home_data.home_bar["home_cheng-jiao"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     if debugging:
         print(f"\tenter_cheng_jiao 进入城郊界面 end")
 
 def enter_men_ke(device = local_device, sleep_time = 1):
-    from resources_1080_1920.home.home_data import home_bar
+    from ADB_project.resources_1080_1920.home.home_data import home_bar
     if debugging:
         print(f"\tenter_men_ke 进入门客界面 begin")
     x, y = home_bar["home_men-ke"]
@@ -166,7 +166,7 @@ def enter_men_ke(device = local_device, sleep_time = 1):
 def enter_shang_pu(device = local_device, sleep_time = 1, wait_ratio = 5):
     if debugging:
         print(f"\tenter_shang_pu 商铺 begin")
-    x, y = resources_1080_1920.home.home_data.home_bar["home_shang-pu"]
+    x, y = ADB_project.resources_1080_1920.home.home_data.home_bar["home_shang-pu"]
     click_once(x = x, y = y, device= device, sleep_time=sleep_time*wait_ratio)
     if debugging:
         print(f"\tenter_shang_pu 商铺 end")
@@ -174,7 +174,7 @@ def enter_shang_pu(device = local_device, sleep_time = 1, wait_ratio = 5):
 def enter_chuang_dang(device = local_device, sleep_time = 1):
     if debugging:
         print(f"\tenter_chuang_dang 闯荡 begin")
-    x, y = resources_1080_1920.home.home_data.home_bar["home_chuang-dang"]
+    x, y = ADB_project.resources_1080_1920.home.home_data.home_bar["home_chuang-dang"]
     click_once(x = x, y = y, device= device, sleep_time=sleep_time*3)
     if debugging:
         print(f"\tenter_chuang_dang 闯荡 end")
@@ -182,13 +182,13 @@ def enter_chuang_dang(device = local_device, sleep_time = 1):
 def enter_cheng_jiao(device = local_device, sleep_time = 1):
     if debugging:
         print(f"\tenter_cheng_jiao 进入城郊界面 begin")
-    x, y = resources_1080_1920.home.home_data.home_bar["home_cheng-jiao"]
+    x, y = ADB_project.resources_1080_1920.home.home_data.home_bar["home_cheng-jiao"]
     click_once(x,y, device=device, sleep_time=sleep_time)
     if debugging:
         print(f"\tenter_cheng_jiao 进入城郊界面 end")
 
 def enter_bei_bao(device = local_device, sleep_time = 1):
-    from resources_1080_1920.home.home_data import home_bar
+    from ADB_project.resources_1080_1920.home.home_data import home_bar
     if debugging:
         print(f"\tenter_bei_bao 进入背包界面 begin")
     x, y = home_bar["home_bei-bao"]
@@ -199,7 +199,7 @@ def enter_bei_bao(device = local_device, sleep_time = 1):
 def enter_zhi_you(device = local_device, sleep_time = 1):
     if debugging: 
         print(f"\tenter_zhi_you 进入挚友界面 begin")
-    from resources_1080_1920.home.home_data import zhi_you
+    from ADB_project.resources_1080_1920.home.home_data import zhi_you
     # enter home
     enter_home(device=device, sleep_time=sleep_time)
     # 进入挚友界面
@@ -219,17 +219,17 @@ def daily_xing_yun_duo_bao_2(device = local_device, sleep_time = 1):
     # 赠送的幸运夺宝两次
     enter_home(device=  device, sleep_time=sleep_time)
     # 入口汇编会变！
-    x, y = resources_1080_1920.home.home_data.xing_yun_duo_bao["entry"]
+    x, y = ADB_project.resources_1080_1920.home.home_data.xing_yun_duo_bao["entry"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     
-    x, y = resources_1080_1920.home.home_data.xing_yun_duo_bao["duo_bao_five"]
-    jx, jy = resources_1080_1920.home.home_data.xing_yun_duo_bao["tiao_guo"]
+    x, y = ADB_project.resources_1080_1920.home.home_data.xing_yun_duo_bao["duo_bao_five"]
+    jx, jy = ADB_project.resources_1080_1920.home.home_data.xing_yun_duo_bao["tiao_guo"]
     for _ in range(2):
         click_once(x, y, device=device,sleep_time=sleep_time)
         click_once(jx, jy, device=device,sleep_time=sleep_time)
         
         click_painless(device=device, sleep_time=sleep_time, times=2)
-    x, y = resources_1080_1920.general.general_pos["exit"]
+    x, y = ADB_project.resources_1080_1920.general.general_pos["exit"]
     click_once(x, y, device=device, sleep_time=sleep_time)
 
     if debugging:
@@ -237,8 +237,8 @@ def daily_xing_yun_duo_bao_2(device = local_device, sleep_time = 1):
 
 def daily_profile_yuan_bao(device = local_device, sleep_time = 1):
     print("enter daily_profile_yuan_bao 身份元宝")
-    from resources_1080_1920.home.home_data import profile
-    from resources_1080_1920.general import general_pos
+    from ADB_project.resources_1080_1920.home.home_data import profile
+    from ADB_project.resources_1080_1920.general import general_pos
     ex = general_pos["exit"]
     entry = profile["entry"]
     obtain = profile["obtain"]
@@ -253,7 +253,7 @@ def daily_mail_process(device = local_device, sleep_time  = 1):
     if debugging:
         print(f"daily_mail_process begins")
     enter_home(device, sleep_time)
-    from resources_1080_1920.home.home_data import mail_list
+    from ADB_project.resources_1080_1920.home.home_data import mail_list
     mail = mail_list["mail"]
     del_read = mail_list["del_read"]
     one_click = mail_list["one_click"]
@@ -272,20 +272,20 @@ def tu_di_raise_up(device = local_device, sleep_time = 1):
     if debugging:
         print(f"tu_di_raise_up 徒弟培养 ")
     # 容易出现弹窗，导致卡死。。。
-    cx, cy = resources_1080_1920.home.home_data.tu_di["check"]
-    delta = resources_1080_1920.home.home_data.tu_di["delta"]
-    ex, ey = resources_1080_1920.general.general_pos["exit"]
+    cx, cy = ADB_project.resources_1080_1920.home.home_data.tu_di["check"]
+    delta = ADB_project.resources_1080_1920.home.home_data.tu_di["delta"]
+    ex, ey = ADB_project.resources_1080_1920.general.general_pos["exit"]
     enter_home(device = device)
     for _ in range(5):
         drag_and_move(move_x=-500, move_y=0, start_x=600, start_y=1000, device=device, duration_ms=100)
         time.sleep(0.2)
-    x, y = resources_1080_1920.home.home_data.tu_di["entry"]
+    x, y = ADB_project.resources_1080_1920.home.home_data.tu_di["entry"]
     click_once(x = x, y = y, device= device, sleep_time=sleep_time)
     
     # 不检查是否 一键选中，做两次
     for _ in range(2):
         click_once(x = cx, y = cy, device= device, sleep_time=sleep_time)
-        x, y = resources_1080_1920.home.home_data.tu_di["child0"]
+        x, y = ADB_project.resources_1080_1920.home.home_data.tu_di["child0"]
         click_once(x, y, device= device, sleep_time=sleep_time)
         click_once(x = 500, y = 500, device= device, sleep_time=sleep_time)
         
@@ -302,7 +302,7 @@ def daily_click_xian_shi_chong_zhi(device= local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_xian_shi_chong_zhi begin")
     # 主页
-    from resources_1080_1920.home.home_data import home_upper_list
+    from ADB_project.resources_1080_1920.home.home_data import home_upper_list
     enter_home(device=device, sleep_time=sleep_time)
 
     # 点击限时充值
@@ -323,14 +323,14 @@ def daily_click_xian_shi_chong_zhi(device= local_device, sleep_time = 1):
     click_painless(device=device, sleep_time=sleep_time)
     
     # exit
-    x, y = resources_1080_1920.general.general_pos["exit"]
+    x, y = ADB_project.resources_1080_1920.general.general_pos["exit"]
     click_once(x, y, device=device, sleep_time=sleep_time)
     if debugging:
         print(f"daily_click_xian_shi_chong_zhi end")
 def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_home_shang_cheng_ling_qu 商城领取 begin")
-    from resources_1080_1920.home.home_data import home_right_low_list, home_Shang_cheng
+    from ADB_project.resources_1080_1920.home.home_data import home_right_low_list, home_Shang_cheng
     # 进入主页
     enter_home(device = device, sleep_time = sleep_time)
     # 从主页点击商城
@@ -376,6 +376,7 @@ def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
 
 @future_care
 def daily_recruit_10(device = local_device, sleep_time = 1):
+    # 位置写死，有图像识别更好
     enter_bei_bao(device, sleep_time=sleep_time)
     x, y = 197, 197
     click_once(x, y, device = local_device, sleep_time=sleep_time)
@@ -415,7 +416,7 @@ def zhi_you_skills(device = local_device, sleep_time = 1, times = 5):
     # 挚友技能提升 5 次
     if debugging: 
         print(f"zhi_you_skills 挚友技能 {times}次 begin")
-    from resources_1080_1920.home.home_data import zhi_you
+    from ADB_project.resources_1080_1920.home.home_data import zhi_you
     # 进入挚友界面
     enter_zhi_you(device=device, sleep_time=sleep_time)
     
@@ -442,7 +443,7 @@ def zhi_you_gift(device = local_device, sleep_time = 1, times = 2):
     # 挚友赠送 >= times 次
     if debugging: 
         print(f"zhi_you_gift 挚友赠送 {times}次 begin")
-    from resources_1080_1920.home.home_data import zhi_you
+    from ADB_project.resources_1080_1920.home.home_data import zhi_you
     # enter home
     enter_home(device=device, sleep_time=sleep_time)
     # 进入挚友界面
@@ -466,7 +467,7 @@ def zhi_you_gift(device = local_device, sleep_time = 1, times = 2):
 def zhi_you_tan_xin(device = local_device, sleep_time = 1):
     if debugging:
         print("zhi_you_tan_xin 挚友谈心 begin")
-    from resources_1080_1920.home.home_data import zhi_you
+    from ADB_project.resources_1080_1920.home.home_data import zhi_you
     enter_home(device=device, sleep_time=sleep_time)
     if zhi_you["move_to_left"] == True:
         move_to_left(sleep_time=0.5, device = device)
@@ -487,7 +488,7 @@ def zhi_you_tan_xin(device = local_device, sleep_time = 1):
         print("zhi_you_tan_xin 挚友谈心 ends")
 
 def tu_di_raise_up(device = local_device, sleep_time = 1):
-    from resources_1080_1920.home.home_data import tu_di
+    from ADB_project.resources_1080_1920.home.home_data import tu_di
     # enter home
     enter_home(device = device, sleep_time = sleep_time)
     if tu_di["move_left"] == True:
@@ -529,7 +530,7 @@ def daily_qian_zhuang_20(device = local_device, sleep_time = 0.1):
 def daily_do_shang_pu_qian_dao(device = local_device, sleep_time = 1):
     if debugging:
         print("daily_do_shang_pu_qian_dao 商铺签到 begin")
-    from resources_1080_1920.shang_pu.shang_pu_data import qian_dao
+    from ADB_project.resources_1080_1920.shang_pu.shang_pu_data import qian_dao
     toggle_open = qian_dao["toggle_open"]
     toggle_close = qian_dao["toggle_close"]
     do = qian_dao["do"]
@@ -548,8 +549,8 @@ def daily_do_shang_pu_qian_dao(device = local_device, sleep_time = 1):
         print("daily_do_shang_pu_qian_dao 商铺签到 ends")
  
 def daily_do_yi_guan(device = local_device, sleep_time = 1):
-    from resources_1080_1920.shang_pu.shang_pu_data import yi_guan
-    from resources_1080_1920.general import general_pos
+    from ADB_project.resources_1080_1920.shang_pu.shang_pu_data import yi_guan
+    from ADB_project.resources_1080_1920.general import general_pos
     if debugging:
         print(f"    daily_do_yi_guan 医馆 starts")
     ex = general_pos["exit"]
@@ -578,8 +579,8 @@ def daily_do_jiu_si (device = local_device, sleep_time = 1):
     enter_home(device=device,sleep_time=sleep_time)
     enter_shang_pu(device=device, sleep_time=sleep_time)
     move_to_left(sleep_time=sleep_time, device=device)
-    from resources_1080_1920.shang_pu.shang_pu_data import jiu_si
-    from resources_1080_1920.general import general_pos
+    from ADB_project.resources_1080_1920.shang_pu.shang_pu_data import jiu_si
+    from ADB_project.resources_1080_1920.general import general_pos
     move = jiu_si["drag_move"]
     ex = general_pos["exit"]
     drag_and_move(move[0], move[1], device=device, duration_ms=500)
@@ -603,8 +604,8 @@ def daily_do_yao_pu (device = local_device, sleep_time = 1):
     enter_home(device=device,sleep_time=sleep_time)
     enter_shang_pu(device=device, sleep_time=sleep_time)
     move_to_left(sleep_time=sleep_time, device=device)
-    from resources_1080_1920.shang_pu.shang_pu_data import yao_pu
-    from resources_1080_1920.general import general_pos
+    from ADB_project.resources_1080_1920.shang_pu.shang_pu_data import yao_pu
+    from ADB_project.resources_1080_1920.general import general_pos
     move = yao_pu["drag_move"]
     ex = general_pos["exit"]
     drag_and_move(move[0], move[1], device=device, duration_ms=500)
@@ -628,8 +629,8 @@ def daily_do_yao_pu (device = local_device, sleep_time = 1):
 def daily_click_qian_zhuang_wei_ren(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_qian_zhuang_wei_ren begin")
-    from resources_1080_1920.home.home_data import home_bar
-    from resources_1080_1920.shang_pu.shang_pu_data import qian_zhuang
+    from ADB_project.resources_1080_1920.home.home_data import home_bar
+    from ADB_project.resources_1080_1920.shang_pu.shang_pu_data import qian_zhuang
     # eneter shang pu
     enter_shang_pu(device = device, sleep_time = sleep_time)
     drag_and_move(move_x=500*10, move_y=0, start_x=500, start_y=1000, device=device, duration_ms=sleep_time*1000)
@@ -661,7 +662,7 @@ def daily_click_qian_zhuang_wei_ren(device = local_device, sleep_time = 1):
     click_painless(device=device, sleep_time=sleep_time, times=2)
     
     # click 退出
-    x, y = resources_1080_1920.general.general_pos["exit"]
+    x, y = ADB_project.resources_1080_1920.general.general_pos["exit"]
     click_once(x, y, device=device, sleep_time=sleep_time)
 
     # 回到 home
@@ -676,7 +677,7 @@ def daily_click_qian_zhuang_wei_ren(device = local_device, sleep_time = 1):
 def click_union_basic_constrcut(device = local_device, sleep_time = 1):
     if debugging:
         print(f"click_union_basic_constrcut begin")
-    from resources_1080_1920.cheng_jiao.cheng_jiao_data import union
+    from ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data import union
     # at home click cheng-jiao
     enter_home(device=device, sleep_time=sleep_time*3)
     enter_cheng_jiao(device=device, sleep_time=sleep_time*3)
@@ -719,8 +720,8 @@ def click_union_basic_constrcut(device = local_device, sleep_time = 1):
 def daily_click_rank(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_rank 排行榜点赞 begin")
-    ex, ey = resources_1080_1920.general.general_pos["exit"]
-    from resources_1080_1920.cheng_jiao.cheng_jiao_data import rank
+    ex, ey = ADB_project.resources_1080_1920.general.general_pos["exit"]
+    from ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data import rank
     enter_cheng_jiao(device=    device, sleep_time=sleep_time)
     
     x, y = rank["entry"]
@@ -768,7 +769,7 @@ def daily_click_rank(device = local_device, sleep_time = 1):
  
 def daily_qiao_qian(device = local_device, sleep_time = 1):
     
-    from resources_1080_1920.cheng_jiao.cheng_jiao_data import qiao_qian
+    from ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data import qiao_qian
     print("daily_qiao_qian begin")
     enter_home(device= device, sleep_time=sleep_time)
     enter_cheng_jiao(device= device, sleep_time=sleep_time)
@@ -779,7 +780,7 @@ def daily_qiao_qian(device = local_device, sleep_time = 1):
     qin_entry = qiao_qian["qin_entry"]
     bei_shan_entry = qiao_qian["bei_shan_entry"]
     move_y = qiao_qian["bei_shan_move_y"]
-    ex = resources_1080_1920.general.general_pos["exit"]
+    ex = ADB_project.resources_1080_1920.general.general_pos["exit"]
     click_once(x=entry[0], y = entry[1], device=device,sleep_time=sleep_time*2)
     
     click_once(huang_entry[0], huang_entry[1], device=device,sleep_time=sleep_time*2)
@@ -805,7 +806,7 @@ def daily_qiao_qian(device = local_device, sleep_time = 1):
 def shang_zhan(device= local_device,sleep_time = 1):
     if debugging:
         print(f"shang_zhan 商战")
-    from resources_1080_1920.cheng_jiao.cheng_jiao_data import shang_zhan
+    from ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data import shang_zhan
     enter_home(device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time)
     x, y = shang_zhan["entry"]
@@ -836,7 +837,7 @@ def daily_cheng_jiao_you_li(device = local_device, sleep_time = 1):
         print(f"daily_cheng_jiao_you_li 城郊游历")
     enter_home(device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time*2)
-    from resources_1080_1920.cheng_jiao.cheng_jiao_data import you_li
+    from ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data import you_li
     # 进入游历
     move_x, move_y = you_li["drag_move"]
     drag_and_move(move_x=move_x, move_y=move_y, start_x=1000, start_y=500, device=device, duration_ms=500)
@@ -875,14 +876,14 @@ def daily_cai_shen_miao_like(device = local_device, sleep_time = 1):
     # usual sleep_time 0.6 +
     # 经常会点出去，点完大赞后点出去
     # 退出到城郊后会乱入到乔迁
-    from resources_1080_1920.cheng_jiao.cheng_jiao_data import cai_shen_miao
+    from ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data import cai_shen_miao
     print("daily_cai_shen_miao_like begin")
     enter_home(device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time)
     # enter miao
     cai_shen = cai_shen_miao["pos"]
     click_once(cai_shen[0], cai_shen[1], device, sleep_time=sleep_time)
-    ex = resources_1080_1920.general.general_pos["exit"]
+    ex = ADB_project.resources_1080_1920.general.general_pos["exit"]
     cai_shen_pu = cai_shen_miao["cai_shen_pu"]
     cai_shen_like = cai_shen_miao["cai_shen_like"]
     big_like = cai_shen_miao["like"]
@@ -923,7 +924,7 @@ def daily_ling_qu_yu_gan(device = local_device, sleep_time = 1):
         print(f"daily_ling_qu_yu_gan 领取鱼竿")
     # 领取鱼竿
     # 经常领取不到，多做几次
-    from resources_1080_1920.cheng_jiao.cheng_jiao_data import zhuang_yuan
+    from ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data import zhuang_yuan
     
     enter_home(device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time*3)
@@ -953,7 +954,7 @@ def daily_ling_qu_yu_gan(device = local_device, sleep_time = 1):
 def daily_xing_shan(device = local_device, sleep_time = 1):
     if debugging:
         print("daily_xing_shan begin")
-    from resources_1080_1920.cheng_jiao.cheng_jiao_data import xing_shan
+    from ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data import xing_shan
     enter_home  (device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time*2)
     mv_x, mv_y = xing_shan["drag"]
@@ -987,7 +988,7 @@ def 项目招商(device = local_device, sleep_time = 1):
     if debugging:
         print("xiang_mu_zhao_shang begins")
     # 进入城郊 -> 进入 招商 -> 进入项目招商 -> 点击项目榜单 
-    from resources_1080_1920.cheng_jiao.cheng_jiao_data import zhao_shang
+    from ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data import zhao_shang
     enter_home(device = device, sleep_time = sleep_time)
     enter_cheng_jiao(device = device, sleep_time = sleep_time)
     entry = zhao_shang["entry"]
@@ -1033,7 +1034,7 @@ def 项目招商(device = local_device, sleep_time = 1):
 def shou_lie(device = local_device, sleep_time = 1):
     if debugging:
         print(f"shou_lie begin")
-    from resources_1080_1920.cheng_jiao.cheng_jiao_data import shou_lie
+    from ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data import shou_lie
     enter_home(device=device, sleep_time=sleep_time)
     enter_cheng_jiao(device=device, sleep_time=sleep_time)
     # move to shou_lie
@@ -1079,7 +1080,7 @@ def shou_lie(device = local_device, sleep_time = 1):
 
 def da_long(device = local_device, sleep_time = 1):
     # 晚上八点钟打龙
-    from resources_1080_1920.cheng_jiao.cheng_jiao_data import da_long
+    from ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data import da_long
     if debugging:
         print(f"da_long begin")
     entry = da_long["entry"]
@@ -1219,8 +1220,8 @@ def daily_in_shang_pu (device = local_device, sleep_time = 1):
 def daily_in_chuang_dang(device = local_device, sleep_time = 1):
     if debugging:
         print(f"ri_chang_chuang_dang begin")
-    from resources_1080_1920.chuang_dang.chuang_dang_data import guan_ka
-    from resources_1080_1920.general import general_pos
+    from ADB_project.resources_1080_1920.chuang_dang.chuang_dang_data import guan_ka
+    from ADB_project.resources_1080_1920.general import general_pos
     ex, ey = general_pos["exit"]
     # 日常闯荡
     enter_chuang_dang(device=device, sleep_time=sleep_time)
@@ -1289,7 +1290,7 @@ def start_apk_game(game_package = game_package_name, start_up_time = 60, device 
     click_painless(device=device, sleep_time=1, times = 10)
     
     # click Enter
-    from resources_1080_1920.general import game 
+    from ADB_project.resources_1080_1920.general import game 
     print("\t点击开始")
     start = game["start"]
     click_painless(device = device, sleep_time = 0.5, times = 10)

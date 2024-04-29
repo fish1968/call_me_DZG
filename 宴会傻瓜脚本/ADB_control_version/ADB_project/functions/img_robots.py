@@ -7,19 +7,23 @@ class ImgRobot:
             try:
                 self.image = cv2.imread(image_path)
             except Exception as e:
-                print("An error occurred during template matching:", str(e))
+                print("An error occurred during reading images:", str(e))
                 return None
         self.position = [0, 0]
         self.brightness = None
     def get_image(self):
         return self.image
     
+    def get_image_shape(self):
+        height, width, channels = self.image.shape
+        return height, width, channels 
     def get_pixel_rgb(self, x, y):
         pixel_value = self.image[y, x]
         rgb_value = (int(pixel_value[2]), int(pixel_value[1]), int(pixel_value[0]))
         return rgb_value
-    
-    def find_image_position(self, img2, threshold, left_most=0, right_most=None, top_most=0, down_most=None):
+    def find_image_position(self, img2, threshold, left_most=0, right_most=None, top_most=0, down_most=None, at_center = True):
+        # return the left top pixel if not at_center
+        # otherwise return the center of matched image
         try:
             if right_most is None:
                 right_most = self.image.shape[1]
@@ -32,13 +36,19 @@ class ImgRobot:
             min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
             
             if max_val >= threshold:
-                abs_position = (max_loc[0] + left_most, max_loc[1] + top_most)
+                abs_position = (max_loc[0] + left_most , max_loc[1] + top_most)
+                if at_center == True:
+                    shape = img2.shape
+                    abs_position = int(abs_position[0] + shape[0]/2),int( abs_position[1] + shape[1]/2)
                 return abs_position
             else:
                 return None
         except Exception as e:
             print("An error occurred during template matching:", str(e))
             return None
+    def find_image_position_with_robot(self, robot, threshold = 0.8, left_most=0, right_most=None, top_most=0, down_most=None, at_center = True):
+        img2 = robot.get_image()
+        return self.find_image_position(img2, threshold, left_most, right_most, top_most, down_most, at_center) 
     def get_sub_image(self, start_x, start_y, width, height):
         sub_image = self.image[start_y:start_y+height, start_x:start_x+width]
         return sub_image

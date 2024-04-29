@@ -1,7 +1,7 @@
 import json
 import datetime
 import os
-from functions.local_data import json_file_path as file_path
+from ADB_project.functions.local_data import json_file_path as file_path
 
 def read_json_data(file_path):
     if os.path.exists(file_path):

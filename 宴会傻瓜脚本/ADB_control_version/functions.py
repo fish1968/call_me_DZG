@@ -222,7 +222,7 @@ def daily_click_xian_shi_chong_zhi(device= local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_xian_shi_chong_zhi end")
     
-def obtain_screenshot(img_name = "test.png", local_dir="./imgs",device = local_device, sleep_time = None):
+def obtain_screenshot(img_name = "test.png", local_dir=r"./imgs",device = local_device, sleep_time = None):
     if debugging:
         print(f"obtain_screenshot: img_name = {img_name}")
     # ref: https://blog.csdn.net/fxdaniel/article/details/45846333
@@ -230,7 +230,7 @@ def obtain_screenshot(img_name = "test.png", local_dir="./imgs",device = local_d
     sleep_time = 1
     adb_screenshot = ["adb", "-s", device, "shell", "screencap -p", "/sdcard/" + img_name]
     subprocess.run(adb_screenshot)
-    adb_pass_image = ["adb", "-s", device, "pull", "/sdcard/"+img_name, local_dir+img_name]
+    adb_pass_image = ["adb", "-s", device, "pull", "/sdcard/"+img_name, local_dir+r"/"+img_name]
     subprocess.run(adb_pass_image)
     if debugging:
         print(f"obtain_screenshot: img_name = {img_name} end")

@@ -232,6 +232,10 @@ def obtain_screenshot(img_name = "test.png", local_dir=r"./imgs",device = local_
     subprocess.run(adb_screenshot)
     adb_pass_image = ["adb", "-s", device, "pull", "/sdcard/"+img_name, local_dir+r"/"+img_name]
     subprocess.run(adb_pass_image)
+    # remove image from the android
+    adb_rm_img = ["adb", "-s", device, "shell", "rm", "/sdcard/"+img_name]
+    subprocess.run(adb_rm_img)
+    
     if debugging:
         print(f"obtain_screenshot: img_name = {img_name} end")
 

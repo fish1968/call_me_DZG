@@ -8,6 +8,7 @@ json_file_path = "data.json"
 
 # my debug part end
 debugging = True
+adb_debugging = False
 
 basic_path = r"C:\Users\YabinLabtop\Desktop" 
 app_name = r"\叫我大掌柜H5.lnk"

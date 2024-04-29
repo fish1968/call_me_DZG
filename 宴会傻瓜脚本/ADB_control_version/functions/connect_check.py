@@ -1,5 +1,5 @@
-import subprocess
 from local_data import local_device
+import subprocess
 import socket
 
 def find_available_port(start_port, end_port):

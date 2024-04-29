@@ -1,13 +1,11 @@
 # testing functions
-
-import os
 import subprocess
 import time
-from functions import *
+from functions.functions import *
 from local_data import local_device, json_file_path
-from obtain_port_number import *
-from connect_check import *
-from json_function import * 
+from functions.obtain_port_number import *
+from functions.connect_check import *
+from functions.json_function import * 
 
 def test_function(function_head, device = local_device, sleep_time = 1):
     start = time.time()

@@ -1,11 +1,11 @@
 import os
 import subprocess
 import time
-from functions import *
+from functions.functions import *
 from local_data import local_device, json_file_path
-from obtain_port_number import *
-from connect_check import *
-from json_function import * 
+from functions.obtain_port_number import *
+from functions.connect_check import *
+from functions.json_function import * 
 
 def daily_do_once(device = local_device, do_xing_shan = False,
                 sleep_time = 1, json_file_path = json_file_path):

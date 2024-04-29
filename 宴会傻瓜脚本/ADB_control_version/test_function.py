@@ -28,7 +28,7 @@ funs = [
     # click_union_basic_constrcut
     # obtain_screenshot
     # test_move_screenshot
-    start_apk_game
+    # start_apk_game
 ]
 st = 0.5
 for fun in funs:
@@ -37,19 +37,8 @@ for fun in funs:
 # start_apk_game(device= local_device)
 
 def need_test():
-    obtain_screenshot()
-    tu_di_raise_up(device=local_device) # 弹窗——导致卡死， 需要修改，现在有一键培养
+    # 测试特殊弹窗
     start_apk_game()
+    tu_di_raise_up()
+    zhi_you_tan_xin()
 
-def passed_test():
-    click_qian_zhuang_from_home(100)
-    click_union_basic_constrcut()
-    test_move_screenshot()
-    remove_local_file()
-    daily_click_home_shang_cheng_ling_qu(device=local_device, sleep_time=1)
-    daily_click_xian_shi_chong_zhi(device=local_device, sleep_time=1)
-    daily_click_qian_dao(device=local_device, sleep_time=1)
-    daily_click_qian_zhuang_wei_ren(device=local_device, sleep_time=1)
-    daily_click_rank(local_device, 1)
-    daily_qian_zhuang_20()
-    daily_xing_yun_duo_bao_2()

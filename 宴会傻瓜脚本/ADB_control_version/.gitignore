@@ -1,2 +1,4 @@
 # ignore local data
 *.json
+# ignore png unless special
+*.png

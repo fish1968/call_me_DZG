@@ -38,8 +38,8 @@ def click_painless(device = local_device, sleep_time = None, times = 1):
     for _ in range(times):
         click_once(x=500, y =5, device=device, sleep_time=sleep_time)
 
-def drag_and_move(move_x=0, move_y=0, start_x=500, start_y=1000, device = local_device, duration_ms = 100):
-    adb_command = ['adb',"-s", device, 'shell', 'input', 'swipe', str(start_x), str(start_y), str(start_x+move_x), str(start_y+move_y), str(duration_ms)]
+def drag_and_move(move_x=0, move_y=0, start_x=500, start_y=1000, device = local_device, duration_ms:int = 100):
+    adb_command = ['adb',"-s", device, 'shell', 'input', 'swipe', str(start_x), str(start_y), str(start_x+move_x), str(start_y+move_y), str(int(duration_ms))]
     subprocess.run(adb_command)
     time.sleep(int(duration_ms/500))
     if debugging:
@@ -608,7 +608,7 @@ def daily_qiao_qian(device = local_device, sleep_time = 1):
     click_painless(device=device, sleep_time=sleep_time, times = 2)
     click_once(ex[0], ex[1], device=device,sleep_time=sleep_time)
 
-    drag_and_move(move_x = 0, move_y=move_y, device=device,duration_ms=sleep_time*500)
+    drag_and_move(move_x = 0, move_y=move_y, device=device,duration_ms=int(sleep_time*500))
     time.sleep(sleep_time)
     click_once(bei_shan_entry[0], bei_shan_entry[1], device=device,sleep_time=sleep_time*2)
     click_once(low_like[0], low_like[1], device=device,sleep_time=sleep_time)
@@ -694,10 +694,10 @@ def tu_di_raise_up(device = local_device, sleep_time = 1):
             time.sleep(10)
     click_once(ex, ey, device= device, sleep_time=sleep_time)
 
-    if debugging:
-        print(f"tu_di_raise_up 徒弟培养 end")
-
+    
+@future_care
 def daily_cheng_jiao_you_li(device = local_device, sleep_time = 1):
+    # 游历时 点击空白位置，或者选择位置速度快点，太慢了
     if debugging:
         print(f"daily_cheng_jiao_you_li 城郊游历")
     enter_home(device=device, sleep_time=sleep_time)
@@ -736,9 +736,11 @@ def daily_cheng_jiao_you_li(device = local_device, sleep_time = 1):
     enter_home(device=device, sleep_time=sleep_time)
     if debugging:
         print(f"daily_cheng_jiao_you_li 城郊游历 end")
-
+@future_care
 def daily_cai_shen_miao_like(device = local_device, sleep_time = 1):
     # usual sleep_time 0.6 +
+    # 经常会点出去，点完大赞后点出去
+    # 退出到城郊后会乱入到乔迁
     from resources_1080_1920.cheng_jiao.cheng_jiao_data import cai_shen_miao
     print("daily_cai_shen_miao_like begin")
     enter_home(device=device, sleep_time=sleep_time)

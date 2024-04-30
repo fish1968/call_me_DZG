@@ -25,13 +25,16 @@ def update_xing_shan(file_path = file_path, to_do = True):
     with open(file_path, "w") as file:
         json.dump(data, file, indent=4)
 
-def check_need_and_update_time(file_path = file_path):
+def check_and_update_local_json_data(file_path = file_path):
     # update file time to today
     current_date = str(datetime.date.today())
     data = read_json_data(file_path=file_path)
+    to_do = data["do_xing_shan"]
     if data["today"] == current_date:
-        return (False or data["do_xing_shan"]) # not need to update
+        data["do_xing_shan"] = False
     else:
-        with open(file_path, "w") as file:
-            json.dump(data, file, indent=4)
-        return True
+        data["today"] = current_date
+    # update file
+    with open(file_path, "w") as file:
+        json.dump(data, file, indent=4)
+    return to_do

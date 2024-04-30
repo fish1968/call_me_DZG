@@ -16,7 +16,8 @@ class ImgRobot:
     
     def get_image_shape(self):
         height, width, channels = self.image.shape
-        return height, width, channels 
+        # twist height and width order
+        return width, height,  channels 
     def get_pixel_rgb(self, x, y):
         pixel_value = self.image[y, x]
         rgb_value = (int(pixel_value[2]), int(pixel_value[1]), int(pixel_value[0]))

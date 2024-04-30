@@ -509,6 +509,29 @@ def tu_di_raise_up(device = local_device, sleep_time = 1):
     enter_home(device = device, sleep_time=sleep_time)
 
 ########## shang—pu ###############
+@future_care
+def shang_pu_four_hour_click():
+    # 商铺四小时领取,的点击
+    from ADB_project.functions.img_robots import ImgRobot
+    screen_img = "my_screen.png"
+    target_img = "frog_man.png"
+    obtain_screenshot(img_name=screen_img, local_dir="./")
+    aRobot = ImgRobot(screen_img)
+    bRobot = ImgRobot(target_img)
+    print(bRobot.get_image_shape())
+    print(aRobot.get_brightness())
+    result = aRobot.find_image_position_with_robot(bRobot, threshold = 0.6)
+    print(result)
+    remove_local_file(screen_img)
+    if result != None:
+        for i in range(10, 500, 40):
+            click_once(result[0] + i, result[1], sleep_time = 0.01)
+        remove_local_file(screen_img)
+        return True
+    else: 
+        remove_local_file(screen_img)
+        return False
+
 def click_qian_zhuang_from_home(times = 100, sleep_time = None, device = local_device):
     if debugging: 
         print(f"click_qian_zhuang_from_home: times = {times}, device: {device}")

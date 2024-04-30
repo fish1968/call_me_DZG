@@ -1,6 +1,9 @@
 import os
 import subprocess
 import time
+import ADB_project.functions
+import ADB_project.functions.json_function
+import ADB_project.functions.local_data
 import ADB_project.resources_1080_1920
 import ADB_project.resources_1080_1920.chuang_dang
 import ADB_project.resources_1080_1920.chuang_dang.chuang_dang_data
@@ -10,8 +13,8 @@ import ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data
 import ADB_project.resources_1080_1920.home.home_data
 import ADB_project.resources_1080_1920.shang_pu
 import ADB_project.resources_1080_1920.shang_pu.shang_pu_data
-from ADB_project.functions.local_data import local_device, debugging, adb_debugging, apk_start_path, game_package_name
-from ADB_project.functions.connect_check import is_adb_server_on, is_device_connected, start_adb_server, find_available_port
+from ADB_project.functions.local_data import local_device, debugging, adb_debugging, game_package_name, json_file_path
+from ADB_project.functions.connect_check import is_device_connected, find_available_port, start_adb
 
 def future_care(func):
     def wrapper(*args, **kwargs):
@@ -1266,7 +1269,7 @@ def daily_in_chuang_dang(device = local_device, sleep_time = 1):
 
 ########## GAME and EMULATOR ###############
 @future_care
-def cmd_start_emulator(emulator_path = r"D:\LDPlayer\LDPlayer9\dnplayer.exe"):
+def start_emulator(emulator_path = ADB_project.functions.local_data.emulator_path):
     res = subprocess.run('START /b %s' %emulator_path, shell=True)
     if res.returncode == 0:
         print("Enter emulator successfully")
@@ -1286,29 +1289,26 @@ def cmd_start_game_activity(device = local_device, game_package = game_package_n
         return False
 
 @future_care
-def start_apk_game(game_package = game_package_name, start_up_time = 60, device = local_device, sleep_time = None):
-    # waits until start emulator command has been executed sucessfully
-    while (cmd_start_emulator()== False):
-        print("EMulator do")
-        time.sleep(10)
+def start_game(game_package = game_package_name, start_up_time = 60, device = local_device, sleep_time = None):
         
-    print("ADB 尝试连接")
-    while not is_adb_server_on():
-        start_adb_server()
-    
-    if not is_device_connected(device = device):
+    if is_device_connected(device = device) == False:
         device = "localhost:"+str(find_available_port(5555, 5560))
     # check connectivity of the device found
     if not is_device_connected(device=device):
-        exit()
-    
+        print(f"{device} is not connected")
+        class DeviceNotFoundException(Exception):
+            pass 
+        raise DeviceNotFoundException("No adb connected device was found")
+
     while (False == cmd_start_game_activity(device= device, game_package=game_package)):
-        print("ADB game package start failed")
-        time.sleep(10)
+        if adb_debugging:
+            print("last adb start game cmd was not success")
     # waits the game start
+    # modified to image processing one
     time.sleep(start_up_time)
     
     # do with first page
+    # modified to image processing one
     cmd_start_game_activity(device = device, game_package = game_package)
     print("\t点击开始界面")
     click_painless(device=device, sleep_time=1, times = 10)
@@ -1349,3 +1349,58 @@ def activate_cache(device = local_device, sleep_time = 1):
     for fun in funcs:
         fun(device = device, sleep_time = sleep_time)
         click_wait(total_time = 3, sleep_time = sleep_time, device = device)
+
+def daily_do_once(device = local_device, do_xing_shan = False,
+                sleep_time = 1, json_file_path = json_file_path):
+    # 启动
+    print("daily_do_once 启动 begins")
+    # start_apk_game() # 容易卡住
+
+    #挨个进入主页面
+    activate_cache(device = device, sleep_time = sleep_time)
+
+    # home
+    print("- "*10)
+    daily_in_home       (device=device, sleep_time=sleep_time )
+
+    # 城郊
+    print("- "*10)
+    daily_in_cheng_jiao (device=device, sleep_time=sleep_time , do_xing_shan = do_xing_shan)
+    ADB_project.functions.json_function.update_xing_shan(json_file_path, to_do=False)
+
+    # 商铺
+    print("- "*10)
+    daily_in_shang_pu   (device=device, sleep_time=sleep_time )
+
+    # 日常闯荡一次
+    print("- "*10)
+    daily_in_chuang_dang(device=device, sleep_time=sleep_time )
+    
+    # wait 10 minutes
+    print("- "*10)
+    for _ in range(3):
+        click_wait(total_time=60*10, sleep_time=50, device=device)
+        click_union_basic_constrcut(device=device)
+    for _ in range(4):
+        click_wait(total_time=1800, sleep_time=50, device=device)
+        shang_zhan(device=device)
+    print("daily_do_once ends")
+    print("- " * 20)
+
+
+def init():
+    # start adb server, start emulator
+    # return connected device (str localhost:xxxx)
+    device = local_device
+    start_adb()
+    was_emulator_on = is_device_connected(device)
+    while start_emulator() == False:
+        continue
+    while is_device_connected(device) == False:
+        device = "localhost:"+str(find_available_port(5555, 5560))
+    if was_emulator_on == False:
+        start_game(device=device)
+    else: 
+        cmd_start_game_activity(device = device, game_package=game_package_name)
+    return device
+

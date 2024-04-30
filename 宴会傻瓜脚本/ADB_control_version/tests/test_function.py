@@ -36,7 +36,7 @@ for fun in funs:
 
 def need_test():
     # 测试特殊弹窗
-    start_apk_game()
+    start_game()
     tu_di_raise_up()
     zhi_you_tan_xin()
 

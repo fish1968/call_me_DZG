@@ -377,9 +377,33 @@ def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
     if debugging:
         print(f"daily_click_home_shang_cheng_ling_qu 商城领取 end")
 
-@future_care
 def daily_recruit_10(device = local_device, sleep_time = 1):
+    mu_1_path = r"ADB_project\resources_1080_1920\home\imgs\mu1.png"
+    screen_name = "screen.png"
+    enter_home(device = device, sleep_time = sleep_time)
+    enter_bei_bao(device = device, sleep_time = sleep_time)
+    # by default it enters dao-ju page
+    drag_and_move(move_x = 0, move_y = -800, device = device, duration_ms = 500)
+    import os
+    print(os.getcwd())
+    from ADB_project.functions.img_robots import ImgRobot
+    robo_mu_1 = ImgRobot(mu_1_path)
+    obtain_screenshot(screen_name, local_dir = "./")
+    robo_screen = ImgRobot(screen_name)
+    res = robo_screen.find_image_position_with_robot(robo_mu_1)
+    if res != None:
+        click_once(res[0], res[1], device = device, sleep_time = sleep_time)
+    x, y = 882, 1138
+    clicks(x, y, device = local_device, sleep_time=sleep_time/4, times = 10)
+    x, y = 541, 1282
+    click_once(x, y, device = local_device, sleep_time=sleep_time)
+    enter_home(device, sleep_time=sleep_time)
+    remove_local_file(screen_name)
+
+@DeprecationWarning
+def daily_recruit_10_fix(device = local_device, sleep_time = 1):
     # 位置写死，有图像识别更好
+    enter_home(device = device, sleep_time = sleep_time)
     enter_bei_bao(device, sleep_time=sleep_time)
     x, y = 197, 197
     click_once(x, y, device = local_device, sleep_time=sleep_time)
@@ -1388,10 +1412,9 @@ def daily_do_once(device = local_device, do_xing_shan = False,
     print("- " * 20)
 
 
-def init():
+def init(device = local_device):
     # start adb server, start emulator
     # return connected device (str localhost:xxxx)
-    device = local_device
     start_adb()
     was_emulator_on = is_device_connected(device)
     while start_emulator() == False:

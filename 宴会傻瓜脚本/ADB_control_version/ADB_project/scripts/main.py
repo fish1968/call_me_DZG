@@ -2,7 +2,7 @@ import subprocess
 import time
 import set_project_dir
 from ADB_project.functions.functions import *
-from ADB_project.functions.local_data import local_device, json_file_path
+from ADB_project.functions.local_data import local_device, json_file_path, debugging
 from ADB_project.functions.obtain_port_number import *
 from ADB_project.functions.connect_check import *
 from ADB_project.functions.json_function import * 
@@ -48,11 +48,14 @@ if __name__ == "__main__":
     # check connectivity
     while is_adb_server_on() == False:
         subprocess.run(["adb", "start-server"])
-
-    if not is_device_connected(device=local_device):
-        local_device = "localhost:"+str(find_available_port(5555, 5560))
-        is_device_connected(device=local_device)
-
+    device = local_device
+    while not is_device_connected(device=local_device):
+        device = "localhost:"+str(find_available_port(5555, 5560))
+        is_device_connected(device=device)
+        start_apk_game(device=device)
+    
+    if debugging:
+        print(f"Emulator is on and connected by {device}")
     start = time.time()
 
     # check whether do xing_shan

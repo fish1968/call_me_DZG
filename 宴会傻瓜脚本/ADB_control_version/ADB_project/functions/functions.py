@@ -1286,6 +1286,7 @@ def start_apk_game(game_package = game_package_name, start_up_time = 60, device 
     time.sleep(start_up_time)
     
     # do with first page
+    cmd_start_game_activity(device = device, game_package = game_package)
     print("\t点击开始界面")
     click_painless(device=device, sleep_time=1, times = 10)
     

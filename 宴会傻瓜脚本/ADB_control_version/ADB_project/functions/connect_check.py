@@ -23,16 +23,18 @@ def is_adb_server_on():
     return result.returncode == 0 and 'List of devices attached' in result.stdout
 
 def is_device_connected(device = local_device):
-    print("device is " + str(device))
     result = subprocess.run(['adb', 'connect', device], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     if result.returncode == 0 and "already" in result.stdout:
-        print(f"adb connected to {device}")
+        print(f"adb has connected to {device}")
         return True
     else:
         print(f"adb failed connect to {device}")
         return False
-    #print(f"return code: {result.returncode}")
-    #print(f"return text: {result.stdout}")
+
+def start_adb():
+    while is_adb_server_on() == False:
+        start_adb_server()
+    return True
 
 if __name__ == "__main__":
     is_device_connected()

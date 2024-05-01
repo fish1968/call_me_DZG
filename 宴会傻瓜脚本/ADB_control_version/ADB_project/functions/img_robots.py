@@ -1,3 +1,4 @@
+import set_project_dir
 import cv2
 import numpy as np
 

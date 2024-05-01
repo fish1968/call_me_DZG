@@ -1,4 +1,3 @@
-
 qian_dao_pos = {
     "entry": (60, 980),
     "qian-dao" : (1080/2, 1440),

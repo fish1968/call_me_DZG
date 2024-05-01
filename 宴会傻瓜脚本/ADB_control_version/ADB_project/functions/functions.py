@@ -1,18 +1,8 @@
 import os
 import subprocess
 import time
+import set_project_dir
 import ADB_project.functions
-import ADB_project.functions.json_function
-import ADB_project.functions.local_data
-import ADB_project.resources_1080_1920
-import ADB_project.resources_1080_1920.chuang_dang
-import ADB_project.resources_1080_1920.chuang_dang.chuang_dang_data
-import ADB_project.resources_1080_1920.general
-import ADB_project.resources_1080_1920.cheng_jiao
-import ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data
-import ADB_project.resources_1080_1920.home.home_data
-import ADB_project.resources_1080_1920.shang_pu
-import ADB_project.resources_1080_1920.shang_pu.shang_pu_data
 from ADB_project.functions.local_data import local_device, debugging, adb_debugging, game_package_name, json_file_path
 from ADB_project.functions.connect_check import is_device_connected, find_available_port, start_adb
 

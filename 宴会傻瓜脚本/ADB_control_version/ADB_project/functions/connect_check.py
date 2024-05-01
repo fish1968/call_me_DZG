@@ -12,8 +12,6 @@ def find_available_port(start_port, end_port):
                 return port
             except OSError:
                 continue
-    raise Exception("No available ports within the specified range.")
-
 
 def start_adb_server():
     subprocess.run(["adb", "start-server"])
@@ -40,12 +38,10 @@ def start_adb():
 if __name__ == "__main__":
     is_device_connected()
     print("- "*10)
-    is_device_connected(device="localhost:5556")
+    is_device_connected(device="localhost:5555")
     # Usage
     print("- "*10)
     if is_adb_server_on():
         print("ADB is connected.")
     else:
         print("ADB is not connected.")
-
-

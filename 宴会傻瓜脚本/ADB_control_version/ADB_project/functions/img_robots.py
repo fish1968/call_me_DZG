@@ -1,4 +1,5 @@
-import set_project_dir
+import ADB_project.functions.set_funcs_dir as set_funcs_dir
+from ADB_project.functions.set_funcs_dir import future_care
 import cv2
 import numpy as np
 
@@ -35,7 +36,7 @@ class ImgRobot:
             search_area = self.image[top_most:down_most, left_most:right_most]
             
             result = cv2.matchTemplate(search_area, img2, cv2.TM_CCOEFF_NORMED)
-            min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+            _, max_val, _, max_loc = cv2.minMaxLoc(result)
             
             if max_val >= threshold:
                 abs_position = (max_loc[0] + left_most , max_loc[1] + top_most)

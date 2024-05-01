@@ -1,8 +1,8 @@
 import set_project_dir
 import time
-from ADB_project.functions.local_data import local_device, json_file_path, debugging
+from ADB_project.functions.local_data import local_device, debugging, json_file_path
 from ADB_project.functions.json_function import check_and_update_local_json_data
-from ADB_project.functions.functions import daily_do_once, click_wait, init
+from ADB_project.functions.daily_functions import daily_do_once, click_wait, init
 
 if __name__ == "__main__":
     init_begin = time.time()

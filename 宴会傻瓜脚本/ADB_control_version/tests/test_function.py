@@ -2,9 +2,9 @@
 import time
 import inspect
 import set_project_dir
-from ADB_project.functions.functions import *
 from ADB_project.functions.local_data import local_device
-
+from ADB_project.functions.daily_functions import init
+from ADB_project.functions.cheng_jiao_functions import *
 def test_function(function_head, device=local_device, sleep_time=1, times = 1, debugging = True):
     start = time.time()
     device = init(device=device)
@@ -30,13 +30,13 @@ if __name__ == "__main__":
         
     # test_function(function_head=daily_cai_shen_miao_like, device=local_device, sleep_time=0.3)
     funs = [
+        shang_zhan
         # daily_cai_shen_miao_like
         # click_union_basic_constrcut
         # obtain_screenshot
         # test_move_screenshot
         # start_apk_game
     ]
-    exit()
     st = 0.5
     for fun in funs:
         test_function(fun, device = local_device, sleep_time=st)

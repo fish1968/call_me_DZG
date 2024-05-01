@@ -1,4 +1,4 @@
-import set_project_dir
+import ADB_project.functions.set_funcs_dir as set_funcs_dir
 import json
 import datetime
 import os

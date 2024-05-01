@@ -3,12 +3,9 @@ import time
 import inspect
 import set_project_dir
 from ADB_project.functions.functions import *
-from ADB_project.functions.local_data import local_device, json_file_path
-from ADB_project.functions.obtain_port_number import *
-from ADB_project.functions.connect_check import *
-from ADB_project.functions.json_function import * 
+from ADB_project.functions.local_data import local_device
 
-def test_function(function_head, device=local_device, sleep_time=1, times = 1):
+def test_function(function_head, device=local_device, sleep_time=1, times = 1, debugging = True):
     start = time.time()
     device = init(device=device)
     
@@ -33,20 +30,20 @@ if __name__ == "__main__":
         
     # test_function(function_head=daily_cai_shen_miao_like, device=local_device, sleep_time=0.3)
     funs = [
-        daily_recruit_10
         # daily_cai_shen_miao_like
         # click_union_basic_constrcut
         # obtain_screenshot
         # test_move_screenshot
         # start_apk_game
     ]
+    exit()
     st = 0.5
     for fun in funs:
         test_function(fun, device = local_device, sleep_time=st)
     
-    def need_test():
-        # 测试特殊弹窗
-        start_game()
-        tu_di_raise_up()
-        zhi_you_tan_xin()
+    # def need_test():
+    #     # 测试特殊弹窗
+    #     start_game()
+    #     tu_di_raise_up()
+    #     zhi_you_tan_xin()
 

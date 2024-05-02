@@ -232,7 +232,7 @@ def zhen_shou_raise(device = local_device, sleep_time = 1, times = 5):
 def zhi_you_skills(device = local_device, sleep_time = 1, times = 5):
     # 挚友技能提升 5 次
     if debugging: 
-        print("zhi_you_skills 挚友技能 {times}次 begin")
+        print(f"zhi_you_skills 挚友技能 {times}次 begin")
     from ADB_project.resources_1080_1920.home.home_data import zhi_you
     # 进入挚友界面
     enter_zhi_you(device=device, sleep_time=sleep_time)

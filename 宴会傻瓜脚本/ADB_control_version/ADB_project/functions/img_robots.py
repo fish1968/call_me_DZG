@@ -42,7 +42,7 @@ class ImgRobot:
                 abs_position = (max_loc[0] + left_most , max_loc[1] + top_most)
                 if at_center == True:
                     shape = img2.shape
-                    abs_position = int(abs_position[0] + shape[0]/2),int( abs_position[1] + shape[1]/2)
+                    abs_position = int(abs_position[0] + shape[1]/2),int( abs_position[1] + shape[0]/2)
                 return abs_position
             else:
                 return None

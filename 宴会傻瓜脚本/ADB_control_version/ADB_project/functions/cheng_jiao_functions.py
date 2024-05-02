@@ -348,7 +348,7 @@ def xiang_mu_zhao_shang(device = local_device, sleep_time = 1):
         y = xy00[1] + i * d_xy[1]
         for j in range(2):
             x = xy00[0] + j * d_xy[0]
-            print(f"x,y: {x,y}")
+            # print(f"x,y: {x,y}")
             clicks(x,y, device = device, sleep_time = sleep_time, times = 1)
             click_painless(device=device, sleep_time = sleep_time)
     exit_times = zhao_shang["exit_times"]

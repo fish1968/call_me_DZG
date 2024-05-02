@@ -4,7 +4,7 @@ from ADB_project.functions.set_funcs_dir import future_care
 from ADB_project.functions.shang_pu_functions import daily_do_shang_pu_qian_dao, daily_click_qian_zhuang_wei_ren, daily_do_jiu_si, daily_do_yi_guan, daily_do_yao_pu,daily_qian_zhuang_20
 from ADB_project.functions.adb_operations import start_adb, is_device_connected, find_available_port, adb_start_activity, click_once
 from ADB_project.functions.basic_dzg_functions import activate_cache, click_wait, start_emulator, start_game, click_painless, enter_home , enter_bei_bao, enter_cheng_jiao, enter_chuang_dang, enter_men_ke, enter_shang_pu, enter_zhi_you
-from ADB_project.functions.cheng_jiao_functions import click_union_basic_constrcut, shang_zhan
+from ADB_project.functions.cheng_jiao_functions import click_union_basic_constrcut, shang_zhan, xiang_mu_zhao_shang
 from ADB_project.functions.home_functions import daily_click_home_shang_cheng_ling_qu, daily_mail_process, daily_profile_yuan_bao, daily_recruit_10, daily_xing_yun_duo_bao_2, tu_di_raise_up, zhi_you_gift, zhi_you_skills, zhi_you_tan_xin, zhen_shou_raise
 from ADB_project.functions.cheng_jiao_functions import daily_cai_shen_miao_like, daily_cheng_jiao_you_li, daily_click_rank, daily_ling_qu_yu_gan, daily_qiao_qian, daily_xing_shan
 from ADB_project.functions.local_data import local_device, json_file_path, game_package_name, debugging
@@ -132,6 +132,8 @@ def daily_in_cheng_jiao         (device= local_device, sleep_time=1, do_xing_sha
     # 财神庙点赞
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     daily_cai_shen_miao_like    (device=device, sleep_time=sleep_time*0.8)
+    # 项目招商
+    xiang_mu_zhao_shang()
     # back home
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     enter_home                  (device=device, sleep_time=sleep_time)

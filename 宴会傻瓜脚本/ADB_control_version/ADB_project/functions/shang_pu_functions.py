@@ -87,7 +87,7 @@ def daily_do_yi_guan(device = local_device, sleep_time = 1):
         click_once(one_click[0], one_click[1], device = device, sleep_time=sleep_time)
         click_once(do[0], do[1], device = device, sleep_time=sleep_time)
         clicks(painless[0], painless[1], device=device, sleep_time=sleep_time, times = 3)
-    click_once(ex[0], ex[1], device = device, sleep_time=sleep_time)
+    click_exit(device = device, sleep_time = sleep_time)
     enter_home(device=device,sleep_time=sleep_time)
     if debugging:
         print("    daily_do_yi_guan 医馆 ens")
@@ -102,7 +102,6 @@ def daily_do_jiu_si (device = local_device, sleep_time = 1):
     from ADB_project.resources_1080_1920.shang_pu.shang_pu_data import jiu_si
     from ADB_project.resources_1080_1920.general import general_pos
     move = jiu_si["drag_move"]
-    ex = general_pos["exit"]
     drag_and_move(move[0], move[1], device=device, duration_ms=500)
     one_click = jiu_si["one_click"]
     entry = jiu_si["entry"]
@@ -112,7 +111,7 @@ def daily_do_jiu_si (device = local_device, sleep_time = 1):
         click_once(one_click[0], one_click[1], device = device, sleep_time=sleep_time)
         click_once(do[0], do[1], device = device, sleep_time=sleep_time)
         click_painless(device=device, sleep_time=sleep_time, times = 3)
-    click_once(ex[0], ex[1], device = device, sleep_time=sleep_time)
+    click_exit(device = device, sleep_time = sleep_time)
     enter_home(device=device,sleep_time=sleep_time)
     if debugging:
         print("    daily_do_jiu_si 酒肆 ends")
@@ -178,7 +177,7 @@ def daily_click_qian_zhuang_wei_ren(device = local_device, sleep_time = 1):
     click_painless(device=device, sleep_time=sleep_time, times=2)
     
     # click 退出
-    click_exit(x, y, device=device, sleep_time=sleep_time)
+    click_exit(device=device, sleep_time=sleep_time)
 
     # 回到 home
     x, y = home_bar["home_home"]

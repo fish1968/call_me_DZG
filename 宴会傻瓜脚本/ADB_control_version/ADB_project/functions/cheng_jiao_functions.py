@@ -93,8 +93,8 @@ def daily_click_rank(device = local_device, sleep_time = 1):
     
     click_painless(device=device, sleep_time=sleep_time, times=8)
     
-    for _ in range(3):
-        click_once(ex,ey, device=device, sleep_time=sleep_time)
+    click_exit(device = device, sleep_time = sleep_time, times = 3)
+    
     enter_home(device=device, sleep_time=sleep_time)
     if debugging:
         print("daily_click_rank 排行榜点赞 end")
@@ -122,15 +122,14 @@ def daily_qiao_qian(device = local_device, sleep_time = 1):
     click_once(qin_entry[0], qin_entry[1], device=device,sleep_time=sleep_time*2)
     click_once(low_like[0], low_like[1], device=device,sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time, times = 2)
-    click_once(ex[0], ex[1], device=device,sleep_time=sleep_time)
-
+    click_exit(device = device, sleep_time = sleep_time)
+    
     drag_and_move(move_x = 0, move_y=move_y, device=device,duration_ms=int(sleep_time*500))
     time.sleep(sleep_time)
     click_once(bei_shan_entry[0], bei_shan_entry[1], device=device,sleep_time=sleep_time*2)
     click_once(low_like[0], low_like[1], device=device,sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time, times = 2)
-    click_once(ex[0], ex[1], device=device,sleep_time=sleep_time)
-
+    click_exit(device = device, sleep_time = sleep_time)
     enter_home(device= device, sleep_time=sleep_time)
     print("daily_qiao_qian ends")
 
@@ -229,7 +228,7 @@ def daily_cai_shen_miao_like(device = local_device, sleep_time = 1):
         click_once(cai_shen_pu[0], cai_shen_pu[1], device=device, sleep_time=sleep_time*2)
         click_once(cai_shen_like[0], cai_shen_like[1], device=device, sleep_time=sleep_time*2)
         click_painless(device=device, sleep_time=sleep_time/2, times = 3)
-        click_once(ex[0], ex[1], device=device, sleep_time=sleep_time*2)
+        click_exit(device = device, sleep_time = sleep_time * 2)
     
     # 点赞下方的庙宇
     move_to_bottom(device = device)
@@ -238,7 +237,7 @@ def daily_cai_shen_miao_like(device = local_device, sleep_time = 1):
         click_once(cai_shen_pu[0], cai_shen_pu[1], device=device, sleep_time=sleep_time*2)
         click_once(cai_shen_like[0], cai_shen_like[1], device=device, sleep_time=sleep_time*2)
         click_painless(device=device, sleep_time=sleep_time/2, times = 3)
-        click_once(ex[0], ex[1], device=device, sleep_time=sleep_time*2)
+        click_exit(device = device, sleep_time = sleep_time*2)
     
     # 第二次点大赞，有时候第一次点不到
     time.sleep(sleep_time)

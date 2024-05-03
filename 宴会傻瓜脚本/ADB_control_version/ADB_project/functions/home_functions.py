@@ -1,7 +1,6 @@
-import ADB_project.functions.set_funcs_dir as set_funcs_dir
-from ADB_project.functions.set_funcs_dir import future_care
 import time
 import ADB_project
+from ADB_project.functions.set_funcs_dir import future_care
 from ADB_project.functions.local_data import local_device, debugging 
 from ADB_project.functions.adb_operations import click_once
 from ADB_project.functions.adb_operations import start_adb, is_device_connected, find_available_port, adb_start_activity, click_once, drag_and_move
@@ -34,7 +33,6 @@ def daily_profile_yuan_bao(device = local_device, sleep_time = 1):
     print("enter daily_profile_yuan_bao 身份元宝")
     from ADB_project.resources_1080_1920.home.home_data import profile
     from ADB_project.resources_1080_1920.general import general_pos
-    ex = general_pos["exit"]
     entry = profile["entry"]
     obtain = profile["obtain"]
     click_painless(device=device, sleep_time=sleep_time,times=2)
@@ -42,7 +40,7 @@ def daily_profile_yuan_bao(device = local_device, sleep_time = 1):
     click_once(entry[0], entry[1], device=device, sleep_time=sleep_time)
     clicks(obtain[0], obtain[1], device=device, sleep_time=sleep_time, times=2)
     click_painless(device=device, sleep_time=sleep_time,times=2)
-    click_once(ex[0], ex[1], device=device, sleep_time=sleep_time)
+    click_exit(device = device, sleep_time = sleep_time)
     print("enter daily_profile_yuan_bao 身份元宝 ends")
 def daily_mail_process(device = local_device, sleep_time  = 1):
     if debugging:
@@ -63,7 +61,8 @@ def daily_mail_process(device = local_device, sleep_time  = 1):
     if debugging:
         print("daily_mail_process ends")
 
-def tu_di_raise_up(device = local_device, sleep_time = 1):
+@future_care
+def tu_di_raise_up_fixed_slow_version(device = local_device, sleep_time = 1):
     if debugging:
         print("tu_di_raise_up 徒弟培养 ")
     # 容易出现弹窗，导致卡死。。。
@@ -253,7 +252,6 @@ def zhi_you_skills(device = local_device, sleep_time = 1, times = 5):
     enter_home(device=device, sleep_time=sleep_time)
     if debugging: 
         print(f"zhi_you_skills 挚友技能 {times}次 ends")
-
 
 @future_care
 def zhi_you_gift(device = local_device, sleep_time = 1, times = 2):

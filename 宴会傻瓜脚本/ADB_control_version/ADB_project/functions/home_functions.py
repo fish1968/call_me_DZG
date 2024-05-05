@@ -24,7 +24,8 @@ def daily_xing_yun_duo_bao_2(device = local_device, sleep_time = 1):
         click_once(duo_bao_five_entry[0], duo_bao_five_entry[1], device=device,sleep_time=sleep_time)
         click_once(skip[0], skip[1], device=device,sleep_time=sleep_time)
         click_painless(device=device, sleep_time=sleep_time, times=2)
-    
+    # Make Sure The Animation ends
+    click_painless(device = device, sleep_time = sleep_time, times = 5)
     click_exit(device = device, sleep_time = sleep_time)
     if debugging:
         print("daily_xing_yun_duo_bao_2 幸运夺宝 end")
@@ -140,8 +141,6 @@ def daily_click_home_shang_cheng_ling_qu(device = local_device, sleep_time = 1):
     # 点击礼包
     x, y = home_Shang_cheng["li-bao"]
     click_once(x, y, device=device, sleep_time=sleep_time)
-    cancel = (365, 1050)
-    click_once(cancel[0], cancel[1], device=device, sleep_time=sleep_time) # 点击过的情况 会进入购买，需要取消退出
     # 点击免费的
     x, y = home_Shang_cheng["li-bao_free"]
     click_once(x, y, device=device, sleep_time=sleep_time)

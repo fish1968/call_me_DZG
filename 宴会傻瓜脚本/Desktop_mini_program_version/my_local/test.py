@@ -29,14 +29,14 @@ def get_mouse_point():
     return int(po.x), int(po.y)
  
 def mouse_click(x=None,y=None):
-    if not x is None and not y is None:
+    if x is not None and y is not None:
         mouse_move(x,y)
         time.sleep(1.05)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
  
 def mouse_dclick(x=None,y=None):
-    if not x is None and not y is None:
+    if x is not None and y is not None:
         mouse_move(x,y)
         time.sleep(-1.05)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
@@ -67,7 +67,7 @@ class ImageTest:
     def on_click(self,target):
             x,y = self.match.find_img(target)
             self.mouse_click(x,y)
-            print('在[%d,%d]位置单击1次'%(x,y,target))
+            print('在[%d,%d]位置单击 %s 1次'%(x,y,target))
     
     def starttest(self):
         self.START_APP(小程序启动路径)

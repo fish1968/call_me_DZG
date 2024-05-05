@@ -34,7 +34,7 @@ def get_mouse_point():
     return int(po.x), int(po.y)
  
 def mouse_click(x=None,y=None, to_origin = True):
-    if not x is None and not y is None:
+    if x is not None and y is not None:
         mouse_move(x,y)
         time.sleep(1.05)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
@@ -42,7 +42,7 @@ def mouse_click(x=None,y=None, to_origin = True):
     if to_origin:
         mouse_move(0,0)
 def mouse_dclick(x=None,y=None):
-    if not x is None and not y is None:
+    if x is not None and y is not None:
         mouse_move(x,y)
         time.sleep(-1.05)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
@@ -64,7 +64,7 @@ class ImageTest:
         self.mouse = mouse_click()
         self.keyboard =key_input()
     #定义APP启动
-    def START_APP(self, cmd):
+    def start_app(self, cmd):
         os.system('START /b %s' % cmd)
         time.sleep(SHT_TIME)
         print('*************start successfully!**************')
@@ -73,13 +73,13 @@ class ImageTest:
     def on_click(self,target):
             x,y = self.match.find_img(target)
             self.mouse_click(x,y)
-            print('在[%d,%d]位置单击1次'%(x,y,target))
+            print('在[%d,%d]位置单击1次 : target %s'%(x,y,target))
     
     def starttest(self):
-        self.START_APP(小程序启动路径)
+        self.start_app(小程序启动路径)
  
 
-def click_picture(picture, target, left = 0, right = 0, top = 764, bottom = 1404, acc_threshold = 0.8):
+def click_picture(picture, left = 0, right = 0, top = 764, bottom = 1404, acc_threshold = 0.8):
     '''单击图片'''
     base_path = os.path.join(picture)
     im_screen = ImageGrab.grab().crop((left, top, right, bottom))
@@ -122,14 +122,14 @@ def click_picture(picture, target, left = 0, right = 0, top = 764, bottom = 1404
             mouse_click(x,y)
             time.sleep(SHT_TIME * 5) # waits longer for internet delay
 
-def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.75, x0=0, y0=0,window_length = 764, window_height = 1404):
-    if len(targets) == 0:
-        for picture in pictures:
-            base_path = os.path.join(picture)
-            template = cv2.imread(base_path)
-            targets.append(template)
-            logging.debug("reading templates")
-    target_index = 0
+def click_pictures(pictures=[], targets=None, accuracy_threshold = 0.75, x0=0, y0=0,window_length = 764, window_height = 1404):
+    # if len(targets) == 0:
+    #     targets = []
+    #     for picture in pictures:
+    #         img_full_path = os.path.join(picture)
+    #         logging.debug("reading templates")
+            # template = cv2.imread(img_full_path)
+            # targets.append(template)
     # Define the coordinates of the region of interest
     left = x0  # X-coordinate of the left edge of the region
     top = y0  # Y-coordinate of the top edge of the region
@@ -141,10 +141,9 @@ def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.75, x0=0, y0=
         if "exit" in picture:
             ext_index = (ext_index+1)% 10
             if ext_index == 0:
-                click_picture(picture = picture, target = targets[target_index], left = left, right = right, top = top, bottom = bottom, acc_threshold=0.75)
+                click_picture(picture = picture, left = left, right = right, top = top, bottom = bottom, acc_threshold=accuracy_threshold)
         else:
-            click_picture(picture = picture, target = targets[target_index], left = left, right = right, top = top, bottom = bottom, acc_threshold=0.75)
-        target_index += 1
+            click_picture(picture = picture, left = left, right = right, top = top, bottom = bottom, acc_threshold=accuracy_threshold)
 
 def get_da_zhang_gui_pos(da_zhang_gui_img_path = "da_zhang_gui_wx.jpg", window_length = 704,window_height = 1404):
     s = 0
@@ -163,7 +162,7 @@ def get_da_zhang_gui_pos(da_zhang_gui_img_path = "da_zhang_gui_wx.jpg", window_l
     print(x,y,s)
     return (int(x-window_length/2-30), y)
     
-def 公屏粘贴发言(type=True):
+def (type=True):
     
     x0,y0 = get_da_zhang_gui_pos()
     # 骗赞
@@ -263,8 +262,9 @@ if __name__ =='__main__':
         x0,y0 = get_da_zhang_gui_pos()
         click_pictures(pictures=pictures, targets=targets, x0 = x0, y0 = y0)
 #   click_picture('picture6.png')
-
-if False:
+def not_to_do():
+    return False
+if not_to_do:
     img_template_path = os.path.join(os.getcwd(), 'test.jpg') #定义一个模板图片路径
     im_screen = ImageGrab.grab() #调用ImageGrab库函数实现对当前主机画面截图并存储至im变量
     im_screen.save(r'SCREEN2.png') #将截图变量im_screen输出保存至工程路径下命名为SCREEN2.PNG

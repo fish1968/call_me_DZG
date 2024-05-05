@@ -194,7 +194,7 @@ class ImageTest:
             command = ImageTest.commands.pop(0) # retrive the front event idx
             print("Current command is ", command)
             test_command = command_list[command]
-            do_based_on_TEST_Command(test_command)
+            do_based_on_task_command(test_command)
             time.sleep(SHT_TIME)
         
         # inf looping
@@ -238,9 +238,9 @@ def click_picture(picture, target, left = 0, right = 0, top = 764, bottom = 1404
     else:
         print(f"未识别出目标 {picture}, accuracy = {acc:1.4f}", datetime.datetime.now())
         if "kua" in picture:
-            x = x0 + 200
-            y = y0 + 256
-            mouse_click(x,y)
+            x_dx = x + 200
+            y_dy = y + 256
+            mouse_click(x_dx, y_dy)
             time.sleep(SHT_TIME * 5) # waits longer for internet delay
 
 def click_pictures(pictures=[], targets=[], accuracy_threshold = 0.75, x0=0, y0=0,window_length = 764, window_height = 1404):
@@ -851,7 +851,6 @@ def do_enter_game(x0 = 0, y0 = 0, debug = False):
     if debug:
         print(f"pixel at x = {x}, y = {y} is {cur_pixel}")
     nxt_pixel = cur_pixel
-    
     max_times = 40
     print(f"nxt_pixel = {nxt_pixel}")
     while(nxt_pixel[0] == cur_pixel[0] and nxt_pixel[1] == cur_pixel[1] and nxt_pixel[2] == cur_pixel[2]  and max_times > 0):
@@ -926,7 +925,7 @@ def do_from_home_do_shang_zhan(x0 = None, y0 = None, debug = False):
     
 # 检测状态，根据结果执行提前编辑的内容
 def process_pre_defined_event_with_interrupt_event():
-    round = 990 #0-999
+    _round = 990 #0-999
     while True:
         x0,y0 = get_da_zhang_gui_pos()
         status_info = obtain_status(x0, y0, acc_threshold=0.7)
@@ -951,7 +950,7 @@ def process_pre_defined_event_with_interrupt_event():
             x,y = fixed_data["home-home"]
             mouse_click(x+x0, y+y0)
             if False:
-                if round >= 990:
+                if _round >= 990:
                     do_公屏粘贴发言()
                     do_enter_home()
         else: # None
@@ -960,9 +959,9 @@ def process_pre_defined_event_with_interrupt_event():
         print(f"Do {status_info[0]} at {status_info[1]}")
         time.sleep(MID_TIME)
         # round = 0 跨服宴会时点一下
-        if round == 0:
-            logging.info(f"At round = 0, enter home, enter fuyan")
-            print(f"At round = 0, enter home, enter fuyan")
+        if _round == 0:
+            logging.info("At round = 0, enter home, enter fuyan")
+            print("At round = 0, enter home, enter fuyan")
             acc_threshold = 0.75
             results = find_if_yanhui_opened()
             acc = results[0]
@@ -974,15 +973,12 @@ def process_pre_defined_event_with_interrupt_event():
                 mouse_click(x+x0, y+y0)
                 time.sleep(MID_TIME)
                 do_after_invited(x0, y0)
-            else:
-                pass
         else:
-            logging.info(f"round {round} finished")
-            print(f"round = {round} finished")
-        round = (round+1)%1000
-    pass
+            logging.info(f"round {_round} finished")
+            print(f"round = {_round} finished")
+        _round = (_round+1)%1000
 
-def do_based_on_TEST_Command(task_command):
+def do_based_on_task_command(task_command):
     x0, y0 = get_da_zhang_gui_pos()
     if task_command == "qian_zhuang":
         do_enter_stores(x0=x0, y0=y0)

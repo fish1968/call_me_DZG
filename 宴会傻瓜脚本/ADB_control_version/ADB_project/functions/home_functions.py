@@ -78,6 +78,7 @@ def tu_di_raise_up_fixed_slow_version(device = local_device, sleep_time = 1):
     click_once(x = entry[0], y = entry[1], device= device, sleep_time=sleep_time)
     
     # 不检查是否 一键选中，做两次
+    x, y = child0
     for _ in range(2):
         click_once(x = check[0], y = check[1], device= device, sleep_time=sleep_time)
         click_once(child0[0], child0[1], device= device, sleep_time=sleep_time)

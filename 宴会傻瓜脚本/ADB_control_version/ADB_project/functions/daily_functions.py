@@ -222,7 +222,7 @@ def daily_do_once(device = local_device, do_xing_shan = False,
         click_union_basic_constrcut(device=device)
     for _ in range(4):
         click_wait(total_time=1800, sleep_time=50, device=device)
-        sz_data(device=device)
+        shang_zhan(device=device)
     print("daily_do_once ends")
     print("- " * 20)
 

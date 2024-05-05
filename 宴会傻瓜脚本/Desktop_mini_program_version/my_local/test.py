@@ -107,7 +107,7 @@ def click_picture(picture):
         print("执行点击操作：点击",picture,"成功！，坐标：(",x,",",y,")  accuracy = ", s)
         mouse_click(x,y)
         if picture == "1.jpg":
-            logging.info("当前时间是 {0}，现在识别到了图片1，准确率是 {1}".format(datetime.datetime.now(), s))
+            logging.info("当前时间是 {0}, 现在识别到了图片1, 准确率是 {1}".format(datetime.datetime.now(), s))
         time.sleep(0.1)
     else:
         print(f"未识别出目标 {picture}, accuracy = {s}", datetime.datetime.now())

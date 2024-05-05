@@ -108,7 +108,7 @@ def enter_zhi_you(device = local_device, sleep_time = 1):
 ########## GAME and EMULATOR ###############
 @future_care
 def start_emulator(emulator_path = ADB_project.functions.local_data.emulator_path):
-    res = subprocess.run('START /b %s' %emulator_path, shell=True)
+    res = subprocess.run('START /b "%s"' %emulator_path, shell=True)
     if res.returncode == 0:
         print("Enter emulator successfully")
         return True

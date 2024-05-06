@@ -7,6 +7,7 @@ from ADB_project.functions.basic_dzg_functions import activate_cache, click_wait
 from ADB_project.functions.cheng_jiao_functions import click_union_basic_constrcut, shang_zhan, xiang_mu_zhao_shang
 from ADB_project.functions.home_functions import daily_click_home_shang_cheng_ling_qu, daily_mail_process, daily_profile_yuan_bao, daily_recruit_10, daily_xing_yun_duo_bao_2, tu_di_raise_up, zhi_you_gift, zhi_you_skills, zhi_you_tan_xin, zhen_shou_raise
 from ADB_project.functions.cheng_jiao_functions import daily_cai_shen_miao_like, daily_cheng_jiao_you_li, daily_click_rank, daily_ling_qu_yu_gan, daily_qiao_qian, daily_xing_shan
+from ADB_project.functions.json_function import read_json, update_json
 from ADB_project.functions.local_data import local_device, json_file_path, game_package_name, debugging
 ########## daily X ###############
 def daily_do_once(device = local_device, do_xing_shan = False,
@@ -25,7 +26,6 @@ def daily_do_once(device = local_device, do_xing_shan = False,
     # 城郊
     print("- "*10)
     daily_in_cheng_jiao (device=device, sleep_time=sleep_time , do_xing_shan = do_xing_shan)
-    ADB_project.functions.json_function.update_xing_shan(json_file_path, to_do=False)
 
     # 商铺
     print("- "*10)
@@ -45,6 +45,7 @@ def daily_do_once(device = local_device, do_xing_shan = False,
         shang_zhan(device=device)
     print("daily_do_once ends")
     print("- " * 20)
+
 
 def init(device = local_device):
     # start adb server, start emulator
@@ -81,8 +82,10 @@ def daily_in_home(device = local_device, sleep_time = 1):
     daily_mail_process(device=device, sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     # 招聘10人
-    daily_recruit_10(device = device, sleep_time = sleep_time)
-    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    if read_json(entry = "recruit_num") == None or read_json(entry = "recruit_num") == 0:
+        daily_recruit_10(device = device, sleep_time = sleep_time)
+        click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+        update_json(entry = "recruit_num", value = 10)
     # 徒弟培养
     tu_di_raise_up(device = device, sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
@@ -90,14 +93,24 @@ def daily_in_home(device = local_device, sleep_time = 1):
     zhi_you_tan_xin(device=device, sleep_time=sleep_time)
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     # 挚友技能
-    zhi_you_skills(device = device, sleep_time = sleep_time, times = 5)
-    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    if read_json(entry = "zhi_you_skills") == None or read_json(entry = "zhi_you_skills") == 0:
+        zhi_you_skills(device = device, sleep_time = sleep_time, times = 5)
+        click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+        update_json(entry = "zhi_you_skills", value = 2)
     # 珍兽
-    zhen_shou_raise(device = device, sleep_time = sleep_time, times = 5)
-    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    if read_json(entry = "zhen_shou_raise_up") == None or read_json(entry = "zhen_shou_raise_up") == 0:
+        zhen_shou_raise(device = device, sleep_time = sleep_time, times = 5)
+        click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+        update_json(entry = "zhen_shou_raise_up", value = 1)
     # 挚友赠送
-    zhi_you_gift(device=device, sleep_time = sleep_time, times = 2)
-    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    if read_json(entry = "zhi_you_skills") == None or read_json(entry = "zhi_you_skills") == 0:
+        zhi_you_gift(device = device, sleep_time = sleep_time, times = 2)
+        click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+        update_json(entry = "zhi_you_skills", value = 2)
+    if read_json(entry = "zhi_you_gift") == None or read_json(entry = "zhi_you_gift") == 0:
+        zhi_you_gift(device=device, sleep_time = sleep_time, times = 2)
+        click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+        update_json(entry = "zhi_you_gift", value = 2)
     
     if debugging:
        print("daily_in_home 执行home日常任务 ends")
@@ -111,9 +124,8 @@ def daily_in_cheng_jiao         (device= local_device, sleep_time=1, do_xing_sha
     if do_xing_shan == True:
         click_painless(device=device, sleep_time=sleep_time/3, times = 6)
         daily_xing_shan(device=device, sleep_time=sleep_time)
-        from ADB_project.functions.json_function import update_xing_shan
         from ADB_project.functions.local_data import json_file_path as file_path 
-        update_xing_shan(file_path = file_path, to_do = False)
+        update_json(file_path = file_path, entry="do_xing_shan", value = 1)
         # Update do_xing_shan to false in json data
     # 商会建设
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
@@ -171,6 +183,7 @@ def daily_in_shang_pu (device = local_device, sleep_time = 1):
     if debugging:
         print("daily_in_shang_pu 执行商铺日常任务 ends")
 
+@future_care
 def daily_in_chuang_dang(device = local_device, sleep_time = 1):
     if debugging:
         print("ri_chang_chuang_dang begin")
@@ -192,41 +205,4 @@ def daily_in_chuang_dang(device = local_device, sleep_time = 1):
     enter_home(device=device, sleep_time=sleep_time)
     if debugging:
         print("    ri_chang_chuang_dang end")
-
-def daily_do_once(device = local_device, do_xing_shan = False,
-                sleep_time = 1, json_file_path = json_file_path):
-    # 启动
-    print("daily_do_once 启动 begins")
-    # start_apk_game() # 容易卡住
-
-    #挨个进入主页面
-    activate_cache(device = device, sleep_time = sleep_time)
-
-    # home
-    print("- "*10)
-    daily_in_home       (device=device, sleep_time=sleep_time )
-
-    # 城郊
-    print("- "*10)
-    daily_in_cheng_jiao (device=device, sleep_time=sleep_time , do_xing_shan = do_xing_shan)
-    ADB_project.functions.json_function.update_xing_shan(json_file_path, to_do=False)
-
-    # 商铺
-    print("- "*10)
-    daily_in_shang_pu   (device=device, sleep_time=sleep_time )
-
-    # 日常闯荡一次
-    print("- "*10)
-    daily_in_chuang_dang(device=device, sleep_time=sleep_time )
-    
-    # wait 10 minutes
-    print("- "*10)
-    for _ in range(3):
-        click_wait(total_time=60*10, sleep_time=50, device=device)
-        click_union_basic_constrcut(device=device)
-    for _ in range(4):
-        click_wait(total_time=1800, sleep_time=50, device=device)
-        shang_zhan(device=device)
-    print("daily_do_once ends")
-    print("- " * 20)
 

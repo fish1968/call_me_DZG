@@ -2,7 +2,7 @@ import set_project_dir
 import time
 from ADB_project.functions.local_data import local_device, debugging, json_file_path
 # from ADB_project.functions.local_data import local_device, debugging, json_file_path
-from ADB_project.functions.json_function import check_and_update_local_json_data
+from ADB_project.functions.json_function import update_local_json_data_to_date
 from ADB_project.functions.adb_operations import adb_is_game_the_current_activity
 from ADB_project.functions.daily_functions import daily_do_once, click_wait, init
 from ADB_project.functions.cheng_jiao_functions import xiang_mu_zhao_shang, shang_zhan

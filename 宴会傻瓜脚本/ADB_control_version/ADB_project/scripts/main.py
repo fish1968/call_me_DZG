@@ -1,7 +1,7 @@
 import set_project_dir
 import time
 from ADB_project.functions.local_data import local_device, debugging, json_file_path
-from ADB_project.functions.json_function import check_and_update_local_json_data
+from ADB_project.functions.json_function import update_local_json_data_to_date,read_json
 from ADB_project.functions.daily_functions import daily_do_once, click_wait, init
 
 if __name__ == "__main__":
@@ -13,7 +13,8 @@ if __name__ == "__main__":
 
     begin_t = time.time()
     # obtain whether do xing_shan based on current date
-    do_xing_shan = check_and_update_local_json_data(file_path=json_file_path)
+    update_local_json_data_to_date(file_path=json_file_path)
+    do_xing_shan = True if (read_json(entry="do_xing_shan") == None or read_json(entry = "do_xing_shan") == 0) else False 
     daily_do_once(device=local_device, do_xing_shan=do_xing_shan)
     end_t = time.time()
     if debugging:

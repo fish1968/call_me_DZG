@@ -20,7 +20,7 @@ def daily_xing_yun_duo_bao_2(device = local_device, sleep_time = 1):
     
     duo_bao_five_entry = xing_yun_duo_bao["duo_bao_five"]
     skip = xing_yun_duo_bao["tiao_guo"]
-    for _ in range(2):
+    for _ in range(4): # Always non responding, give more tries
         click_once(duo_bao_five_entry[0], duo_bao_five_entry[1], device=device,sleep_time=sleep_time)
         click_once(skip[0], skip[1], device=device,sleep_time=sleep_time)
         click_painless(device=device, sleep_time=sleep_time, times=2)

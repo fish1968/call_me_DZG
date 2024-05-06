@@ -106,11 +106,13 @@ def daily_do_jiu_si (device = local_device, sleep_time = 1):
     one_click = jiu_si["one_click"]
     entry = jiu_si["entry"]
     do = jiu_si["do"]
+    painless = jiu_si["painless"]
     click_once(entry[0], entry[1], device = device, sleep_time=sleep_time*10)
     for _ in range(2):
         click_once(one_click[0], one_click[1], device = device, sleep_time=sleep_time)
         click_once(do[0], do[1], device = device, sleep_time=sleep_time)
-        click_painless(device=device, sleep_time=sleep_time, times = 3)
+        # click_painless(device=device, sleep_time=sleep_time, times = 3) # This would tricker unexpected
+        clicks(x = painless[0], y = painless[1], device= device, sleep_time = sleep_time , times = 3)
     click_exit(device = device, sleep_time = sleep_time)
     enter_home(device=device,sleep_time=sleep_time)
     if debugging:

@@ -147,8 +147,8 @@ def daily_click_qian_zhuang_wei_ren(device = local_device, sleep_time = 1):
     from ADB_project.resources_1080_1920.home.home_data import home_bar
     from ADB_project.resources_1080_1920.shang_pu.shang_pu_data import qian_zhuang
     # eneter shang pu
-    enter_shang_pu(device = device, sleep_time = sleep_time)
-    drag_and_move(move_x=500*10, move_y=0, start_x=500, start_y=1000, device=device, duration_ms=sleep_time*1000)
+    enter_shang_pu(device = device, sleep_time = sleep_time * 5)
+    move_to_left(device = device)
     time.sleep(sleep_time)
     # enter qian zhuang
     x, y = qian_zhuang["entry"]   

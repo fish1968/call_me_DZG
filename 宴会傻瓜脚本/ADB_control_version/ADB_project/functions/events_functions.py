@@ -1,7 +1,6 @@
-import ADB_project.functions.set_funcs_dir as set_funcs_dir
+import ADB_project.functions.set_funcs_dir
 from ADB_project.functions.set_funcs_dir import future_care
-from local_data import local_device, debugging 
-import ADB_project
+from ADB_project.functions.local_data import local_device, debugging 
 from ADB_project.functions.adb_operations import start_adb, is_device_connected, find_available_port, adb_start_activity, click_once, drag_and_move
 from ADB_project.functions.basic_dzg_functions import enter_home, enter_bei_bao,enter_cheng_jiao, enter_chuang_dang, enter_men_ke, enter_shang_pu, enter_zhi_you, click_exit, activate_cache, click_painless, click_wait, clicks
 ########## events ###############
@@ -87,3 +86,11 @@ def da_long(device = local_device, sleep_time = 1):
     
     if debugging:
         print("da_long 打龙结束 ends")
+
+@future_care
+def quick_fox(device = local_device, sleep_time = 1):
+    print("quick fox hasn't been implemented")
+    quick_fox_package = "com.zx.a2_quickfox"
+    print(f"Need a function to implement start and processing {quick_fox_package}")
+    click_painless(device = device, sleep_time = sleep_time, times = 1)
+    return False

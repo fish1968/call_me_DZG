@@ -20,8 +20,8 @@ def click_wait(total_time = 1000, sleep_time = 10, device = local_device):
     if debugging:
         print(f"click_wait with total time: {total_time}, sleep_time: {sleep_time}")
     while total_time > 0:
-        click_painless(device=device, sleep_time=sleep_time, times = 3)
-        total_time -= sleep_time
+        click_painless(device=device, sleep_time=sleep_time, times = 1)
+        total_time -= sleep_time 
     if debugging:
         print("click_wait ends")
 

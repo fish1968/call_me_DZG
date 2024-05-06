@@ -30,11 +30,12 @@ def check_and_update_local_json_data(file_path = file_path):
     # update file time to today
     current_date = str(datetime.date.today())
     data = read_json_data(file_path=file_path)
-    to_do = data["do_xing_shan"]
-    if data["today"] == current_date:
-        data["do_xing_shan"] = False
-    else:
+    if data["today"] != current_date:
         data["today"] = current_date
+        to_do = True
+        data["do_xing_shan"] = True
+    else:
+        to_do = data["do_xing_shan"]
     # update file
     with open(file_path, "w") as file:
         json.dump(data, file, indent=4)

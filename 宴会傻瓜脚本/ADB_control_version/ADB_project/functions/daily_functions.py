@@ -110,7 +110,11 @@ def daily_in_cheng_jiao         (device= local_device, sleep_time=1, do_xing_sha
     # 行善
     if do_xing_shan == True:
         click_painless(device=device, sleep_time=sleep_time/3, times = 6)
-        daily_xing_shan             (device=device, sleep_time=sleep_time)
+        daily_xing_shan(device=device, sleep_time=sleep_time)
+        from ADB_project.functions.json_function import update_xing_shan
+        from ADB_project.functions.local_data import json_file_path as file_path 
+        update_xing_shan(file_path = file_path, to_do = False)
+        # Update do_xing_shan to false in json data
     # 商会建设
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     click_union_basic_constrcut (device=device, sleep_time=sleep_time)

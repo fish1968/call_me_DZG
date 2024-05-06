@@ -105,7 +105,9 @@ def remove_local_file(img_file_path="test.png"):
         print(f"remove_local_file img_path = {img_file_path} end")
 
 ########## ADB fundamental ################
+@future_care
 def find_available_port(start_port, end_port):
+    # Not working as expected, this logic is problematic
     # find available port for adb
     for port in range(start_port, end_port + 1):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -146,6 +148,32 @@ def adb_start_activity(device = local_device, game_package = game_package_name):
     else:
         print("Failed to enter Game!!!!")
         return False
+
+@future_care
+def adb_is_game_the_current_activity(device=local_device, expected_package= game_package_name):
+    command = f"adb -s {device} shell dumpsys activity top | findstr ACTIVITY"
+    results = subprocess.getoutput(command)
+    last_result = results.splitlines()[-1]
+    if expected_package not in last_result:
+        return False
+    else:
+        return True
+@future_care
+def adb_obtain_all_activities(device=local_device):
+    command = f"adb -s {device} shell dumpsys activity top | findstr ACTIVITY"
+    results = subprocess.getoutput(command)
+    return results
+@future_care
+def adb_obtain_front_activity(device=local_device):
+    result = adb_obtain_all_activities(device = device)[-1]
+    return result
+
+
+def start_apk_package(device= local_device, apk_package = "com.zx.a2_quickfox"):
+    print("Starting APK package...")
+    command = f"adb -s {device} shell monkey -p {apk_package} 1"
+    subprocess.run(command, shell=True)
+    print(f"Started and processed {apk_package}")
 
 if __name__ == "__main__":
     is_device_connected()

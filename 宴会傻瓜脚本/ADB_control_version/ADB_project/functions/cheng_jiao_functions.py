@@ -7,8 +7,9 @@ from ADB_project.functions.adb_operations import click_once, clicks, move_to_bot
 import time
 
 ########## cheng-jiao ###############
-
+@future_care
 def click_union_basic_constrcut(device = local_device, sleep_time = 1):
+    # 貌似延迟比较高, 可能改成图像识别，比较好
     if debugging:
         print("click_union_basic_constrcut begin")
     from ADB_project.resources_1080_1920.cheng_jiao.cheng_jiao_data import union

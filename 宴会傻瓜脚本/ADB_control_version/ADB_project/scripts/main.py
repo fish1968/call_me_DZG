@@ -18,6 +18,6 @@ if __name__ == "__main__":
     end_t = time.time()
     if debugging:
         print(f"Daily_do_once finished in {end_t - begin_t}")
-
-    while True:
-        click_wait(total_time = 100, sleep_time = 10, device = local_device)
+    from ADB_project.scripts import routine
+    # while True:
+    #     click_wait(total_time = 100, sleep_time = 10, device = local_device)

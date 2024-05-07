@@ -1,7 +1,7 @@
 from time import time
 import set_project_dir
 from ADB_project.functions.img_robots import ImgRobot
-from ADB_project.functions.functions import obtain_screenshot, click_once,remove_local_file
+from ADB_project.functions.adb_operations import obtain_screenshot, click_once,remove_local_file
 
 begin_t = time()
 

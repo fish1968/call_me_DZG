@@ -35,14 +35,6 @@ def daily_do_once(device = local_device, do_xing_shan = False,
     print("- "*10)
     daily_in_chuang_dang(device=device, sleep_time=sleep_time )
     
-    # wait 10 minutes
-    print("- "*10)
-    for _ in range(3):
-        click_wait(total_time=60*10, sleep_time=50, device=device)
-        click_union_basic_constrcut(device=device)
-    for _ in range(4):
-        click_wait(total_time=1800, sleep_time=50, device=device)
-        shang_zhan(device=device)
     print("daily_do_once ends")
     print("- " * 20)
 

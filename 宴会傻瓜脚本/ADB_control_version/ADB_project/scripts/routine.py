@@ -5,9 +5,10 @@ from ADB_project.functions.local_data import local_device, debugging, json_file_
 from ADB_project.functions.json_function import update_local_json_data_to_date
 from ADB_project.functions.adb_operations import adb_is_game_the_current_activity
 from ADB_project.functions.daily_functions import daily_do_once, click_wait, init
-from ADB_project.functions.cheng_jiao_functions import xiang_mu_zhao_shang, shang_zhan, daily_cheng_jiao_you_li
+from ADB_project.functions.cheng_jiao_functions import xiang_mu_zhao_shang, shang_zhan, daily_cheng_jiao_you_li, daily_ling_qu_yu_gan
 from ADB_project.functions.events_functions import da_long, shou_lie, quick_fox
 from ADB_project.functions.home_functions import zhi_you_tan_xin, men_sheng_raise_up
+from ADB_project.functions.shang_pu_functions import daily_do_jiu_si, daily_do_yao_pu
 if __name__ == "__main__":
     init_begin = time.time()
     # if current_acitivity is not dzg
@@ -32,6 +33,8 @@ if __name__ == "__main__":
     has_you_li = False
     did_shang_zhan_this_hour = False
     did_men_sheng_this_hour = False
+    did_yu_gan_this_hour = False
+    did_jiu_si_and_yao_pu_this_hour = False
     while True:
         t_hour = time.localtime(time.time()).tm_hour
         print(f" t_hour = {t_hour}")
@@ -71,4 +74,17 @@ if __name__ == "__main__":
                 did_men_sheng_this_hour = True
             else:
                 did_men_sheng_this_hour = False
+        if t_hour in [10, 15, 21]:
+            if (did_yu_gan_this_hour == False):
+                daily_ling_qu_yu_gan(device = device, sleep_time = 2)
+                did_yu_gan_this_hour = True
+        else:
+            did_yu_gan_this_hour = False
+        if t_hour in [11, 16, 22]:
+            if (did_jiu_si_and_yao_pu_this_hour == False):
+                daily_do_jiu_si(device = device, sleep_time = 2)
+                daily_do_yao_pu(device = device, sleep_time = 2)
+                did_jiu_si_and_yao_pu_this_hour = True
+        else:
+            did_jiu_si_and_yao_pu_this_hour = False
         click_wait(total_time = 100, sleep_time = 10, device = local_device)

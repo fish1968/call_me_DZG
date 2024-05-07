@@ -51,6 +51,14 @@ def update_local_json_data_to_date(file_path = file_path):
         data["zhi_you_gift"] = 0
         data["zhen_shou_raise_up"] = 0
         data["zhi_you_skills"] = 0
+        data["has_do_once"] = 0
+        data["has_da_long"] = 0
+        data["has_seats"] = 0
+        data["has_tan_xin"] = 0
+        data["has_you_li"] = 0
+        data["did_shang_zhan_this_hour"] = 0
+        data["did_men_sheng_this_hour"] = 0
+        data["did_jiu_si_and_yao_pu_this_hour"] = 0
         # update file
         with open(file_path, "w") as file:
             json.dump(data, file, indent=4)

@@ -7,7 +7,7 @@ from ADB_project.functions.adb_operations import adb_is_game_the_current_activit
 from ADB_project.functions.daily_functions import daily_do_once, click_wait, init
 from ADB_project.functions.cheng_jiao_functions import xiang_mu_zhao_shang, shang_zhan, daily_cheng_jiao_you_li
 from ADB_project.functions.events_functions import da_long, shou_lie, quick_fox
-from ADB_project.functions.home_functions import zhi_you_tan_xin
+from ADB_project.functions.home_functions import zhi_you_tan_xin, men_sheng_raise_up
 if __name__ == "__main__":
     init_begin = time.time()
     # if current_acitivity is not dzg
@@ -30,7 +30,8 @@ if __name__ == "__main__":
     has_shang_zhan = 3
     has_tan_xin = False
     has_you_li = False
-    did_shang_zhan_this_hour = True
+    did_shang_zhan_this_hour = False
+    did_men_sheng_this_hour = False
     while True:
         t_hour = time.localtime(time.time()).tm_hour
         print(f" t_hour = {t_hour}")
@@ -64,5 +65,10 @@ if __name__ == "__main__":
                 has_you_li = True
         else:
             has_you_li = False
-            
+        if t_hour in [1, 4, 7, 11, 14, 18, 21]:
+            if (did_men_sheng_this_hour == False):
+                men_sheng_raise_up(device = device, sleep_time = 2)
+                did_men_sheng_this_hour = True
+            else:
+                did_men_sheng_this_hour = False
         click_wait(total_time = 100, sleep_time = 10, device = local_device)

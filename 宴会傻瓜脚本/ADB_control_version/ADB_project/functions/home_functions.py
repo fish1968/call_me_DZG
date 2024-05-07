@@ -5,7 +5,7 @@ from ADB_project.functions.local_data import local_device, debugging
 from ADB_project.functions.adb_operations import click_once
 from ADB_project.functions.adb_operations import start_adb, is_device_connected, find_available_port, adb_start_activity, click_once, drag_and_move
 from ADB_project.functions.basic_dzg_functions import enter_home, enter_bei_bao,enter_cheng_jiao, enter_chuang_dang, enter_men_ke, enter_shang_pu, enter_zhi_you, click_exit, activate_cache, click_painless, click_wait, clicks, click_painless, click_exit
-from ADB_project.functions.adb_operations import obtain_screenshot, remove_local_file, move_to_bottom, move_to_end, move_to_left
+from ADB_project.functions.adb_operations import obtain_screenshot, remove_local_file, move_to_bottom, move_to_end, move_to_left, move_to_right
 ########## home ###############
 
 def daily_xing_yun_duo_bao_2(device = local_device, sleep_time = 1):
@@ -323,3 +323,20 @@ def tu_di_raise_up(device = local_device, sleep_time = 1):
     click_exit(device, sleep_time = sleep_time , times = 3)
     enter_home(device = device, sleep_time=sleep_time)
 
+@future_care
+def men_sheng_raise_up(device = local_device, sleep_time = 1):
+    enter_home(device = device, sleep_time = sleep_time)
+    move_to_right(device = device)
+    entry = 150 , 800
+    click_once(entry[0], entry[1], device=device, sleep_time = sleep_time*4)
+    shu_yuan_entry = 400, 500
+    click_once(shu_yuan_entry[0], shu_yuan_entry[1], device=device, sleep_time = sleep_time*4)
+    type_entries_x = [150, 330, 510, 690, 900]
+    type_entry_y = 1700
+    do = [950, 1500]
+    for i in range(len(type_entries_x)):
+        clicks(type_entries_x[i], type_entry_y, device, sleep_time = sleep_time, times = 3)
+        clicks(do[0], do[1], device, sleep_time = sleep_time , times = 3)
+        clicks(type_entries_x[i], type_entry_y, device, sleep_time = sleep_time/3, times = 5)
+    click_exit(device=device, sleep_time = sleep_time, times = 3)
+        

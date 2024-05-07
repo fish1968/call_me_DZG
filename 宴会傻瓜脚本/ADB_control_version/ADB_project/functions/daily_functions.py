@@ -133,6 +133,9 @@ def daily_in_cheng_jiao         (device= local_device, sleep_time=1, do_xing_sha
     # 商战
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     shang_zhan                  (device=device, sleep_time=sleep_time)
+    # 财神庙点赞
+    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
+    daily_cai_shen_miao_like    (device=device, sleep_time=sleep_time*0.8)
     # 排行榜点赞与上门点赞
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     daily_click_rank            (device=device, sleep_time=sleep_time)
@@ -145,9 +148,6 @@ def daily_in_cheng_jiao         (device= local_device, sleep_time=1, do_xing_sha
     # 乔迁点赞
     click_painless(device=device, sleep_time=sleep_time/3, times = 6)
     daily_qiao_qian             (device=device, sleep_time=sleep_time*0.8)
-    # 财神庙点赞
-    click_painless(device=device, sleep_time=sleep_time/3, times = 6)
-    daily_cai_shen_miao_like    (device=device, sleep_time=sleep_time*0.8)
     # 项目招商
     xiang_mu_zhao_shang()
     # back home

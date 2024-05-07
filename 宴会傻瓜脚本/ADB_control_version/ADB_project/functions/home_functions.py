@@ -325,6 +325,7 @@ def tu_di_raise_up(device = local_device, sleep_time = 1):
 
 @future_care
 def men_sheng_raise_up(device = local_device, sleep_time = 1):
+    click_painless(device = device, sleep_time = sleep_time/3, times = 6) # Make sure no cai_shen or anything else
     enter_home(device = device, sleep_time = sleep_time)
     move_to_right(device = device)
     entry = 150 , 800

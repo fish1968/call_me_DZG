@@ -39,6 +39,7 @@ if __name__ == "__main__":
         has_do_xing_shan = read_json(json_file_path, "has_do_xing_shan")
         if has_do_once in [0, None]:
             daily_do_once(device = device, do_xing_shan = True, sleep_time = 2)
+            update_json(json_file_path, entry = "has_do_once", value = 1)
             update_json(json_file_path, entry = "do_xing_shan", value = 1)
             has_do_once = read_json(json_file_path, entry = "has_do_once")
             has_da_long = read_json(json_file_path, entry = "has_da_long")
@@ -138,4 +139,4 @@ if __name__ == "__main__":
             did_in_shang_pu_this_hour = False
             update_json(json_file_path, entry="did_in_shang_pu_this_hour", value = did_in_shang_pu_this_hour)
         click_exit(device= device, sleep_time=0.3, times = 10)
-        click_wait(total_time = 100, sleep_time = 10, device = local_device)
+        click_wait(total_time = 500, sleep_time = 10, device = local_device)
